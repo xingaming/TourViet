@@ -1,0 +1,21 @@
+
+Code mẫu nếu như thấy cách làm rút gọn quá khó hiểu
+
+@GetMapping("/{userId}/bookings")
+    public ResponseEntity<List<Booking>> getListBookings(@PathVariable int userId, @RequestHeader("Authorization") String token) {
+        String jwtToken = token.substring(7); // Bỏ qua tiền tố "Bearer " 7 ký tự
+        int authenticatedUserId = TokenUtil.getUserIdFromToken(jwtToken);
+        int authenticatedRoleId = TokenUtil.getRoleIdFromToken(jwtToken);
+
+        if (authenticatedRoleId == RoleId.SUPER_ADMIN.getValue() || authenticatedRoleId == RoleId.CUSTOMER.getValue() && authenticatedUserId == userId) {
+            // Người dùng có roleId == 1 có quyền truy cập tất cả thông tin 
+            //và người dùng có roleId == 5 thì chỉ có thể truy cập danh sách thông tin của chính mình
+            Users user = new Users();
+            user.setId(userId);
+            List<Booking> bookings = service.getBookings(user);
+            return ResponseEntity.ok(bookings);
+        } else {
+            // Người dùng không có quyền truy cập
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }

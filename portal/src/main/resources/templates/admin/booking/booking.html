@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html  lang="en" 
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" > 
+
+    <head>
+    <div layout:fragment="title">
+        <title>Booking</title>
+    </div>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <div layout:fragment="css">
+        <link rel="stylesheet" href="/admin/lib/modules/datatables/datatables.min.css">
+        <link rel="stylesheet" href="/admin/lib/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="/admin/lib/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+    </div>
+
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+        <div class="main-content">
+            <section class="section">
+                <div class="section-header">
+                    <h1>Booking List Page</h1>
+                    <div class="section-header-breadcrumb">
+                        <div class="breadcrumb-item active"><a href="@{admin/dashboard}">Dashboard</a></div>
+                        <div class="breadcrumb-item">View booking</div>
+                    </div>
+                </div>
+
+                <div class="section-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div th:if="${not #strings.isEmpty(message)}" style="display: block; margin-left: auto; margin-right: auto;" class="form-group row mb-4">
+                                    <div class="alert alert-success">
+                                        <i class="fa fa-check-circle"></i>&nbsp;&nbsp;
+                                        <span th:text="${message}"></span>
+                                    </div>
+                                </div>
+                                <div class="card-header">
+                                    <h4>Pending List</h4>
+                                    <div class="card-header-action">
+                                        <a data-collapse="#mycard-collapse" class="badge badge-warning" href="#">Pending</a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" id="table-1">
+                                            <thead>                                 
+                                                <tr>
+                                                    <th class="text-center">
+                                                        #
+                                                    </th>
+                                                    <th>Schedule ID</th>
+                                                    <th>User's booking email</th>
+                                                    <th>User's tour booking phone</th>
+                                                    <th>Booking date</th>
+                                                    <th>Region</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>                                 
+                                                <tr th:each="booking : ${bookings}" th:if="${booking.status == 0}">
+                                                    <td>
+
+                                                    </td>
+
+                                                    <td th:text="${booking.scheduleId.id}"></td>
+                                                    <td th:text="${booking.userId.email}"></td>
+                                                    <td th:text="${booking.userId.phone}"></td>
+                                                    <td th:text="${#dates.format(booking.bookingDate, 'dd/MM/yyyy')}"></td>
+                                                    <td th:text="${booking.getRegionId.nameArea}"></td>
+                                                    <td>
+                                                        <div class="card-header-action">
+                                                            <a data-collapse="#mycard-collapse" class="badge badge-warning" href="#" th:text="${booking.status == 0 ? 'Pending' : 'Solved'}">Solved</a>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Options</a>
+                                                            <div class="dropdown-menu">
+                                                                <a th:href="@{/admin/booking/{bookingId}/payment(bookingId=${booking.id})}" class="dropdown-item has-icon"><i class="fas fa-check text-success"></i> Solve</a>
+                                                                <!--                                                                <a th:href="@{/admin/booking/{bookingId}/informationBooking(bookingId=${booking.id})}" class="dropdown-item has-icon"><i class="fas fa-eye"></i> View tourist information</a>-->
+                                                                <!--<div class="dropdown-divider"></div>-->
+                                                                <!--<a href="#" class="dropdown-item has-icon text-primary"><i class="fas fa-check"></i> Approve</a>-->
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Sloved List</h4>
+                                    <div class="card-header-action">
+                                        <a data-collapse="#mycard-collapse" class="badge badge-success" href="#">Sloved</a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" id="table-2">
+                                            <thead>                                 
+                                                <tr>
+                                                    <th class="text-center">
+                                                        #
+                                                    </th>
+                                                    <th>Schedule ID</th>
+                                                    <th>User's booking email</th>
+                                                    <th>User's tour booking phone</th>
+                                                    <th>Booking date</th>
+                                                    <th>Region</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>                                 
+                                                <tr th:each="booking : ${bookings}" th:if="${booking.status == 1}">
+                                                    <td>
+
+                                                    </td>
+                                                    <td th:text="${booking.scheduleId.id}"></td>
+                                                    <td th:text="${booking.userId.email}"></td>
+                                                    <td th:text="${booking.userId.phone}"></td>
+                                                    <td th:text="${#dates.format(booking.bookingDate, 'dd/MM/yyyy')}"></td>
+                                                    <td th:text="${booking.getRegionId.nameArea}"></td>
+                                                    <td>
+                                                        <div class="card-header-action">
+                                                            <a data-collapse="#mycard-collapse" class="badge badge-success" href="#" th:text="${booking?.status == 0 ? 'Pending' : 'Solved'}">Solved</a>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Options</a>
+                                                            <div class="dropdown-menu">
+                                                                <a th:href="@{/admin/booking/{bookingId}/payment(bookingId=${booking.id})}" class="dropdown-item has-icon text-info"><i class="fas fa-eye"></i> View detail</a>
+                                                                <!--                                                                <a th:href="@{/admin/booking/{bookingId}/informationBooking(bookingId=${booking.id})}" class="dropdown-item has-icon"><i class="fas fa-eye"></i> View tourist information</a>-->
+                                                                <!--<div class="dropdown-divider"></div>-->
+                                                                <!--<a href="#" class="dropdown-item has-icon text-primary"><i class="fas fa-check"></i> Approve</a>-->
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div layout:fragment="js">
+        <script src="/admin/lib/modules/datatables/datatables.min.js"></script>
+        <script src="/admin/lib/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+        <script src="/admin/lib/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+        <script src="/admin/lib/modules/jquery-ui/jquery-ui.min.js"></script>
+
+        <script>
+            "use strict";
+
+            $("#table-1").dataTable({
+                "columnDefs": [
+                    {"sortable": false, "targets": [2, 3]}
+                ]
+            });
+            $("#table-2").dataTable({
+                "columnDefs": [
+                    {"sortable": false, "targets": [0, 2, 3]}
+                ]
+            });
+
+            var booking = document.getElementById('booking');
+            var booking2 = document.getElementById('booking-1');
+            booking.classList.add('active');
+            booking2.classList.add('active');
+        </script>
+    </div>
+
+</body>
+
+</html>

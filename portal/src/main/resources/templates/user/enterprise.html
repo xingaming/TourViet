@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <html xmlns:th="http://www.thymeleaf.org">
+
+
+        <head>
+            <title></title>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <link rel="stylesheet" href="/user/css/login.css" type="text/css"/>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        </head>
+        <style>
+            .btn{
+                position: absolute;
+                top: 30px;
+                left: 30px;
+                outline: none;
+                background-color: #344A43;
+                color: white;
+                padding: 10px;
+                border: 1px solid #344A43;
+                font-weight: 700;
+                font-size: 17px;
+                letter-spacing: 1.15px;
+                border-radius: 5px;
+            }
+        </style>
+
+
+        <body>
+
+
+            <a th:href="@{/user/home}"><button class="btn" >GO BACK</button></a>
+
+            <div class="main">  
+                <div class="container a-container" id="b-container">
+                    <form th:object="${userAndCompanyDTO}" class="form" id="myForm2 a-form " method="post" th:action="@{/user/registerBussiness}">
+                        <h2 class="form_title title">Register for a business</h2>
+                        <div th:if="${not #strings.isEmpty(message)}" style="color:green">
+                            <span><span th:text="${message}"></span></span>
+                        </div>
+                        <div th:if="${not #strings.isEmpty(messageError)}" style="color:red">
+                            <span><span th:text="${messageError}"></span></span>
+                        </div>
+                        <!--<span class="form__span">or use email for registration</span>-->
+                        <div style="display: flex;align-items: center; justify-content: space-between; width: 360px">
+                            <input class="form__input" type="text" th:field="*{company.name}" placeholder="Name" th:value="${company?.name}" /><span style="color:red; "> *</span>
+                        </div>
+                        <div th:if="${not #strings.isEmpty(errorMessage)}" style="color:red">
+                            <span>Name company <span th:text="${errorMessage}"></span></span>
+                        </div>
+                        <div style="display: flex;align-items: center; justify-content: space-between; width: 360px">
+                            <input class="form__input" type="text" th:field="*{company.address}" placeholder="Address company" th:value="${company?.address}" /><span style="color:red"> *</span>
+                        </div>
+                        <div th:if="${not #strings.isEmpty(errorMessage)}" style="color:red">
+                            <span>Company address <span th:text="${errorMessage}"></span></span>
+                        </div>
+                        <div style="display: flex;align-items: center; justify-content: space-between; width: 360px">
+                            <input class="form__input" type="text" th:field="*{user.phone}" placeholder="Phone number" th:value="${user?.phone}" onblur="validatePhone(this)" onkeypress="return onlyNumbers(event)" /><span style="color:red"> *</span>
+                        </div>
+                        <div th:if="${not #strings.isEmpty(errorMessage)}" style="color:red">
+                            <span>Phone number <span th:text="${errorMessage}"></span></span>
+                        </div>
+                        <div>
+                            <span id="phoneError" style="color:red;"></span>
+                        </div>
+                        <div style="display: flex;align-items: center; justify-content: space-between; width: 360px">
+                            <input class="form__input" type="text" th:field="*{user.email}" placeholder="Email" th:value="${user?.email}" onblur="validateEmail(this)" /><span style="color:red"> *</span>
+                        </div>
+                        <div th:if="${not #strings.isEmpty(errorMessage)}" style="color:red">
+                            <span>Email <span th:text="${errorMessage}"></span></span>
+                        </div>
+                        <div>
+                            <span id="emailError" style="color:red;"></span>
+                        </div>
+                        <div style="display: flex;align-items: center; justify-content: space-between; width: 360px">
+                            <input class="form__input" type="password" th:field="*{user.password}" placeholder="Password" th:value="${user?.password}" /><span style="color:red"> *</span>
+                        </div>
+                        <div th:if="${not #strings.isEmpty(errorMessage)}" style="color:red">
+                            <span>Password <span th:text="${errorMessage}"></span></span>
+                        </div>
+                        <div style="display: flex;align-items: center; justify-content: space-between; width: 360px">
+                            <input class="form__input" type="password" name="confirm" placeholder="Confirm Password" th:value="${confirm}" /> <span style="color:red"> *</span>
+                        </div>
+                        <div th:if="${not #strings.isEmpty(errorMessage)}" style="color:red">
+                            <span>Password confirm <span th:text="${errorMessage}"></span></span>
+                        </div>
+                        <button class="form__button button"  onclick="signUp()" >SIGN UP</button>
+
+                        <br/>
+                        <div th:if="${error}" class="error-message">
+                            <div style="color:red" th:if="${error}" th:text="${error}" class="error-message"></div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="switch" id="switch-cnt">
+                    <div class="switch__circle"></div>
+                    <div class="switch__circle switch__circle--t"></div>
+                    <div class="switch__container" id="switch-c1">
+                        <h2 class="switch__title title">Hello Friend !</h2>
+                        <p class="switch__description description">Enter your personal details and start journey with us</p><button onclick="redirectToRegisterPage()" class="switch__button button switch-btn">SIGN IN</button>
+
+                    </div>
+                    =
+                </div>
+
+            </div>
+            <script>
+                function signUp() {
+                    // Lấy form bằng cách sử dụng id
+                    var form = document.getElementById('myForm2');
+                    // Gửi form
+                    form.submit();
+                }
+            </script>
+
+            <script>
+                function redirectToRegisterPage() {
+                    window.location.href = "/user/login";
+                }
+            </script>
+
+            <script>
+                function validatePhone(input) {
+                    var phone = input.value;
+                    var phoneError = document.getElementById("phoneError");
+
+                    if (!validatePhoneNumber(phone)) {
+                        phoneError.textContent = "Please enter a valid phone number.";
+                    } else {
+                        phoneError.textContent = "";
+                    }
+                }
+
+                function validateEmail(input) {
+                    var email = input.value;
+                    var emailError = document.getElementById("emailError");
+
+                    if (!validateEmailFormat(email)) {
+                        emailError.textContent = "Please enter a valid email address.";
+                    } else {
+                        emailError.textContent = "";
+                    }
+                }
+
+                function validatePhoneNumber(phone) {
+                    var phonePattern = /^\d{10,}$/; // Example pattern, adjust as needed
+                    return phonePattern.test(phone);
+                }
+
+                function onlyNumbers(event) {
+                    var charCode = event.which ? event.which : event.keyCode;
+                    if (charCode < 48 || charCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+
+                function validateEmailFormat(email) {
+                    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Example pattern, adjust as needed
+                    return emailPattern.test(email);
+                }
+            </script>
+
+        </body>
+
+    </html>
+

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/user/layout">
+    <head>
+        <div layout:fragment="title">
+            <title>Profile</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css-link">
+            <link rel="stylesheet" href="/user/css/destination.css" type="text/css">
+        </div>
+
+        <style>
+            ul.breadcrumb {
+                list-style: none;
+                background-color: #ffffff;
+                margin-bottom: 0;
+            }
+
+            ul.breadcrumb li {
+                display: inline;
+                font-size: 20px;
+            }
+
+            ul.breadcrumb li+li:before {
+                padding: 8px;
+                color: rgb(165, 165, 165);
+                content: "/\00a0";
+            }
+
+            ul.breadcrumb li a {
+                color: #C1AC67;
+                text-decoration: none;
+            }
+
+            ul.breadcrumb li a:hover {
+                color: #97946b;
+                text-decoration: underline;
+            }
+
+            .status-unpaid {
+
+            }
+        </style>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    </head>
+
+    <body>
+        <div layout:fragment="content">
+
+            <div style="height: 120px;"></div>
+
+
+
+            <div class="container">
+
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Profile</a></li>
+                </ul>
+                <form th:action="@{/profile/account/edit}" method="post" enctype="multipart/form-data">
+                    <div class="row mb-5">
+                        <div class="col-sm-4">
+                            <div class="card mb-4 bg-light pt-5 pb-5">
+                                <div class="card-body text-center" >
+
+                                    <img th:if="${session.user.avatar}==null" th:src="@{/admin/images/avatar/avatar.png}" alt="avatar" class="rounded-circle img-fluid" style="width: 250px;height: 250px; border-radius: 50%">
+                                        <img th:if="${session.user.avatar}!=null" th:src="'data:image/png;base64,' + ${session.user.avatar}" alt="avatar" class="rounded-circle img-fluid" style="width: 250px;height: 250px; border-radius: 50%">
+
+                                            </div>
+
+                                            </div>
+                                            <label for="image-upload" id="image-label">Choose File</label>
+                                            <input type="file" name="images" id="image-upload" />
+                                            </div>
+                                            <div class="col-sm-8 bg-light p-3">
+
+                                                <input type="hidden" th:value="${u.id}" name="proId">
+                                                    <div class="mb-3">
+                                                        <label for="exampleFormControlInput1" class="form-label">First name</label>
+                                                        <input style="margin-top: 0px" type="text" th:value="${session.user.firstName}" name="fname" class="form-control" id="exampleFormControlInput1" placeholder="Please enter your first name...">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleFormControlInput1" class="form-label">Last name</label>
+                                                        <input style="margin-top: 0px" type="text" th:value="${session.user.lastName}" name="lname" class="form-control" id="exampleFormControlInput1" placeholder="Please enter your last name...">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleFormControlInput1" class="form-label">Phone number</label>
+                                                        <input style="margin-top: 0px" type="text" th:value="${session.user.phone}" name="phone" class="form-control" id="exampleFormControlInput1" placeholder="Please enter your phone...">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleFormControlInput1" class="form-label">Address</label>
+                                                        <input style="margin-top: 0px" type="text" th:value="${session.user.address}" name="address" class="form-control" id="exampleFormControlInput1" placeholder="Please enter your address...">
+                                                    </div>
+                                                    <div th:if="${not #strings.isEmpty(error)}" style="display: block; margin-left: auto; margin-right: auto;" class="form-group row mb-4">
+                                                        <div class="alert alert-danger">
+                                                            <i class="fa fa-times-circle"></i>&nbsp;&nbsp;
+                                                            <span th:text="${error}"></span>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary float-end">Save changes</button>
+
+                                            </div>
+                                            </div>
+                                            </form>
+                                            <div class="row mb-5">
+                                                <div class="col-sm-4" th:if="${listReview} != null">
+                                                    <h5 class="">Feedback History</h5>
+                                                    <ul th:each="r: ${listReview}" class="list-group list-group-flush rounded-3">
+                                                        <a href="#" style="text-decoration: none">
+                                                            <li class="list-group-item p-3 bg-light mb-2">
+                                                                <p th:text="${#dates.format(r.reviewDate, 'dd/MM/yyyy')}" class="mb-0"></p>
+                                                                <p th:text="${r.content}" class="mb-0"></p>
+                                                            </li>
+                                                        </a>
+                                                    </ul>
+                                                </div>
+                                                <script>
+                                                    function showMoreInfo(button) {
+                                                        const row = button.closest('tr');
+                                                        const hiddenRow = row.nextElementSibling;
+
+                                                        if (hiddenRow.style.display === 'none') {
+                                                            hiddenRow.style.display = 'table-row';
+                                                        } else {
+                                                            hiddenRow.style.display = 'none';
+                                                        }
+                                                    }
+                                                </script>
+                                                <div class="col-sm-8">
+                                                    <h5 class="">Booking History</h5>
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <!--<th class="text-center" scope="col">BOOKING ID</th>-->
+                                                                <th class="text-center" scope="col">TOUR NAME</th>
+                                                                <th class="text-center" scope="col">BOOKING DATE</th>
+                                                                <th class="text-center" scope="col">TOTAL</th>
+                                                                <th class="text-center" scope="col">STATUS</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody th:each="b, iterStat: ${listPayment}">
+                                                            <tr>
+                                                                <!--<th th:text="${b.bookingId.id}" class="text-center" scope="row"></th>-->
+                                                                <td th:text="${b.bookingId.scheduleId.tourId.name}" class="text-center"></td>
+                                                                <td th:text="${#dates.format(b.bookingId.bookingDate, 'dd/MM/yyyy')}" class="text-center"></td>
+                                                                <td th:text="${b.price + ' USD'}" class="text-center"></td>
+                                                                <th:block th:if="${b.status == 0}">
+                                                                    <td class="text-center"><div style="background-color: red;
+                                                                                                 color: white;
+                                                                                                 text-transform: uppercase;
+                                                                                                 padding: 5px 10px;
+                                                                                                 border-radius: 5px;" class="status-unpaid">Unpaid</div>
+                                                                        <div class="card-btn mt-3">
+                                                                            <button  style="min-width: 100px;" type="button" class="btn btn-outline-primary see-more-btn" onclick="showMoreInfo(this)"><a style="text-decoration: none" >SEE MORE</a></button>
+
+                                                                        </div>
+
+                                                                    </td>
+                                                                </th:block>
+                                                                <th:block th:if="${b.status != 0}">
+                                                                    <td class="text-center"><img th:src="@{/user/lib/icon/paid.png}" alt="" style="margin: auto;width: 100px">
+                                                                            <div class="card-btn mt-3">
+                                                                                <button  style="min-width: 100px;" type="button" class="btn btn-outline-primary " ><a th:href="@{/user/booktour/confirm/{id}(id=${b.bookingId.id})}" style="text-decoration: none" >CONFIRM</a></button>
+
+                                                                            </div>
+                                                                    </td>
+                                                                </th:block>
+
+                                                            </tr>  
+                                                            <tr style="display: none" class="hidden-row">
+                                                                <td colspan="5">
+                                                                    <table class="table table-book ">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">ADULT</th>
+
+                                                                                <th scope="col">CHILDREN</th>
+                                                                                <th scope="col">BABY</th>
+                                                                                <th scope="col">CHECK IN</th>
+                                                                                <th scope="col">CHECK OUT</th>
+                                                                                <th scope="col"></th>
+
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+
+                                                                            <tr th:each="list: ${listPayment}">
+                                                                                <th:block th:if="${b.bookingId == list.bookingId}">
+                                                                                    <form th:action="@{/user/delete/booking/{bookingId}(bookingId=${list.bookingId.id})}" method="post">
+                                                                                        <td th:text="${list.bookingId.adult}"></td>
+                                                                                        <td th:text="${list.bookingId.children}"></td>
+                                                                                        <td th:text="${list.bookingId.baby}"></td>
+                                                                                        <td th:text="${#dates.format(list.bookingId.scheduleId.startDate, 'dd-MMM-yyyy')}"></td>
+
+                                                                                        <td th:text="${#dates.format(list.bookingId.scheduleId.endDate, 'dd-MMM-yyyy')}"></td>
+                                                                                        <td><button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure you want to cancel this booking?')">CANCEL</button></td>
+                                                                                    </form>
+                                                                                </th:block>
+                                                                            </tr>
+
+
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                            </div>
+
+                                            <div layout:fragment="js-link">
+                                                <link rel="stylesheet" href="/user/js/destination.js" type="text/javascript">
+                                            </div>
+
+                                            </body>
+
+                                            </html>

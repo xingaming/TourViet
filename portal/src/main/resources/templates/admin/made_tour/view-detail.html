@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/admin/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <div layout:fragment="title">
+            <title>View Tour Detail</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css">
+            <style>
+                /* CSS cho gạch phân cách mờ mờ (border-bottom) */
+                table {
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+
+                th, td {
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                    padding: 8px;
+                }
+            </style>
+        </div>
+    </head>
+
+    <body>
+
+        <div layout:fragment="content">
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>Create tour</h1>
+                        <div class="section-header-breadcrumb">
+                            <div class="breadcrumb-item active"><a th:href="@{/admin/dashboard}">Dashboard</a></div>
+                            <div class="breadcrumb-item"><a th:href="@{/admin/tour_create}">View tour</a></div>
+                            <div class="breadcrumb-item">View Detail</div>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+                        <div class="row">
+
+                            <div class="col-7">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Create new tour</h4>
+                                    </div>
+                                    <form action="/admin/tour_create" method="POST" enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label col-lg-2">Tour name</label>
+                                                <div class="col-sm-12 col-md-9">
+                                                    <input name="name" type="text" th:value="${name}" class="form-control">
+                                                </div><span style="color:red">*</span>
+                                            </div>
+
+                                            <div th:if="${not #strings.isEmpty(errorMessage)}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label col-lg-2"></label>
+                                                <div class="col-sm-12 col-md-9">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Tour name </span><span th:text="${errorMessage}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label col-lg-2">Schedule</label>
+                                                <div class="col-sm-12 col-md-9">
+                                                    <textarea name="description" th:text="${description}"  class="form-control-plaintext text_area" rows="10"  style="border: 1px solid #E4E6FC;
+                                                              background-color: #FDFDFF;
+                                                              border-radius: 5px;
+                                                              padding: 10px 15px;"></textarea>
+                                                    <small style="color:red;" class="form-text">*Note: Each idea must add a dash "-"</small>
+                                                </div><span style="color:red">*</span>
+                                            </div>
+                                            <div th:if="${not #strings.isEmpty(errorMessage1)}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label col-lg-2"></label>
+                                                <div class="col-sm-12 col-md-9">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Schedule </span><span th:text="${errorMessage1}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--                                            <div class="form-group row mb-4">
+                                                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Price</label>
+                                                                                            <div class="col-sm-12 col-md-7">
+                                                                                                <input name="price" type="number" class="form-control inputtags" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
+                                                                                            </div>
+                                                                                        </div>   -->
+
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label col-lg-2">Price adult</label>
+                                                <div class="col-sm-12 col-md-9">
+                                                    <input  name="price_adult" type="number" th:value="${price_adult}" class="form-control" >
+                                                </div><span style="color:red">*</span>
+                                            </div>
+                                            <div th:if="${not #strings.isEmpty(errorMessage2)}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label col-lg-2"></label>
+                                                <div class="col-sm-12 col-md-9">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Price adult </span><span th:text="${errorMessage2}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label col-lg-2">Price children</label>
+                                                <div class="col-sm-12 col-md-9">
+                                                    <input name="price_children" type="number"  th:value="${price_children}" class="form-control" >
+                                                </div><span style="color:red">*</span>
+                                            </div>
+                                            <!--error message-->
+                                            <div th:if="${not #strings.isEmpty(errorMessage3)}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label col-lg-2"></label>
+                                                <div class="col-sm-12 col-md-9">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Price children </span><span th:text="${errorMessage3}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <th:block th:if="${resultTour.tourguide == true}">
+                                                <div class="form-group row mb-4">
+                                                    <label class="col-form-label col-md-2">Tour guide</label>
+                                                    <div class="col-sm-12 col-md-9">
+                                                        <select name="guideId" class="form-control selectric">
+                                                            <option th:each="user : ${users}" th:value="${user?.id}"
+                                                                    th:selected="${user.id == tour?.guideId?.id}"
+                                                                    th:text="${user.firstName + ' ' + user.lastName}"></option>
+                                                        </select>
+                                                    </div><span style="color:red">*</span>
+                                                </div>
+                                            </th:block>
+
+                                            <!--                                            <div class="form-group row mb-4">
+                                                                                            <label class="col-form-label  col-md-2">Transport</label>
+                                                                                            <div class="col-sm-12 col-md-9">
+                                                                                                <select name="transportId" class="form-control selectric">
+                                                                                                    <option th:each="transport : ${transports}" th:value="${transport?.id}"
+                                                                                                            th:selected="${transport.id == tour?.transportId?.id}"
+                                                                                                            th:text="${transport.name}"></option>
+                                                                                                </select>   
+                                                                                            </div><span style="color:red">*</span>
+                                                                                        </div>
+                                            
+                                                                                        <div class="form-group row mb-4">
+                                                                                            <label class="col-form-label  col-md-2">Region</label>
+                                                                                            <div class="col-sm-12 col-md-9">
+                                                                                                <select name="regionId" class="form-control selectric">
+                                                                                                    <option th:each="region : ${regions}" th:value="${region?.id}"
+                                                                                                            th:selected="${region.id == tour?.regionId?.id}"
+                                                                                                            th:text="${region.nameArea}"></option>
+                                                                                                </select>
+                                                                                            </div><span style="color:red">*</span>
+                                                                                        </div>
+                                            
+                                            
+                                                                                        <div th:if="${not #strings.isEmpty(errorMessage) && (tour?.image == null || tour?.image.isEmpty)}" style="" class="form-group row mb-4">
+                                                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                                            <div class="col-sm-12 col-md-9">
+                                                                                                <div class="alert alert-danger">
+                                                                                                    <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                                                    <span>Image </span><span th:text="${errorMessage}"></span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>-->
+                                            <div class="form-group row mb-4">
+                                                <!--<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>-->
+                                                <div class="col-sm-12 col-md-9">
+                                                    <button type="submit" class="btn btn-primary">Create tour</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-5">
+                                <div class="card" style="height: 775px; overflow: auto;">
+                                    <div class="card-header">
+                                        <h4>Tour Information</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <tbody>
+                                                <input type="hidden" name="tourId" th:value="${resultTour.id}">
+                                                    <th:block th:if="${resultTour != null}">
+                                                        <tr th:if="${resultTour.fullname != null}">
+                                                            <th>Name</th>
+                                                            <td th:text="${resultTour.fullname}" ></td>
+                                                            <input type="hidden" name="fullname" th:value="${resultTour.fullname}">
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.email != null}">
+                                                            <th>Email</th>
+                                                            <td th:text="${resultTour.email}"></td>
+                                                            <input type="hidden" name="email" th:value="${resultTour.email}">
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.address != null}">
+                                                            <th>Address</th>
+                                                            <td th:utext="${resultTour.address}"></td>
+                                                            <input type="hidden" name="address" th:value="${resultTour.address}">
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.phone != null}">
+                                                            <th>Phone:</th>
+                                                            <td th:text="${resultTour.phone}"></td>
+                                                            <input type="hidden" name="phone" th:value="${resultTour.phone}">
+
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.region != null}">
+                                                            <th>Region:</th>
+                                                            <td th:text="${resultTour.region}"></td>
+                                                            <input type="hidden" name="region" th:value="${resultTour.region}">
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.accommodation != null}">
+                                                            <th>Accommodation</th>
+                                                            <td th:utext="${resultTour.accommodation}"></td>
+                                                            <input type="hidden" name="accommodation" th:value="${resultTour.accommodation}">
+
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.price != null}">
+                                                            <th>Estimated price (1 person):</th>
+                                                            <td th:text="${resultTour.price} + ' USD'"></td>
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.transport != null}">
+                                                            <th>Transport:</th>
+                                                            <td th:text="${resultTour.transport}"></td>
+                                                            <input type="hidden" name="transport" th:value="${resultTour.transport}">
+
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.destination != null}">
+                                                            <th>Destination:</th>
+                                                            <td th:text="${resultTour.destination}"></td>
+                                                            <input type="hidden" name="destination" th:value="${resultTour.destination}">
+
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.description != null}">
+                                                            <th>Description</th>
+                                                            <td th:text="${resultTour.description}"></td>
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.adult != null}">
+                                                            <th>Adult</th>
+                                                            <td th:text="${resultTour.adult}"></td>
+                                                            <input type="hidden" name="adult" th:value="${resultTour.adult}">
+
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.children != null}">
+                                                            <th>Children</th>
+                                                            <td th:text="${resultTour.children}"></td>
+                                                            <input type="hidden" name="children" th:value="${resultTour.children}">
+
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.baby != null}">
+                                                            <th>Baby</th>
+                                                            <td th:text="${resultTour.baby}"></td>
+                                                            <input type="hidden" name="baby" th:value="${resultTour.baby}">
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.startdate != null}">
+                                                            <th>Start date</th>
+                                                            <td th:text="${#dates.format(resultTour.startdate, 'dd-MMM-yyyy')}"></td>
+                                                            <input type="hidden" name="startdate" th:value="${resultTour.startdate}">
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.enddate != null}">
+                                                            <th>End date</th>
+                                                            <td th:text="${#dates.format(resultTour.enddate, 'dd-MMM-yyyy')}"></td>
+                                                            <input type="hidden" name="enddate" th:value="${resultTour.enddate}">
+                                                        </tr>
+                                                        <tr th:if="${resultTour.tourguide != null}">
+                                                            <th>Tourguide</th>
+                                                            <td>
+                                                                <span th:if="${resultTour.tourguide == true}">Tourguide</span>
+                                                                <span th:if="${resultTour.tourguide == false}">No tourguide</span>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr th:if="${resultTour.note != null}">
+                                                            <th>Note</th>
+                                                            <td th:text="${resultTour.note}"></td>
+                                                            <input type="hidden" name="note" th:value="${resultTour.note}">
+                                                        </tr>
+                                                        <!-- Thêm các thông tin khác của tour ở đây -->
+                                                    </th:block>
+                                            </tbody>
+
+
+                                        </table>
+                                        <!-- Add more tour details here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            </form>
+                        </div>
+
+
+                    </div>
+                </section>
+            </div>
+
+            <div layout:fragment="js">
+
+            </div>
+
+    </body>
+
+</html>

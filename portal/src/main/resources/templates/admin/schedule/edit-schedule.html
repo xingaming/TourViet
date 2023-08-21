@@ -1,0 +1,173 @@
+<!-- Thymeleaf layout declaration -->
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/admin/layout" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <div layout:fragment="title">
+            <title>Edit Schedule</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <div layout:fragment="css">
+            <link rel="stylesheet" href="/admin/lib/modules/bootstrap-daterangepicker/daterangepicker.css">
+        </div>
+
+    </head>
+
+    <body>
+
+        <div layout:fragment="content">
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>Edit Schedule</h1>
+                        <div class="section-header-breadcrumb">
+                            <div class="breadcrumb-item active"><a th:href="@{/admin/dashboard}">Dashboard</a></div>
+                            <div class="breadcrumb-item"><a th:href="@{/admin/tour}">View Tour</a></div>
+                            <div class="breadcrumb-item">Edit Schedule</div>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Edit Schedule</h4>
+                                    </div>
+                                    <form action="/admin/edit-schedule" method="POST" enctype="multipart/form-data">
+                                        <input type="hidden" name="scheduleId" th:value="${schedule.id}">
+                                            <input type="hidden" name="id" th:value="${schedule.id}">
+                                                <input type="hidden" name="tourid" th:value="${tourId}">
+                                                    <div class="card-body">
+                                                        <div th:if="${not #strings.isEmpty(message)}" style="display: block; margin-left: auto; margin-right: auto;" class="form-group row mb-4">
+                                                            <div class="alert alert-danger">
+                                                                <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                <span th:text="${message}"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Start date</label>
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <input name="startDate" type="date" class="form-control" th:value="${#dates.format(schedule.startDate, 'yyyy-MM-dd')}" />
+                                                            </div><span style="color:red">*</span>
+                                                        </div>
+                                                        <div th:if="${not #strings.isEmpty(errorMessage) && schedule?.startDate == null}" style="" class="form-group row mb-4">
+                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <div class="alert alert-danger">
+                                                                    <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                    <span>Start date </span><span th:text="${errorMessage}"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">End date</label>
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <input name="endDate" type="date" class="form-control"
+                                                                       th:value="${#dates.format(schedule.endDate, 'yyyy-MM-dd')}">
+                                                            </div><span style="color:red">*</span>
+                                                        </div>
+                                                        <div th:if="${not #strings.isEmpty(errorMessage) && schedule?.endDate == null}" style="" class="form-group row mb-4">
+                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <div class="alert alert-danger">
+                                                                    <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                    <span>End date </span><span th:text="${errorMessage}"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Price</label>
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <input name="price" type="text" class="form-control inputtags" min="0" oninput="formatInput(this)" th:value="${schedule?.price}">
+                                                            </div><span style="color:red">*</span>
+                                                        </div>
+                                                        <div th:if="${not #strings.isEmpty(errorMessage) && schedule?.price == null}" style="" class="form-group row mb-4">
+                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <div class="alert alert-danger">
+                                                                    <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                    <span>Price </span><span th:text="${errorMessage}"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Quantity min</label>
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <input name="quantityMin" type="number" class="form-control inputtags"
+                                                                       min="1" th:value="${schedule.quantityMin}"
+                                                                       oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
+                                                            </div><span style="color:red">*</span>
+                                                        </div>
+                                                        <div th:if="${not #strings.isEmpty(errorMessage) && schedule?.quantityMin == null}" style="" class="form-group row mb-4">
+                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <div class="alert alert-danger">
+                                                                    <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                    <span>Quantity min </span><span th:text="${errorMessage}"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Quantity max</label>
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <input name="quantityMax" type="number" class="form-control inputtags"
+                                                                       min="1" th:value="${schedule.quantityMax}"
+                                                                       oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
+                                                            </div><span style="color:red">*</span>
+                                                        </div>
+                                                        <div th:if="${not #strings.isEmpty(errorMessage) && schedule?.quantityMax == null}" style="" class="form-group row mb-4">
+                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <div class="alert alert-danger">
+                                                                    <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                    <span>Quantity max </span><span th:text="${errorMessage}"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row mb-4">
+                                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </form>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    </section>
+                                                    </div>
+
+                                                    <div layout:fragment="js">
+                                                        <script src="/admin/lib/modules/bootstrap-daterangepicker/daterangepicker.js"></script>
+                                                        <script src="/admin/lib/modules/cleave-js/dist/cleave.min.js"></script>
+                                                        <script>
+                                                            // Your custom JavaScript code here
+                                                            function formatInput(input) {
+                                                                // Xóa tất cả các ký tự không phải số và không phải dấu chấm thập phân
+                                                                input.value = input.value.replace(/[^0-9.]/g, '');
+
+                                                                // Chỉ giữ lại một dấu chấm thập phân
+                                                                const decimalCount = (input.value.match(/\./g) || []).length;
+                                                                if (decimalCount > 1) {
+                                                                    input.value = input.value.replace(/\.+$/, '');
+                                                                }
+                                                            }
+                                                        </script>
+                                                    </div>
+
+                                                    </div>
+
+                                                    </body>
+
+                                                    </html>

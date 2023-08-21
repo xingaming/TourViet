@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/user/layout">
+    <head>
+        <div layout:fragment="title">
+            <title>Destination</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css-link">
+            <link rel="stylesheet" href="/user/css/destination.css" type="text/css">
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+            <!-- Bootstrap JavaScript -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+            <style>
+
+            </style>
+
+    </head>
+
+    <body>
+        <div layout:fragment="content">
+            <div class="hero">
+                <div th:if="${listRegion != null}" class="row ">
+                    <div  class="col-lg-7 wrapper">
+                        <div class="intro-wrap">
+                            <div th:text="${regionName}" class="des-title"></div>
+                            <div th:text="${regionDes}" class="des-description"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="header-img"> <img  th:src="'data:image/png;base64,' + ${regionImg}" alt=""> </div>
+                    </div>
+                </div>
+                <div th:if="${regionName == null}"> 
+                    <span style="height: 400px"></span>
+                </div>
+            </div>
+
+            <div class="container mb-5">
+                <div class="middle-content">
+                    <div class="search-bar">
+                        <div class="row">
+                            <div   class="col-lg-5" id="instruct">
+                                <div class="">
+                                    <ul class="breadcrumb">
+                                        <li><a href="#">Home</a></li>
+                                        <li><a href="#">Destination</a></li>
+                                        <li ><a th:text="${regionName}" href="#"></a></li>
+                                    </ul>
+                                </div>
+                                <div class="instruct-title">
+                                    <p><span th:text="${regionName}"></span> <span>Attractions</span> </p>
+                                </div>
+                                <!--                                <div class="instruct-subtitle">
+                                                                    <p>
+                                                                        <span th:text="${countTour}"></span>
+                                                                        <span> things to do</span>
+                                                                    </p>
+                                                                </div>-->
+                            </div>
+
+                            <div class="col-lg-7">
+                                <div class="col-12">
+                                    <form class="form" method="GET" th:action="@{/user/search}">
+                                        <div class="row mb-2">
+                                            <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-7">
+                                                <select name="region" id="" class="form-control custom-select">
+                                                    <option th:value="0">Choose destination</option>
+                                                    <option th:each="c: ${listRegion}" th:text="${c.nameArea}" th:value="${c.id}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-5">
+                                                <input type="text" class="form-control" name="daterange">
+                                            </div>
+
+
+                                        </div>    
+                                        <div class="row align-items-center">
+                                            <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+                                                <input type="submit" class="btn btn-primary btn-block no-hover" value="Search">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="order-by">
+                        <div class="row">
+                            <div class="col-lg-4 my-auto">
+                                <ul class="order-pagination">
+                                    <li th:class="${active1} == 'active' ? 'active' : ''"><a th:href="@{/user/destination/{regionId}(regionId=${regionID})}" >Recent Days</a></li>
+                                    <li th:class="${active} == 'active' ? 'active' : ''"><a th:href="@{/user/destination/lowest_price/{regionId}(regionId=${regionID})}">Lowest Price</a></li>
+                                    <img style="width: 30px; margin-left: 10px" src="/user/images/nav-icon.png" alt="">
+                                </ul>
+                            </div>
+                            <div class="col-lg-4">
+                            </div>
+                            <div class="col-lg-2">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards mt-4">
+                        <div th:if="${countTour == 0}">
+                            <p style="color: #C1AC67; font-weight: bold">There are currently no services available</p>
+                        </div>
+
+                        <div th:if="${tourList != null}">
+
+                            <div th:each="tour  : ${tourList}"  class="card mt-3">
+                                <th:block th:if="${#dates.format(tour.startDate, 'dd-MMM-yyyy') > #dates.format(#dates.createNow(), 'dd-MMM-yyyy') && tour.quantityMax != tour.quantityPassenger}">
+                                    <div th:if="${tour.tourId.discount == 0}">
+                                        <div class="discout" th:text="${tour.tourId.discount + '%'}"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-4"> <img th:src="'data:image/png;base64,' + ${tour.tourId.image}" alt="" width="300"> </div>
+
+                                        <div class="col-lg-5 mt-3">
+                                            <a style="text-decoration: none" th:href="@{/user/detail/{id}(id=${tour.id})}"><div class="card-title tour-name" th:text="${tour.tourId.name}" id="tourName"></div></a>
+                                            <span><div class="card-date"th:text="${tour.tourId.transportId.name}+ ' | ' + ${#dates.format(tour.startDate, 'dd-MMM-yyyy')}"></div></span>
+                                            <!--                                    <div class="card-field mt-2">Start location: <strong>TP. Ho Chi Minh</strong></div>-->
+                                            <div class="card-field mt-1"><strong> Duration: <span th:attr="data-startDate=${#dates.format(tour.startDate, 'yyyy-MM-dd')}, data-endDate=${#dates.format(tour.endDate, 'yyyy-MM-dd')}"
+                                                                                                  class="duration-display"></span></strong></div>
+
+                                            <div th:if="${scheduleReviewMap != null}" class="card-review mt-1"> 
+
+                                                <span th:each="reviewItem : ${scheduleReviewMap}">
+                                                    <th:block th:if="${reviewItem.tourId.id == tour.tourId.id}">
+                                                        <p class="rating" style="display: none" th:text="${reviewItem.rate}"></p>
+
+                                                    </th:block>
+
+                                                </span>
+
+                                                <!--<input type="text" class="review-count" th:value="${scheduleReviewMap.size}">-->
+
+                                                <p class="average-rating">Average Rating: <span class="rounded-rating">-</span>/5.00</p>
+                                                <img th:src="@{/user/images/star.png}" alt="" width="20">
+                                            </div>
+
+
+                                            <div class="description mt-2">
+                                                <div id="formattedPrice" class="price" th:text="'Price from: ' + ${tour.price} + ' USD'"></div>
+
+                                                <div class="amount">
+                                                    <div>Available seats</div>	
+                                                    <div>
+                                                        <span style="color: #008000;" class="quantity-green" th:text="${tour.quantityMax - tour.quantityPassenger}"></span>
+                                                        <span style=" color: #ff0000;" class="quantity-red" th:text="${'/' + tour.quantityMax}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-3">
+                                            <!--                                                        <div class="favorite">
+                                                                                                        <img th:src="@{/user/images/heart.png}" alt=""> 
+                                                                                                            <p class="ms-1">Add to favorite </p>
+                                                                                                    </div>-->
+
+
+                                            <div class="card-btn mt-3">
+                                                <button style="min-width: 100px;" type="button" class="btn btn-danger" ><a style="text-decoration: none; color: white" th:href="@{/user/booktour/{id}(id=${tour.id})}">Order Now</a></button>
+                                            </div>
+                                            <div class="card-btn mt-3">
+                                                <button  style="min-width: 100px;" type="button" class="btn btn-outline-primary see-more-btn"><a style="text-decoration: none" >See More</a></button>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 additional-content" style="display: none;">
+                                            <div id="book-tour" class="book-tour">
+                                                <!--                                                            <div class="title-book-tour">
+                                                                                                                <p class="title-content-book">BOOK TOUR</p>
+                                                                                                            </div>-->
+                                                <table class="table table-book ">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">DEPARTURE</th>
+
+                                                            <th scope="col">PRICE</th>
+                                                            <th scope="col">CHILD PRICE</th>
+
+                                                            <th scope="col">SLOT</th>
+                                                            <th scope="col">DETAIL</th>
+                                                            <th scope="col"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+
+                                                        <tr th:each="tourR : ${tourResult}">
+                                                            <th:block th:if="${tour.tourId.id == tourR.tourId.id && #dates.format(tourR.startDate, 'dd-MMM-yyyy') > #dates.format(#dates.createNow(), 'dd-MMM-yyyy') && tourR.quantityMax > tourR.quantityPassenger}">
+                                                                <td th:text="${#dates.format(tourR.startDate, 'dd-MMM-yyyy')}"></td>
+
+                                                                <td th:text="${tourR.price + ' USD'}"></td>
+                                                                <td th:text="${tourR.price div 2 + ' USD'}"></td>
+                                                                <td>
+                                                                    <span style="color: #008000;" class="quantity-green" th:text="${tourR.quantityMax - tourR.quantityPassenger}"></span>
+                                                                    <span style=" color: #ff0000;" class="quantity-red" th:text="${'/' + tourR.quantityMax}"></span>
+                                                                </td>
+
+                                                                <td>
+                                                                    <button  style="min-width: 100px;" type="button" class="btn btn-outline-primary "><a style="text-decoration: none" th:href="@{/user/detail/{id}(id=${tourR.id})}">VIEW</a></button>
+
+                                                                </td>
+
+                                                                <td>
+                                                                    <!--                                                                                <button  style="min-width: 100px;" type="button" class="btn btn-outline-primary "><a style="text-decoration: none" th:href="@{/user/booktour/{id}(id=${tourR.id})}">BOOK</a></button>-->
+
+                                                                    <!--                                                                                <button style="min-width: 100px;" type="button" class="btn btn-outline-primary"
+                                                                                                                                                            th:if="${tourR.startDate <= #dates.createNow()}">
+                                                                                                                                                        <a style="text-decoration: none" onclick="return confirm('Tour sold out')">SOLD OUT</a>
+                                                                                                                                                    </button>-->
+                                                                    <button style="min-width: 100px;" type="button" class="btn btn-outline-primary">
+
+                                                                        <a style="text-decoration: none" th:href="@{/user/booktour/{id}(id=${tourR.id})}">BOOK</a>
+                                                                    </button>
+
+
+
+                                                                </td>
+                                                            </th:block>
+                                                        </tr>
+
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </th:block>
+                            </div>
+
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    var maxLength = 60;
+                                    var tourNameElements = document.getElementsByClassName("tour-name");
+
+                                    for (var i = 0; i < tourNameElements.length; i++) {
+                                        var tourName = tourNameElements[i].textContent;
+
+                                        if (tourName.length > maxLength) {
+                                            tourNameElements[i].textContent = tourName.substring(0, maxLength) + "...";
+                                        }
+                                    }
+                                });
+
+                                var durationDisplays = document.getElementsByClassName("duration-display");
+
+                                // Lặp qua từng phần tử span để tính và hiển thị số ngày đêm cho từng tour
+                                for (var i = 0; i < durationDisplays.length; i++) {
+                                    var startDateStr = durationDisplays[i].getAttribute("data-startDate");
+                                    var endDateStr = durationDisplays[i].getAttribute("data-endDate");
+
+                                    var startDate = new Date(startDateStr);
+                                    var endDate = new Date(endDateStr);
+
+                                    var timeDiff = endDate.getTime() - startDate.getTime();
+                                    var durationInDays = timeDiff / (1000 * 3600 * 24);
+                                    var nights = Math.floor(durationInDays) % 12;
+                                    var days = nights + 1;
+
+                                    durationDisplays[i].innerText = days + ' days ' + nights + ' nights';
+                                }
+
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const cardReviews = document.querySelectorAll('.card-review');
+                                    cardReviews.forEach(function (cardReview) {
+                                        const ratingElems = cardReview.querySelectorAll('.rating');
+                                        let totalRating = 0;
+                                        let reviewCount = 0;
+
+                                        // Lấy tổng số lượng đánh giá và tính tổng rating
+                                        ratingElems.forEach(function (ratingElem) {
+                                            const rating = parseFloat(ratingElem.textContent);
+                                            totalRating += rating;
+                                            reviewCount++;
+                                        });
+
+                                        // Tính giá trị trung bình của các rating và làm tròn
+                                        const averageRating = totalRating / reviewCount;
+                                        const roundedAverageRating = averageRating.toFixed(1);
+
+                                        const roundedRatingElem = cardReview.querySelector('.rounded-rating');
+                                        roundedRatingElem.textContent = roundedAverageRating;
+                                    });
+                                });
+
+
+
+
+
+                            </script>
+                        </div>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const seeMoreButtons = document.querySelectorAll(".see-more-btn");
+                                seeMoreButtons.forEach(function (button) {
+                                    button.addEventListener("click", function () {
+                                        // Find the closest additional-content div relative to the clicked button
+                                        const additionalContent = button.closest(".card").querySelector(".additional-content");
+
+                                        // Toggle the visibility of the additional-content div
+                                        additionalContent.style.display = additionalContent.style.display === "none" ? "block" : "none";
+                                    });
+                                });
+                            });
+                        </script>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div layout:fragment="js-link">
+            <link rel="stylesheet" href="/user/js/destination.js" type="text/javascript">
+        </div>
+
+    </body>
+
+</html>

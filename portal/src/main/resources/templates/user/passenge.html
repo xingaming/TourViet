@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+
+<!--<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+
+<html lang="en" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/user/layout">
+
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="/user/css/detail.css">
+        <link rel="stylesheet" href="/user/css/booktour.css">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@100;400;500&display=swap');
+            .button-book {
+                width: 80px;
+                height: 20px;
+                flex-shrink: 0;
+                background-color: #1D3133;
+                border: solid 2px #C1AC67;
+            }
+
+            .button-book input[type="submit"] {
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                border: none;
+                color: #C1AC67;
+                font-size: 12px;
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 24px;
+                letter-spacing: 1px;
+            }
+            .payment.selected {
+                background-color: #1E4F2A;
+                color: white;
+            }
+            .payment.selected>p {
+                /*background-color: #1E4F2A;*/
+                color: white;
+            }
+            /*            a{
+                            color: white !important;
+                        }*/
+
+
+            /*            .line {
+                            position: absolute;
+                            top: 73px;
+                            left: 0;
+                            width: 165px !important;
+                            height: 5px;
+                            background-color: #C1AC67;
+                            border-radius: 10px;
+                        }*/
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!--        <script>
+                    $(document).ready(function () {
+                        const tabs = $('.tab_btn');
+                        const contentDivs = $('.body-content');
+                        const line = $('.line');
+                        let currentTab = 0;
+        
+                        // Add event listener for "Next" button
+                        $('.next').on('click', function () {
+                            currentTab++;
+                            if (currentTab >= tabs.length) {
+                                currentTab = tabs.length - 1;
+                            }
+                            updateActiveTab();
+                        });
+        
+                        // Add event listener for "Previous" button
+                        $('.previous').on('click', function () {
+                            currentTab--;
+                            if (currentTab < 0) {
+                                currentTab = 0;
+                            }
+                            updateActiveTab();
+                        });
+        
+                        // Function to update the active tab and line position
+                        function updateActiveTab() {
+                            tabs.removeClass('active');
+                            contentDivs.removeClass('active');
+        
+                            tabs.eq(currentTab).addClass('active');
+                            contentDivs.eq(currentTab).addClass('active');
+        
+                            line.css({
+                                'width': tabs.eq(currentTab).width() + 'px',
+                                'left': tabs.eq(currentTab).position().left + 'px'
+                            });
+                        }
+        
+                        // Initialize the active tab and line position
+                        updateActiveTab();
+                    });
+                </script>        <script>
+                    $(document).ready(function () {
+                        const tabs = $('.tab_btn');
+                        const contentDivs = $('.body-content');
+                        const line = $('.line');
+                        let currentTab = 0;
+        
+                        // Add event listener for "Next" button
+                        $('.next').on('click', function () {
+                            currentTab++;
+                            if (currentTab >= tabs.length) {
+                                currentTab = tabs.length - 1;
+                            }
+                            updateActiveTab();
+                        });
+        
+                        // Add event listener for "Previous" button
+                        $('.previous').on('click', function () {
+                            currentTab--;
+                            if (currentTab < 0) {
+                                currentTab = 0;
+                            }
+                            updateActiveTab();
+                        });
+        
+                        // Function to update the active tab and line position
+                        function updateActiveTab() {
+                            tabs.removeClass('active');
+                            contentDivs.removeClass('active');
+        
+                            tabs.eq(currentTab).addClass('active');
+                            contentDivs.eq(currentTab).addClass('active');
+        
+                            line.css({
+                                'width': tabs.eq(currentTab).width() + 'px',
+                                'left': tabs.eq(currentTab).position().left + 'px'
+                            });
+                        }
+        
+                        // Initialize the active tab and line position
+                        updateActiveTab();
+                    });
+                </script>-->
+    </head>
+
+    <body>
+        <div layout:fragment="content">
+            <!--header-->
+            <div class="hero" style="margin-bottom: 0px">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="overlay" >
+                                <div class="overlay-content">
+                                    BOOK TOUR
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <!--header-->
+
+            <div id="tourism" class="untree_co-section">
+
+
+                <div class="container" th:each="tour : ${tourShedule}">
+
+                    <div class="container" >
+                        <div class="tab_box" style="position: sticky; top: 0;" >
+
+                            <button class="tab_btn ">1. SELECT SERVICES</button>
+                            <button class="tab_btn" style="color: #C1AC67" >2.ENTER PASSENGE INFORMATION ONLY</button>
+                            <button class="tab_btn">3. PAYMENT</button>
+                            <button class="tab_btn">4. CONFIRMATION</button>
+
+
+                        </div>
+
+                        <div class="page-book">
+
+                            <div class="container body-content active enter-passenge ">
+                                <form id="myFormPass" method="post" th:action="@{/user/booktour/payment/{id} (id=${tour.id})}">
+                                    <div class="row">
+                                        <div class="col-xl-8">
+                                            <!--                                        <span th:if="${#lists.isEmpty(adult)}">
+                                                                                        <p>hi</p>
+                                                                                    </span>-->
+                                            <!--<span th:unless="${#lists.isEmpty(adult)}">--> 
+                                            <div th:each="count, countIndex  : ${adult}" id="detail-question" class="detail-question input-number">
+                                                <div class="title-question">
+                                                    <p th:each="item : ${count}" class="title-content-question">PASSENGER INFORMATION 
+                                                        <span style="color: white" th:text="${item}"></span>
+                                                    </p>
+                                                </div>
+                                                <!--th:name="'passenge' + ${countIndex.index + 1} + '_name'"-->
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-xl-6">
+                                                            <input type="hidden" name="formCount" th:value="${count}" />
+                                                            <div class="input-adult">
+                                                                <h6>NAME *</h6>
+                                                                    <input type="text" name="name"  class="content" required="true"  pattern="^\S.*$" title="Names must not have a leading space"/>
+                                                            </div> 
+
+                                                            <div class="input-adult">
+                                                                <h6>EMAIL</h6>
+                                                                <input type="text" name="email"  class="content"/>
+                                                            </div>
+                                                            <div class="input-adult">
+                                                                <h6>GENDER</h6>
+                                                                <select name="gender" class="content">
+                                                                    <option value="true">Male</option>
+                                                                    <option value="false">Female</option>
+                                                                </select>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="col-xl-6">
+
+                                                            <div class="input-adult">
+                                                                <h6>ADDRESS *</h6>
+                                                                <input type="text" name="address" class="content" required="true" pattern="^\S.*$" title="Address must not have a leading space"/>
+                                                            </div>
+                                                            <div class="input-adult">
+                                                                <h6>PHONE</h6>
+                                                                <input type="number" name="phone"  class="content" />
+                                                            </div> 
+
+
+                                                            <div class="input-adult">
+                                                                <h6>IDENTITY CARD</h6>
+                                                                <input type="text" name="cccd" class="content"/>
+                                                            </div>
+                                                            <input type="hidden" name="adult" th:value="${adult2}" class="content"/>
+                                                            <input type="hidden" name="baby" th:value="${baby}" class="content"/>
+                                                            <input type="hidden" name="children" th:value="${children}"  class="content"/>
+                                                            <input type="hidden" name="scheduleId" th:value="${scheduleId}" class="content"/>
+                                                            <input type="hidden" name="regionId" th:value="${regionId}" class="content"/>
+                                                            <input type="hidden" name="userId" th:value="${userID}" class="content"/>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+<!--                                            <div th:if="${error}" class="error-message">
+                                                <div style="color:red" th:if="${error}" th:text="${error}" class="error-message"></div>
+                                            </div>-->
+
+
+                                            <div class="container">
+                                                <div class="row justify-content-between align-items-center">
+                                                    <div class="col-md-6 panigation">
+                                                        <button class="previous" style="margin-right: 10px;" onclick="history.back()">Previous</button>
+                                                        <input type="hidden" name="formData" />
+                                                        <button name="submitButton" onclick="payment()" class="next">Next</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Thêm vào trong phần thẻ <head> hoặc <body> -->
+                                            <script>
+                                                function payment() {
+                                                    const bookingRequestData = {
+                                                        adult: parseInt(document.querySelector('input[name="adult"]').value),
+                                                        baby: parseInt(document.querySelector('input[name="baby"]').value),
+                                                        senior: null,
+                                                        children: parseInt(document.querySelector('input[name="children"]').value),
+                                                        bookingDate: null,
+                                                        regionId: parseInt(document.querySelector('input[name="regionId"]').value),
+                                                        scheduleId: parseInt(document.querySelector('input[name="scheduleId"]').value),
+                                                        userId: parseInt(document.querySelector('input[name="userId"]').value)
+//                                                        status:null
+                                                    };
+
+                                                    const in4bookingRequestData = [];
+
+                                                    // Duyệt qua tất cả các form có class "detail-question input-number"
+                                                    const formContainers = document.querySelectorAll('.detail-question.input-number');
+                                                    formContainers.forEach(formContainer => {
+                                                        // Lấy thông tin từng form và đẩy vào mảng in4bookingRequestData
+                                                        const formData = {
+                                                            id: null,
+                                                            name: formContainer.querySelector('input[name="name"]').value,
+                                                            phone: formContainer.querySelector('input[name="phone"]').value,
+                                                            email: formContainer.querySelector('input[name="email"]').value,
+                                                            address: formContainer.querySelector('input[name="address"]').value,
+                                                            gender: formContainer.querySelector('select[name="gender"]').value,
+                                                            cccd: formContainer.querySelector('input[name="cccd"]').value,
+                                                            booking_id: null
+                                                        };
+                                                        in4bookingRequestData.push(formData);
+                                                    });
+
+                                                    const requestData = {
+                                                        bookingRequest: bookingRequestData,
+                                                        in4bookingRequest: in4bookingRequestData
+                                                    };
+
+                                                    // Chuyển đổi thành chuỗi JSON
+                                                    const jsonData = JSON.stringify(requestData);
+
+                                                    // Ở đây bạn có thể gửi jsonData đi thông qua AJAX request hoặc bất kỳ cách nào khác phù hợp với ứng dụng của bạn
+                                                    console.log(jsonData);
+                                                    document.querySelector('input[name="formData"]').value = jsonData;
+                                                }
+                                            </script>
+
+                                            <!--                                            <script>
+                                                                                            function payment() {
+                                                                                                const bookingRequestData = {
+                                            //                                                        id: null,
+                                                                                                    adult: parseInt(document.querySelector('input[name="adult"]').value),
+                                                                                                    baby: parseInt(document.querySelector('input[name="baby"]').value),
+                                                                                                    senior: null,
+                                                                                                    children: parseInt(document.querySelector('input[name="children"]').value),
+                                                                                                    bookingDate: null,
+                                                                                                    regionId: parseInt(document.querySelector('input[name="regionId"]').value),
+                                                                                                    scheduleId: parseInt(document.querySelector('input[name="scheduleId"]').value),
+                                                                                                    userId: parseInt(document.querySelector('input[name="userId"]').value),
+                                                                                                };
+                                            
+                                                                                              const in4bookingRequestData = [
+                                                                                                    {
+                                                                                                        id: null,
+                                                                                                        name: document.querySelector('input[name="name"]').value,
+                                                                                                        phone: document.querySelector('input[name="phone"]').value,
+                                                                                                        email: document.querySelector('input[name="email"]').value,
+                                                                                                        address: document.querySelector('input[name="address"]').value,
+                                                                                                        gender: document.querySelector('select[name="gender"]').value,
+                                                                                                        cccd: document.querySelector('input[name="cccd"]').value,
+                                                                                                        booking_id: null
+                                                                                                    }
+                                            //                                                        
+                                                                                                ];
+                                                                                                
+                                                                                                const requestData = {
+                                                                                                    bookingRequest: bookingRequestData,
+                                                                                                    in4bookingRequest: in4bookingRequestData
+                                                                                                };
+                                            
+                                                                                                // Chuyển đổi thành chuỗi JSON
+                                                                                                const jsonData = JSON.stringify(requestData);
+                                            
+                                                                                                // Ở đây bạn có thể gửi jsonData đi thông qua AJAX request hoặc bất kỳ cách nào khác phù hợp với ứng dụng của bạn
+                                                                                                console.log(jsonData);
+                                                                                                document.querySelector('input[name="formData"]').value = jsonData;
+                                                                                            }
+                                                                                        </script>-->
+
+                                            <!--                                            <script>
+                                                                                            $('#myForm').submit(function (event) {
+                                                                                                event.preventDefault();
+                                                                                                var formData = {};
+                                                                                                $(this).serializeArray().forEach(function (field) {
+                                                                                                    formData[field.name] = field.value;
+                                            //                                                        formData[field.email] = field.value;
+                                            //                                                        formData[field.gender] = field.value;
+                                            //                                                        formData[field.phone] = field.value;
+                                            //                                                        formData[field.address] = field.value;
+                                            //                                                        formData[field.card] = field.value;
+                                            //                                                        formData[field.adult] = field.value;
+                                            //                                                        formData[field.children] = field.value;
+                                            //                                                        formData[field.baby] = field.value;
+                                            //                                                        formData[field.scheduleId] = field.value;
+                                            //                                                        formData[field.regionId] = field.value;
+                                            //                                                        formData[field.userId] = field.value;
+                                            
+                                            
+                                                                                                });
+                                            
+                                                                                                $.ajax({
+                                                                                                    type: "POST",
+                                                                                                    url: "/user/booktour/payment",
+                                                                                                    data: JSON.stringify(formData),
+                                                                                                    contentType: "application/json",
+                                                                                                    success: function (response) {
+                                                                                                        // Xử lý kết quả nếu cần
+                                                                                                    },
+                                                                                                    error: function (error) {
+                                                                                                        // Xử lý lỗi nếu cần
+                                                                                                    }
+                                                                                                });
+                                                                                            });
+                                                                                            function payment() {
+                                            
+                                                                                                var form = document.getElementById('myFormPass');
+                                                                                                form.submit();
+                                                                                            }
+                                                                                        </script>-->
+
+
+
+                                        </div>
+                                        <!--                                        <script th:inline="javascript">
+                                                                                    // Lắng nghe sự kiện submit của form
+                                                                                    document.getElementById("myForm").addEventListener("submit", function (event) {
+                                                                                        event.preventDefault(); // Ngăn chặn submit mặc định
+                                        
+                                                                                        // Tạo một mảng chứa dữ liệu của các hành khách
+                                                                                        var passengerList = [];
+                                        
+                                                                                        // Lặp qua các form hành khách và tạo JSON
+                                                                                        var formElements = document.getElementsByClassName("detail-question");
+                                                                                        for (var i = 0; i < formElements.length; i++) {
+                                                                                            var passengerData = {
+                                                                                                name: formElements[i].querySelector("input[name$='_name']").value,
+                                                                                                email: formElements[i].querySelector("input[name$='_email']").value,
+                                                                                                gender: formElements[i].querySelector("input[name$='_gender']").value,
+                                                                                                phone: formElements[i].querySelector("input[name$='_phone']").value,
+                                                                                                address: formElements[i].querySelector("input[name$='_address']").value,
+                                                                                                identityCard: formElements[i].querySelector("input[name$='_card']").value
+                                                                                            };
+                                                                                            passengerList.push(passengerData);
+                                                                                        }
+                                        
+                                                                                        // Đặt giá trị cho trường ẩn passengerListJson
+                                                                                        document.getElementById("passengerListJson").value = JSON.stringify(passengerList);
+                                        
+                                                                                        // Tiếp tục submit form
+                                                                                        event.target.submit();
+                                                                                    });
+                                                                                </script>-->
+
+                                        <div  class="col-xl-4">
+                                            <div id="detail-question" class="detail-question hotline">
+                                                <div class="title-hotline">
+                                                    <p class="title-content-hotline">Hotline: 1900 6568 </p>
+                                                </div>
+                                                <div th:each="tour : ${tourShedule}" class="total">
+                                                    <!--<div class="">-->
+                                                    <img th:src="'data:image/png;base64,' + ${tour.tourId.image}" alt="Image" class="total-img">
+                                                    <!--</div>-->
+                                                    <div th:text="${tour.tourId.name}" class="title-total">
+
+
+                                                    </div>
+                                                    <div class="check-in">
+
+                                                        <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Check in: </span><p th:text= "${#dates.format(tour.startDate, 'dd-MMM-yyyy')}"> </p>
+                                                    </div>
+                                                    <div class="check-in">
+
+                                                        <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Check out: </span><p th:text="${#dates.format(tour.endDate, 'dd-MMM-yyyy')}"> </p>
+                                                    </div>
+
+                                                    <div class="check-in">
+
+                                                        <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Duration: </span><p th:text="${duration1} +' days ' + ${duration} + ' nights '"> </p>
+                                                    </div>
+
+                                                    <div class="check-in">
+                                                        <img th:src="@{/user/lib/icon/icon-person.png}" alt="Image" class="icon-tour-detail">
+                                                        <span id="adultCount">Adult </span>
+                                                        <p class="adult-price-paragraph" id="pricePerAdult" th:text="${tour.price + ' USD'}"></p>
+                                                        <span> x </span>
+                                                        <span id="adultQuantity" th:text="${adult2}"></span>
+                                                    </div>
+
+                                                    <div class="check-in">
+                                                        <img th:src="@{/user/lib/icon/icon-person.png}" alt="Image" class="icon-tour-detail">
+                                                        <span id="childrenCount">Children </span>
+                                                        <p class="children-price-paragraph" id="pricePerChild" th:text="${tour.price div 2 + ' USD'}"></p>
+                                                        <span> x </span>
+                                                        <span id="childrenQuantity" th:text="${children}"></span>
+                                                    </div>
+
+
+                                                    <div class="title-total" style="font-size: 25px; text-align: center">
+                                                        <div >TOTAL: <span style="color: #55776C" id="totalPrice" th:text="${total}"></span></div> 
+                                                    </div>
+                                                    <script>
+
+                                                        var totalPriceElement = document.getElementById("totalPrice");
+
+
+                                                        if (totalPriceElement) {
+
+                                                            var totalPriceValue = totalPriceElement.innerText;
+
+
+                                                            var formattedTotalPrice = parseFloat(totalPriceValue).toFixed(2);
+
+
+                                                            totalPriceElement.innerText = formattedTotalPrice + " USD";
+                                                        }
+                                                    </script>
+                                                    <!-- The HTML code remains the same -->
+
+
+
+
+
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+
+
+                                    </div>
+                                </form>
+
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <a href="#" class="back" ></a>
+
+        </div>
+
+    </body>
+
+</html>
+

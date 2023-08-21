@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+        <head>
+            <div layout:fragment="title"></div>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
+
+                        <link rel="stylesheet" href="/user/css/bootstrap.min.css" type="text/css">
+                            <link rel="stylesheet" href="/user/css/owl.carousel.min.css" type="text/css">
+                                <link rel="stylesheet" href="/user/css/owl.theme.default.min.css" type="text/css">
+                                    <link rel="stylesheet" href="/user/css/jquery.fancybox.min.css" type="text/css">
+                                        <link rel="stylesheet" href="/user/fonts/icomoon/style.css" type="text/css">
+                                            <link rel="stylesheet" href="/user/fonts/flaticon/font/flaticon.css" type="text/css">
+                                                <link rel="stylesheet" href="/user/css/daterangepicker.css" type="text/css">
+                                                    <link rel="stylesheet" href="/user/css/aos.css" type="text/css">
+                                                        <link rel="stylesheet" href="/user/css/style.css" type="text/css">
+                                                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+                                                                <link rel="stylesheet" href="/user/css/index.css">
+                                                                    <link rel="stylesheet" href="/user/css/indexresponsive.css">
+                                                                        <div layout:fragment="css-link"></div>
+
+                                                                        <style>
+                                                                            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+                                                                            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@100;400;500&display=swap');
+
+                                                                            .custom-select{
+                                                                                background-color: #C1AC67 !important;
+                                                                                border: 1px solid #1D3133 !important;
+                                                                                color: #1D3133;
+                                                                                font-size: 15px;
+                                                                                font-family: Poppins;
+                                                                                font-weight: 600;
+                                                                                line-height: 24px;
+                                                                                letter-spacing: 1px;
+                                                                            }
+                                                                            .form-control{
+                                                                                background-color: #C1AC67 !important;
+                                                                                border: 1px solid #1D3133 !important;
+                                                                                color: #1D3133;
+                                                                                font-size: 13px;
+                                                                                font-family: Poppins;
+                                                                                font-weight: 600;
+                                                                                line-height: 24px;
+                                                                                letter-spacing: 1px;
+                                                                            }
+                                                                            .btn.btn-primary {
+                                                                                background: #1D3133;
+                                                                                border-color: #1A374D;
+                                                                                color: #C1AC67;
+                                                                                font-size: 15px;
+                                                                                text-transform: uppercase;
+                                                                                font-family: Poppins;
+                                                                                font-weight: 600;
+                                                                                line-height: 24px;
+                                                                                letter-spacing: 1px;
+                                                                            }
+                                                                            .no-hover:hover {
+                                                                                background-color: #1D3133 !important;
+                                                                                color: white;
+
+                                                                            }
+
+                                                                            .row.d-flex.justify-content-between  {
+                                                                                margin-right: 12px;
+                                                                            }
+
+                                                                            .content-footer{
+                                                                                text-align: left;
+                                                                                color: rgba(193, 172, 103, 0.80) !important;
+                                                                                font-size: 13px!important;
+                                                                                font-family: Poppins !important;
+                                                                                font-weight: 500 !important;
+                                                                                line-height: 38px !important;
+                                                                                letter-spacing: 3px !important;
+                                                                            }
+                                                                            p{
+                                                                                color: rgba(29, 49, 51, 0.80);
+                                                                                text-align: center;
+                                                                                font-size: 15px;
+                                                                                font-family: Poppins;
+                                                                                font-style: normal;
+                                                                                font-weight: 500;
+                                                                                line-height: 38px;
+                                                                                letter-spacing: 2px;
+                                                                            }
+                                                                            .media-thumb{
+                                                                                height: 483.81px;
+                                                                            }
+                                                                            .media-thumb>img{
+                                                                                height: 483.81px;
+                                                                            }
+                                                                            .item-covered>p{
+                                                                                text-align: left !important;
+
+                                                                            }
+                                                                            .item-covered>h3{
+                                                                                text-align: left !important;
+                                                                            }
+                                                                            .text-ctasection-title{
+                                                                                color: #C1AC67 !important;
+                                                                                font-size: 30px;
+                                                                                font-family: Abril Fatface;
+                                                                                font-style: normal;
+                                                                                font-weight: 400;
+                                                                                line-height: 42px;
+                                                                                letter-spacing: 8px;
+                                                                            }
+
+                                                                            /*                                                                          
+
+
+
+                                                                        </style>
+
+
+                                                                        </head>
+
+                                                                        <body>
+
+                                                                            <!--                              
+                                                                                                                                                    
+                                                                            <!--BEGIN HEDAER-->
+                                                                            <nav class="navbar navbar-expand-md  header">
+                                                                                <a class="navbar-brand" th:href="@{/user/home}">TOUR VIET</a>
+                                                                                <button class="navbar-toggler  navbar-dark" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                                                                                    <a href=""><i class="ti-shopping-cart icon-cart"></i></a>
+                                                                                    <a href=""><i class="ti-bell icon-bell"></i></a> 
+                                                                                    <span class="navbar-toggler-icon "></span>
+                                                                                </button>
+                                                                                <div class="collapse navbar-collapse list" id="collapsibleNavbar">
+                                                                                    <ul class="navbar-nav">
+                                                                                        <li class="nav-item nav-contact dropdown dropdown-hover">
+                                                                                            <div class="border-item responsive-des">
+                                                                                                <img class="nav-item-icon" th:src="@{/user/lib/icon/image 5.png}" alt="alt"/>
+                                                                                                <!--<a class="nav-link  nav-link-3" href="html/contact.html" target="_parent">Contact</a>-->
+                                                                                                <a  onclick="toggleDropdown()" class="nav-link dropdown-toggle scroll-link" data-target="#tourism" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                    Destination
+                                                                                                </a>
+                                                                                                <div style="" class="dropdown-menu dropdown-content " aria-labelledby="navbarDropdown">
+
+                                                                                                    <!--                                                                                                    <p class="dropdown-item drop-title">NORTH</p>
+                                                                                                                                                                                                    <div class="dropdown-divider"></div>-->
+
+                                                                                                    <a style="" class="dropdown-item"  th:href="@{/user/destination/{id}(id=${c.id})}" th:each="c: ${listRegion}" > <img class="nav-item-icon" th:src="@{/user/lib/icon/image 6.png}" alt="alt"/><span style="color: white" th:text="${c.nameArea}"></span></a>
+                                                                                                </div>
+
+                                                                                            </div>
+
+                                                                                        </li> 
+<!--                                                                                        <li class="nav-item nav-contact dropdown dropdown-hover">
+                                                                                            <div class="border-item responsive-lang">
+                                                                                                <img class="nav-item-icon" th:src="@{/user/lib/icon/image 1.png}" alt="alt"/>
+                                                                                                <a class="nav-link  nav-link-3" href="html/contact.html" target="_parent">Contact</a>
+                                                                                                <a onclick="toggleDropdown()" class="nav-link   dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                    Language
+                                                                                                </a>
+                                                                                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                                                    <p class="dropdown-item drop-title">Select your language</p>
+                                                                                                    <div style="margin-right: 20px" class="dropdown-divider "></div>
+                                                                                                    <a class="dropdown-item" href="#"> <img class="nav-item-icon"th:src="@{/user/lib/icon/image 1.png}" alt="alt"/>Vietnamese</a>
+                                                                                                    <div class="dropdown-divider"></div>
+                                                                                                    <a class="dropdown-item" href="#"> <img class="nav-item-icon" th:src="@{/user/lib/icon/image 3.png}" alt="alt"/>English (UK)</a>
+                                                                                                    <div class="dropdown-divider"></div>
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </li> -->
+                                                                                        
+                                                                                        <li class="nav-item seemore">
+                                                                                            <div class="border-item">
+                                                                                                <img style="width:45px" class="nav-item-icon" th:src="@{/user/lib/icon/icon_create.png}" alt="alt"/>
+                                                                                                <a class="nav-link nav-link-2" th:href="@{/user/create-tour}">Create Tour</a>
+                                                                                            </div>
+                                                                                        </li> 
+
+                                                                                        <li class="nav-item seemore">
+                                                                                            <div class="border-item">
+                                                                                                <img class="nav-item-icon" th:src="@{/user/lib/icon/image 2.png}" alt="alt"/>
+                                                                                                <a class="nav-link nav-link-2" th:href="@{/user/policy}">Policy</a>
+                                                                                            </div>
+                                                                                        </li> 
+                                                                                        <li class="nav-item seemore">
+                                                                                            <div class="border-item">
+                                                                                                <img class="nav-item-icon" th:src="@{/user/lib/icon/image 2.png}" alt="alt"/>
+                                                                                                <a class="nav-link nav-link-2" th:href="@{/user/contact}">Contact</a>
+                                                                                            </div>
+                                                                                        </li> 
+
+                                                                                        <!--                                                                                        <li class=" nav-item nav-contact dropdown dropdown-hover ">
+                                                                                                                                                                                    <div class="border-item responsive-more">
+                                                                                                                                                                                        <img class="nav-item-icon" th:src="@{/user/lib/icon/image 73.png}" alt="alt"/>
+                                                                                                                                                                                        <a class="nav-link  nav-link-3" href="html/contact.html" target="_parent">Contact</a>
+                                                                                                                                                                                        <a onclick="toggleDropdown()"class="nav-link   dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                                                                                                            See more
+                                                                                                                                                                                        </a>
+                                                                                                                                                                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                                                                                                                                            <a class="dropdown-item" th:href="@{/user/policy}"> <img class="nav-item-icon" th:src="@{/user/lib/icon/image 2.png}" alt="alt"/>Policy</a>
+                                                                                                                                                                                            <a class="dropdown-item" th:href="@{/user/contact}"> <img class="nav-item-icon" th:src="@{/user/lib/icon/image 2.png}" alt="alt"/>Contact</a>
+                                                                                                                                                                                            
+                                                                                                                                                                                        </div>
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                </li> -->
+
+                                                                                        <li class="dropdown-spe nav-item nav-contact dropdown dropdown-hover ">
+                                                                                            <div class="border-item responsive-more">
+                                                                                                <img class="nav-item-icon" th:src="@{/user/lib/icon/image 73.png}" alt="alt"/>
+                                                                                                <!--<a class="nav-link  nav-link-3" href="html/contact.html" target="_parent">Contact</a>-->
+                                                                                                <a onclick="toggleDropdown()"class="nav-link   dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                    See more
+                                                                                                </a>
+                                                                                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                                                    <a class="dropdown-item" th:href="@{/user/policy}"> <img class="nav-item-icon" th:src="@{/user/lib/icon/image 2.png}" alt="alt"/>Policy</a>
+                                                                                                    <a class="dropdown-item" th:href="@{/user/contact}"> <img class="nav-item-icon" th:src="@{/user/lib/icon/image 2.png}" alt="alt"/>Contact</a>
+                                                                                                    <div  class="dropdown-divider"></div>
+                                                                                                    <div th:if="${session.user == null}" class="submit">
+                                                                                                        <a th:href="@{/user/login}">
+                                                                                                            <input type="submit" value="Sign in">
+                                                                                                        </a>
+                                                                                                    </div>
+                                                                                                    <div th:if="${session.user != null}" class="submit">
+                                                                                                        <a th:href="@{/user/logout}">
+                                                                                                            <input type="submit" value="Log out">
+                                                                                                        </a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </li> 
+                                                                                        <span th:if="${session.user != null}">
+                                                                                            <li class="">
+                                                                                                <div  class="border-item">
+                                                                                                    <img th:if="${session.user.avatar} == null" th:src="@{/admin/images/avatar/avatar.png}" style="width:40px; height:40px; border-radius:50%;" class="nav-item-icon"  alt="alt"/>
+                                                                                                    <img th:if="${session.user.avatar}!=null" style="width:40px; height:40px; border-radius:50%;" class="nav-item-icon" th:src="'data:image/png;base64,' + ${session.user.avatar}" alt="alt"/>
+                                                                                                    <!--<a  class="nav-link nav-link-2" th:href="@{/profile/account}" th:text="${session.user.firstName + ' ' + session.user.lastName}"></a>-->
+                                                                                                    <a  class="nav-link nav-link-2" th:href="@{/profile/account/{userId}(userId=${session.user.id})}" th:text="${session.user.firstName + ' ' + session.user.lastName}"></a>
+
+                                                                                                </div>
+                                                                                            </li> 
+                                                                                        </span>
+
+
+                                                                                    </ul>
+                                                                                    <span th:if="${session.user == null}"><a th:href="@{/user/login}"><input  class="responsive-submit"  type="submit" value="Sign in"></a></span>
+                                                                                    <span th:if="${session.user != null}"> <a th:href="@{/user/logout}"><input  class="responsive-submit"  type="submit" value="Log out"></a></span>
+
+
+
+
+
+                                                                                </div> 
+                                                                            </nav>
+
+
+                                                                            <div layout:fragment="content">
+
+                                                                            </div>
+
+
+                                                                            <div class="site-footer">
+
+                                                                                <div class="inner first">
+                                                                                    <div class="container">
+                                                                                        <div class="row " >
+                                                                                            <div class="col">
+                                                                                                <div class="widget">
+                                                                                                    <h3 class="heading">About Tour</h3>
+                                                                                                    <p class="content-footer">
+                                                                                                        Established since 2012, we are a reputable and professional tour operator based in Nha Trang, Vietnam. As a member of the Khanh Hoa Tourism Association, we are committed to providing the best prices and highest quality service. Our aim is to ensure customer satisfaction on every journey. With direct and reliable operations, we offer trustworthy and memorable travel experiences.
+                                                                                                    </p>
+                                                                                                    <p class="content-footer" style=" font-size: 30px !important">
+                                                                                                        Hotline:  1900 6568
+                                                                                                    </p>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                            <div class="col-md-auto" >
+                                                                                                <div class="widget">
+                                                                                                    <h3 class="heading">Information</h3>
+                                                                                                    <ul  class="links list-unstyled ">
+                                                                                                        <li><a class="content-footer" th:href="@{/user/policy}">Policy</a></li>
+                                                                                                        <li><a class="content-footer" th:href="@{/user/contact}">Contact Us</a></li>                                                                                                                                                                                            <li><a class="content-footer" href="#">Tour cancellation policy</a></li>
+                                                                                                        <li><a class="content-footer" href="#">Tour Booking & Payment</a></li>
+                                                                                                        <li><a class="content-footer" href="#">Terms of use</a></li>
+                                                                                                        <li><a class="content-footer" href="#">Privacy Policy</a></li>
+
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col col-lg-4" >
+                                                                                                <div class="widget">
+                                                                                                    <h3 class="heading">Affiliate Partner</h3>
+                                                                                                    <ul class="links list-unstyled ">
+                                                                                                        <li><a class="content-footer" href="#">Travel to Nha Trang</a></li>
+                                                                                                        <li><a class="content-footer" href="#">Travel to Da Nang</a></li>
+                                                                                                        <li><a class="content-footer" href="#">Travel to Da Lat</a></li>
+                                                                                                        <li><a class="content-footer" href="#">Travel to Hue</a></li>
+                                                                                                        <li><a class="content-footer" href="#">Travel to Ha Noi</a></li>
+                                                                                                        <li><a class="content-footer" href="#">...</a></li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                        <div class="row flex-wrap">
+                                                                                            <div class="col-5">
+                                                                                                <div class="widget">
+                                                                                                    <ul class="list-unstyled social">
+
+                                                                                                        <li ><a  href="#"><span style="color: white" class="icon-instagram"></span></a></li>
+                                                                                                        <li><a href="#"><span style="color: white" class="icon-facebook"></span></a></li>
+
+                                                                                                        <li><a href="#"><span style="color: white" class="icon-google"></span></a></li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-7 custom-col">
+                                                                                                <!--<div class="widget">-->
+                                                                                                <div class="row">
+                                                                                                    <div class="col-4 ">
+                                                                                                        <div class="widget">
+                                                                                                            <!--<div class="thumbnail">-->
+                                                                                                            <h3 class="heading">Certificate</h3>
+                                                                                                            <!--                                                                                                                                                                                                </div>-->
+
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-8 ">
+                                                                                                        <div class="row">
+                                                                                                            <div class="col-4">
+                                                                                                                <div class="widget">
+                                                                                                                    <!--<div class="thumbnail">-->
+                                                                                                                    <img style="width: 135px;
+                                                                                                                         height: auto;
+                                                                                                                         flex-shrink: 0;" class="nav-item-icon" th:src="@{/user/lib/icon/image 58.png}" alt="alt"/>
+
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="col-8 ">
+                                                                                                                <div class="widget">
+                                                                                                                    <!--<div class="thumbnail">-->
+                                                                                                                    <img style="width: 135px;
+                                                                                                                         height: auto;
+                                                                                                                         flex-shrink: 0;" class="nav-item-icon" th:src="@{/user/lib/icon/image 59.png}" alt="alt"/>
+
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+
+
+                                                                                                    </div>
+
+                                                                                                </div>
+
+
+                                                                                                <!--</div>-->
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+
+
+                                                                                <div class="inner dark">
+                                                                                    <div class="container">
+                                                                                        <div class="row text-center">
+                                                                                            <div class="col-md-8 mb-3 mb-md-0 mx-auto">
+                                                                                                <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed by <a href="https://untree.co" class="link-highlight">Group 6</a> <!-- License information: https://untree.co/license/ -->Distributed By <a href="https://themewagon.com" target="_blank" >FPT Apetch</a>
+                                                                                                </p>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <script src="/user/js/jquery-3.4.1.min.js"></script>
+                                                                            <script src="/user/js/popper.min.js"></script>
+                                                                            <script src="/user/js/bootstrap.min.js"></script>
+                                                                            <script src="/user/js/owl.carousel.min.js"></script>
+                                                                            <script src="/user/js/jquery.animateNumber.min.js"></script>
+                                                                            <script src="/user/js/jquery.waypoints.min.js"></script>
+                                                                            <script src="/user/js/jquery.fancybox.min.js"></script>
+                                                                            <script src="/user/js/aos.js"></script>
+                                                                            <script src="/user/js/moment.min.js"></script>
+                                                                            <script src="/user/js/daterangepicker.js"></script>
+
+                                                                            <script src="/user/js/typed.js"></script>
+                                                                            <!--                                                                                                                                                            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                                                                                                                    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                                                                                                                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+
+                                                                            <script>
+                                                                                                    $(function () {
+                                                                                                        var slides = $('.slides'),
+                                                                                                                images = slides.find('img');
+
+                                                                                                        images.each(function (i) {
+                                                                                                            $(this).attr('data-id', i + 1);
+                                                                                                        })
+
+                                                                                                        var typed = new Typed('.typed-words', {
+                                                                                                            strings: ["Nha Trang.", " Da Nang.", " Da Lat.", " Ha Noi.", " Hue."],
+                                                                                                            typeSpeed: 80,
+                                                                                                            backSpeed: 80,
+                                                                                                            backDelay: 4000,
+                                                                                                            startDelay: 1000,
+                                                                                                            loop: true,
+                                                                                                            showCursor: true,
+                                                                                                            preStringTyped: (arrayPos, self) => {
+                                                                                                                arrayPos++;
+                                                                                                                console.log(arrayPos);
+                                                                                                                $('.slides img').removeClass('active');
+                                                                                                                $('.slides img[data-id="' + arrayPos + '"]').addClass('active');
+                                                                                                            }
+
+                                                                                                        });
+                                                                                                    })
+                                                                            </script>
+
+                                                                            <script src="/user/js/custom.js"></script>
+
+                                                                        </body>
+
+                                                                        </html>

@@ -1,0 +1,218 @@
+<html  lang="en" 
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org" > 
+
+    <head>
+        <div layout:fragment="title">
+            <title>Schedule</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css">
+            <link rel="stylesheet" th:href="@{/admin/lib/modules/datatables/datatables.min.css}">
+                <link rel="stylesheet" th:href="@{/admin/lib/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css}">
+                    <link rel="stylesheet" th:href="@{/admin/lib/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css}">
+                        </div>
+
+                        </head>
+
+                        <body>
+
+                            <div layout:fragment="content">
+                                <div class="main-content">
+                                    <section class="section">
+                                        <div class="section-header">
+                                            <h1>Management schedule for tour : <span th:text="${tourId}"></span></h1>
+                                            <div class="section-header-breadcrumb">
+                                                <div class="breadcrumb-item active"><a th:href="@{/admin/dashboard}">Dashboard</a></div>
+                                                <div class="breadcrumb-item active"><a th:href="@{/admin/tour}">View tour</a></div>
+                                                <div class="breadcrumb-item">View schedule</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="section-body">
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4>All available schedule</h4>
+                                                            <div class="card-header-action">
+                                                                <a class="btn btn-icon btn-info" th:href="@{/admin/create-schedule/{tourId}(tourId=${tourId})}">Create<i class="fas fa-plus"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div th:if="${not #strings.isEmpty(message)}" style="display: block; margin-left: auto; margin-right: auto;" class="form-group row mb-4">
+                                                                <div class="alert alert-success">
+                                                                    <i class="fa fa-check-circle"></i>&nbsp;&nbsp;
+                                                                    <span th:text="${message}"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="table-responsive">
+                                                                <table  able class="table table-striped" id="table-1">
+                                                                    <thead>                                 
+                                                                        <tr>
+                                                                            <th class="text-center">#</th>
+                                                                            <th>Start Date</th>
+                                                                            <th>End Date</th>
+                                                                            <th>Price</th>
+                                                                            <th>Quantity tourist</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>                                 
+                                                                        <tr th:if="${schedules != null && #dates.createNow().before(schedule.endDate)}" th:each="schedule : ${schedules}">
+                                                                                <td></td>
+                                                                                <td th:utext="${#dates.format(schedule.startDate, 'dd/MM/yyyy')}"></td>
+                                                                                <td th:utext="${#dates.format(schedule.endDate, 'dd/MM/yyyy')}"></td>
+                                                                                <td>$<span th:if="${schedule.price != null}" th:text="${schedule.price}"></span></td>
+                                                                                <td th:if="${schedule.quantityPassenger >= schedule.quantityMin && schedule.quantityPassenger < schedule.quantityMax}">
+                                                                                    <span class="text-success" th:if="${schedule.quantityPassenger != null}" th:text="${schedule.quantityPassenger}"></span>/<span class="text-danger" th:if="${schedule.quantityMax != null}" th:text="${schedule.quantityMax}"></span>
+                                                                                </td>
+                                                                                <td th:if="${schedule.quantityPassenger <= schedule.quantityMin || schedule.quantityPassenger >= schedule.quantityMax}">
+                                                                                    <span class="text-danger" th:if="${schedule.quantityPassenger != null}" th:text="${schedule.quantityPassenger}"></span>/<span class="text-danger" th:if="${schedule.quantityMax != null}" th:text="${schedule.quantityMax}"></span>
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    <div class="dropdown">
+                                                                                        <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Options</a>
+                                                                                        <div class="dropdown-menu">
+                                                                                            <a th:href="@{/admin/scheduleItem/{scheduleId}(scheduleId=${schedule.id})}" class="dropdown-item has-icon"><i class="far fa-eye"></i> View schedule item</a>
+                                                                                            <a th:href="@{/admin/serviceItem/{scheduleId}(scheduleId=${schedule.id})}" class="dropdown-item has-icon"><i class="far fa-eye"></i> View service item</a>
+                                                                                            <div class="dropdown-divider"></div>
+                                                                                            <a th:href="@{/admin/schedule/detail/{tourId}/{scheduleId}(tourId=${tourId}, scheduleId=${schedule.id})}" class="dropdown-item has-icon"><i class="far fa-eye"></i> View detail</a>
+                                                                                            <a th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}"
+                                                                                               th:href="@{/admin/edit-schedule/{tourId}/{scheduleId}(tourId=${tourId}, scheduleId=${schedule.id})}" 
+                                                                                               class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit
+                                                                                            </a>
+
+                                                                                            <!--<a th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}" href="#" class="dropdown-item has-icon"><i class="fas fa-unlock-alt"></i> Available</a>-->
+                                                                                            <div th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}" class="dropdown-divider"></div>
+                                                                                            <a th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}" th:href="@{/admin/delete-schedule/{scheduleId}(scheduleId=${schedule.id})}" class="dropdown-item has-icon text-danger" onclick="return confirm('Are you sure want to delete?');"><i class="far fa-trash-alt"></i> Delete</a>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            <!--TOUR HẾT HẠN-->
+                                            
+                                            
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4>Schedule has expired</h4>
+<!--                                                            <div class="card-header-action">
+                                                                <a class="btn btn-icon btn-info" th:href="@{/admin/create-schedule/{tourId}(tourId=${tourId})}">Create<i class="fas fa-plus"></i></a>
+                                                            </div>-->
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div th:if="${not #strings.isEmpty(message)}" style="display: block; margin-left: auto; margin-right: auto;" class="form-group row mb-4">
+                                                                <div class="alert alert-success">
+                                                                    <i class="fa fa-check-circle"></i>&nbsp;&nbsp;
+                                                                    <span th:text="${message}"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="table-responsive">
+                                                                <table  able class="table table-striped" id="table-2">
+                                                                    <thead>                                 
+                                                                        <tr>
+                                                                            <th class="text-center">#</th>
+                                                                            <th>Start Date</th>
+                                                                            <th>End Date</th>
+                                                                            <th>Price</th>
+                                                                            <th>Quantity tourist</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>                                 
+                                                                        <tr th:if="${schedules != null && #dates.createNow().after(schedule.endDate)}" th:each="schedule : ${schedules}">
+                                                                                <td></td>
+                                                                                <td th:utext="${#dates.format(schedule.startDate, 'dd/MM/yyyy')}"></td>
+                                                                                <td th:utext="${#dates.format(schedule.endDate, 'dd/MM/yyyy')}"></td>
+                                                                                <td>$<span th:if="${schedule.price != null}" th:text="${schedule.price}"></span></td>
+                                                                                <td th:if="${schedule.quantityPassenger >= schedule.quantityMin && schedule.quantityPassenger < schedule.quantityMax}">
+                                                                                    <span class="text-success" th:if="${schedule.quantityPassenger != null}" th:text="${schedule.quantityPassenger}"></span>/<span class="text-danger" th:if="${schedule.quantityMax != null}" th:text="${schedule.quantityMax}"></span>
+                                                                                </td>
+                                                                                <td th:if="${schedule.quantityPassenger <= schedule.quantityMin || schedule.quantityPassenger == schedule.quantityMax}">
+                                                                                    <span class="text-danger" th:if="${schedule.quantityPassenger != null}" th:text="${schedule.quantityPassenger}"></span>/<span class="text-danger" th:if="${schedule.quantityMax != null}" th:text="${schedule.quantityMax}"></span>
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    <div class="dropdown">
+                                                                                        <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Options</a>
+                                                                                        <div class="dropdown-menu">
+                                                                                            <a th:href="@{/admin/scheduleItem/{scheduleId}(scheduleId=${schedule.id})}" class="dropdown-item has-icon"><i class="far fa-eye"></i> View schedule item</a>
+                                                                                            <a th:href="@{/admin/serviceItem/{scheduleId}(scheduleId=${schedule.id})}" class="dropdown-item has-icon"><i class="far fa-eye"></i> View service item</a>
+                                                                                            <div class="dropdown-divider"></div>
+                                                                                            <a th:href="@{/admin/schedule/detail/{tourId}/{scheduleId}(tourId=${tourId}, scheduleId=${schedule.id})}" class="dropdown-item has-icon"><i class="far fa-eye"></i> View detail</a>
+<!--                                                                                            <a th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}"
+                                                                                               th:href="@{/admin/edit-schedule/{tourId}/{scheduleId}(tourId=${tourId}, scheduleId=${schedule.id})}" 
+                                                                                               class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit
+                                                                                            </a>-->
+
+                                                                                            <!--<a th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}" href="#" class="dropdown-item has-icon"><i class="fas fa-unlock-alt"></i> Available</a>-->
+                                                                                            <div th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}" class="dropdown-divider"></div>
+                                                                                            <a th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}" th:href="@{/admin/delete-schedule/{scheduleId}(scheduleId=${schedule.id})}" class="dropdown-item has-icon text-danger" onclick="return confirm('Are you sure want to delete?');"><i class="far fa-trash-alt"></i> Delete</a>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            
+
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+
+                            <div layout:fragment="js">
+                                <script th:src="@{/admin/lib/modules/datatables/datatables.min.js}"></script>
+                                <script th:src="@{/admin/lib/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js}"></script>
+                                <script th:src="@{/admin/lib/modules/datatables/Select-1.2.4/js/dataTables.select.min.js}"></script>
+                                <script th:src="@{/admin/lib/modules/jquery-ui/jquery-ui.min.js}"></script>
+
+                                <script>
+                                    "use strict";
+
+                                    $("#table-1").dataTable({
+                                        "columnDefs": [
+                                            {"sortable": false, "targets": [0, 1, 2, 3]}
+                                        ]
+                                    });
+                                    $("#table-2").dataTable({
+                                        "columnDefs": [
+                                            {"sortable": false, "targets": [0, 2, 3]}
+                                        ]
+                                    });
+
+                                    var schedule = document.getElementById('tour');
+                                    var schedule1 = document.getElementById('tour-1');
+                                    schedule.classList.add('active');
+                                    schedule1.classList.add('active');
+                                </script>
+                            </div>
+
+                        </body>
+
+                        </html>

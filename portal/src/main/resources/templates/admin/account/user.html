@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<html  lang="en" 
+       xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" > 
+
+    <head>
+        <div layout:fragment="title">
+            <title>User</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css">
+            <link rel="stylesheet" href="/admin/lib/modules/datatables/datatables.min.css">
+                <link rel="stylesheet" href="/admin/lib/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+                    <link rel="stylesheet" href="/admin/lib/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+                        </div>
+
+                        </head>
+
+                        <body>
+
+                            <div layout:fragment="content">
+                                <div class="main-content">
+                                    <section class="section">
+                                        <div class="section-header">
+                                            <h1>Tour View Page</h1>
+                                            <div class="section-header-breadcrumb">
+                                                <div class="breadcrumb-item active"><a href="#">Manage</a></div>
+                                                <div class="breadcrumb-item active"><a href="#">Tour</a></div>
+                                                <div class="breadcrumb-item">View Tour</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="section-body">
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4>All available tour</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-striped" id="table-1">
+                                                                    <thead>                                 
+                                                                        <tr>
+                                                                            <th class="text-center">
+                                                                                Avatar
+                                                                            </th>
+                                                                            <th>Name</th>
+                                                                            <th>Email</th>
+                                                                            <th>Phone</th>
+                                                                            <th>Status</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>                                 
+                                                                        <tr th:each="u: ${list}" th:if="${u.roleId.id}==5">
+                                                                            <td class="text-center">
+                                                                                <img th:if="${u.avatar}!=null" alt="image" th:src="'data:image/png;base64,' + ${u.avatar}" class="rounded-circle" width="35" height="35" data-toggle="tooltip" th:title="${u.firstName}">
+                                                                                <img th:if="${u.avatar}==null" alt="image" th:src="@{/admin/images/avatar/avatar.png}" class="rounded-circle" width="35" height="35" data-toggle="tooltip" th:title="${u.firstName}">
+                                                                            </td>
+                                                                            <td th:text="${u.firstName}"></td>
+                                                                            <td th:text="${u.email}"></td>
+                                                                            <td th:text="${u.phone}">0</td>
+                                                                            <td >
+                                                                                <div class="badge badge-success" th:if="${u.status}==1">Activity</div>
+                                                                                <div class="badge badge-danger"th:if="${u.status}==2">Block</div>                                                        
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="dropdown">
+                                                                                    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Options</a>
+                                                                                    <div class="dropdown-menu">
+                                                                                        <a th:href="@{/admin/account/user/block/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-danger" th:if="${u.status}==1" onclick="return confirm('Are you sure want to Block?');"><i class="fas fa-lock"></i>Block</a>
+                                                                                        <a th:href="@{/admin/account/user/unblock/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-success" th:if="${u.status}==2" onclick="return confirm('Are you sure want to UnBlock?');"><i class="fas fa-unlock-alt"></i>Unlock</a>
+                                                                                        <div class="dropdown-divider"></div>
+                                                                                        <a th:href="@{/admin/account/detail/staff/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-info"><i class="far fa-user"></i> Detail</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+
+                            <div layout:fragment="js">
+                                <script src="/admin/lib/modules/datatables/datatables.min.js"></script>
+                                <script src="/admin/lib/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+                                <script src="/admin/lib/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+                                <script src="/admin/lib/modules/jquery-ui/jquery-ui.min.js"></script>
+
+                                <script>
+                                    "use strict";
+
+                                    $("#table-1").dataTable({
+                                        "columnDefs": [
+                                            {"sortable": false, "targets": [2, 3]}
+                                        ]
+                                    });
+                                    $("#table-2").dataTable({
+                                        "columnDefs": [
+                                            {"sortable": false, "targets": [0, 2, 3]}
+                                        ]
+                                    });
+
+                                    var account = document.getElementById('account');
+                                    var account1 = document.getElementById('account-1');
+                                    account.classList.add('active');
+                                    account1.classList.add('active');
+                                </script>
+                            </div>
+
+                        </body>
+
+                        </html>

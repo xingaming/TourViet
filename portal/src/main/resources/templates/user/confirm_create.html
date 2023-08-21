@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+
+<!--<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+
+<html lang="en" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/user/layout">
+
+    <head>
+        <title>Information</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="/user/css/detail.css">
+        <link rel="stylesheet" href="/user/css/booktour.css">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@100;400;500&display=swap');
+            .button-book {
+                width: 80px;
+                height: 20px;
+                flex-shrink: 0;
+                background-color: #1D3133;
+                border: solid 2px #C1AC67;
+            }
+
+            .button-book input[type="submit"] {
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                border: none;
+                color: #C1AC67;
+                font-size: 12px;
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 24px;
+                letter-spacing: 1px;
+            }
+            .payment.selected {
+                background-color: #1E4F2A;
+                color: white;
+            }
+            .payment.selected>p {
+                /*background-color: #1E4F2A;*/
+                color: white;
+            }
+            a{
+                color: white !important;
+            }
+
+
+            .custom-div {
+                background-color: #55776c;
+                padding: 5px;
+                text-align: center;
+                border-radius: 20px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            .cus-sprice {
+                margin-top: 20px;
+                width: auto;
+                height: auto;
+                flex-shrink: 0;
+                border-radius: 10px;
+                border: 5px solid #1E4F2A;
+                background: #FFF;
+            }
+
+            .content-title-price {
+                display: flex;
+                /* width: 249px; */
+                flex-direction: column;
+                flex-shrink: 0;
+                color: #3A7D44;
+                font-size: 25px;
+                font-family: Abril Fatface;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 42px;
+                letter-spacing: 1px;
+                text-align: center;
+            }
+
+            .content-price {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                flex-shrink: 0;
+                color: #1E4F2A;
+                font-size: 12px;
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 24px;
+                letter-spacing: 1px;
+                padding-top: 20px;
+                padding-left: 20px;
+                text-align: start;
+                margin-left: auto;
+                margin-right: auto;
+                /* padding-left: 42px; */
+            }
+
+            .content-price::before {
+                display: none;
+                /*                position: absolute;
+                                content: '';
+                                display: block;
+                                width: 32px;
+                                height: 0px;
+                                border-bottom: 2px solid #3A7D44;
+                                transform: rotate(-90deg);
+                                flex-shrink: 0;
+                                padding-right: 10px;
+                                left: -5px;
+                                border-bottom: 4px solid #3A7D44;
+                                opacity: 0.5;*/
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    </head>
+
+    <body>
+        <div layout:fragment="content">
+            <!--header-->
+            <div class="hero" style="margin-bottom: 0px">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="overlay" >
+                                <div class="overlay-content">
+                                    CONFIRM TOUR CREATED
+                                </div>
+                                <!--                                <p th:text="${name}"></p>
+                                                                <p th:text="${phone}"></p>-->
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <!--header-->
+
+            <div id="tourism" class="untree_co-section">
+                <div class="container">
+
+                    <div class="container" >
+
+                        <div class="page-book">
+
+
+
+                            <div class="container active body-content enter-passenge ">
+                                <div   class="row ">
+
+
+                                    <div class="col-xl-8" style="">
+                                        <div id="detail-question" class="detail-question hotline">
+                                            <!--                                            <div class="title-hotline">
+                                                                                            <p class="title-content-hotline">Information </p>
+                                                                                        </div>-->
+                                            <!--                                            <div class="total">
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Full name: </span><p th:text="${fullname}"> </p>
+                                                                                            </div>
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Email: </span><p th:text="${email}"> </p>
+                                                                                            </div>
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Phone: </span><p th:text="${phone}"> </p>
+                                                                                            </div>
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Address: </span><p th:text="${address}"> </p>
+                                                                                            </div>
+                                            
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Check in: </span><p th:text= "${#dates.format(startDay, 'dd-MMM-yyyy')}"> </p>
+                                                                                            </div>
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Check out: </span><p th:text="${#dates.format(endDay, 'dd-MMM-yyyy')}"> </p>
+                                                                                            </div>
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Adult: </span><p th:text="${count_adult}"> </p>
+                                                                                            </div>
+                                            
+                                            
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Children: </span><p th:text="${count_children}"> </p>
+                                                                                            </div>
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Baby: </span><p th:text="${count_baby}"> </p>
+                                                                                            </div>
+                                            
+                                            
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Region: </span><p th:text="${region}"> </p>
+                                                                                            </div>
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Accommodation: </span><p th:text="${accommodation}"> </p>
+                                                                                            </div>
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Transport: </span><p th:text="${transport}"> </p>
+                                                                                            </div>
+                                            
+                                            
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Destinations: </span><p th:text="${destination}"> </p>
+                                                                                            </div>   
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Schedule: </span><p th:text="${values}"> </p>
+                                                                                            </div>   
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Service </span><p th:text="${selected_option}"> </p>
+                                                                                            </div>
+                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Note </span><p th:text="${input_note}"> </p>
+                                                                                            </div>
+                                                                                            
+                                                                                            <div class="check-in">
+                                            
+                                                                                                <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="Image" class="icon-tour-detail"><span>Price </span><p th:text="${price}"> </p>
+                                                                                            </div>
+                                            
+                                            
+                                                                                        </div>-->
+                                            <div class="custom-div ">
+                                                <p  class="title-content-question payment-time" style="font-size: 15px; text-align: center">We have confirmed your tour information, we will contact you within 1 working day </p>
+                                            </div>
+                                            <div class="title-note-cash ">
+                                                <img style="width: 100%; max-width: 100%;"  th:src="@{/user/lib/icon/thanks.png}">
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                    
+
+                                    <div class="col-xl-4">
+                                        <div id="detail-question" class="detail-question hotline">
+                                            <div class="title-hotline" style="margin-bottom: 50px">
+                                                <p class="title-content-hotline">Hotline: 1900 6568 </p>
+                                            </div>
+                                            <div id="contentDiv" class=" note-cash payment-child" >
+                                                <div class="note note-cash">
+                                                    <div class="">
+
+                                                        <p class="content-title-price">What is a self-designed tour?</p>
+                                                    </div>
+
+                                                    <p class="content-price">
+
+                                                        (*) Tailor-made tour is simply understood as a tour program that will be designed according to the desired customer requirements
+                                                    </p>
+                                                    <p class="content-price">
+                                                        (*) Highlights of self-designed tour
+
+                                                    </p>
+
+                                                    <ul class="content-price">
+                                                        <li>All services are personalized according to your needs from hotels, restaurants, sightseeing schedules,...</li>
+                                                        <li>Ensure the comfort of the members, there will be no strangers in the group</li>
+                                                        <li>The tour plan is built based on the requirements of the customer, depending on the budget, health conditions, tour duration.</li>
+                                                        <li>Support to organize team building programs on demand</li>
+
+
+                                                    </ul>
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 panigation">
+                                        <button class="previous" style="margin-right: 10px;" onclick="history.back()">Previous</button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <a href="#" class="back" ></a>
+
+        </div>
+
+    </body>
+
+</html>
+
+

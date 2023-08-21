@@ -1,0 +1,128 @@
+.policy{
+    width: auto;
+    height: auto;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1px solid #000;
+    background: #FFF;
+    padding: 20px;
+}
+
+.back {
+
+    display: flex;
+    align-items: center;
+}
+.back-home{
+    /*display: flex;*/
+    /*width: 156.757px;
+    height: 39.373px;*/
+    /*flex-direction: column;*/
+
+    flex-shrink: 0;
+    color: #C1AC67;
+    /*text-align: center;*/
+    font-size: 15px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 38px;
+    letter-spacing: 3px;
+}
+
+.back-home.tour-policy{
+
+    flex-shrink: 0;
+    color: #1D3133;
+    font-size: 15px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 38px;
+    letter-spacing: 3px;
+}
+.icon-tour-detail{
+    width: 30px;
+    height: auto;
+    flex-shrink: 0;
+    flex-direction: column;
+
+}
+
+a{
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none !important;
+}
+
+.title-tour-dad{
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*flex-shrink: 0;*/
+    color: #C1AC67;
+    font-size: 25px;
+    font-family: Abril Fatface;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 42px;
+    letter-spacing: 1px;
+}
+
+.title-tour-child{
+    color: #C1AC67;
+    /*text-align: center;*/
+    font-size: 20px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 38px;
+    letter-spacing: 3px;
+}
+
+.policy-TV{
+    display: flex;
+    /*width: 1345px;
+    height: 202.679px;*/
+    flex-direction: column;
+    flex-shrink: 0;
+    margin: 20px 30px 20px 30px;
+
+}
+
+.policy-TV .title{
+    color: #1D3133;
+    text-align: justify;
+    font-size: 18px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 50px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}   
+
+.policy-TV .content{
+    color: rgba(29, 49, 51, 0.8);
+    text-align: justify;
+    font-size: 15px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 50px;
+    letter-spacing: 2px;
+}
+
+.note-more{
+    display: flex;
+flex-direction: column;
+flex-shrink: 0;
+color: #70960C;
+text-align: justify;
+font-size: 18px;
+font-family: Poppins;
+font-style: italic;
+font-weight: 600;
+line-height: 50px;
+letter-spacing: 2px;
+}

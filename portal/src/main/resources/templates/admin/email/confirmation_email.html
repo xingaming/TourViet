@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #C1AC67;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+        li {
+            margin-bottom: 15px;
+        }
+        span.green {
+            color: #39E75F;
+        }
+        span.pink {
+            color: fuchsia;
+        }
+        /* Khung màu nâu nhạt */
+        .box {
+            border: 1px solid #d3c3b4;
+            background-color: #f8f3eb;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        /* Bảng thông tin booking */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #d3c3b4;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2eadf;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Payment confirmation</h1>
+        <p>Hello [[${userFullName}]],</p>
+        <p>Your booking with ID [[${orderID}]] has been confirmed.</p>
+        
+        <h2>Payment details:</h2>
+        <ul>
+            <li>Payment ID: [[${payment.id}]]</li>
+            <li>Amount: [[${payment.price}]]</li>
+            <li>Status: <span class="green">[[${payment.description}]]</span></li>
+            <li>Payment method: <span class="pink">[[${payment.paymentMethod == 0 ? 'Cash' : 'MOMO'}]]</span></li>
+            <!-- Add more payment details here -->
+        </ul>
+    </div>
+
+    <div class="box">
+        <h2>Booking details:</h2>
+        <ul>
+            <li>Booking ID: [[${booking.id}]]</li>
+            <li>Booking Date: [[${#dates.format(booking.bookingDate, 'dd/MM/yyyy')}]]</li>
+            <li>Region: [[${booking.regionId.nameArea}]]</li>
+            <!-- Add more booking details here -->
+        </ul>
+    </div>
+
+    <div class="box">
+        <h2>Information tourist</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>CCCD</th>
+                <!-- Add more informationBooking details here -->
+            </tr>
+            <tr th:each="info : ${informationBookings}">
+                <td>[[${info.name}]]</td>
+                <td>[[${info.address}]]</td>
+                <td>[[${info.email}]]</td>
+                <td>[[${info.phone}]]</td>
+                <td>[[${info.gender == true ? 'Nam' : 'Nữ'}]]</td>
+                <td>[[${info.cccd}]]</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Add more details as needed -->
+</body>
+</html>

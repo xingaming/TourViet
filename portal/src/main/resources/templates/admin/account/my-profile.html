@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout">
+    <head>
+        <div layout:fragment="title">
+            <title>Profile</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css-link">
+            <link rel="stylesheet" href="/user/css/destination.css" type="text/css">
+        </div>
+
+        <style>
+            ul.breadcrumb {
+                list-style: none;
+                background-color: #ffffff;
+                margin-bottom: 0;
+            }
+
+            ul.breadcrumb li {
+                display: inline;
+                font-size: 20px;
+            }
+
+            ul.breadcrumb li+li:before {
+                padding: 8px;
+                color: rgb(165, 165, 165);
+                content: "/\00a0";
+            }
+
+            ul.breadcrumb li a {
+                color: #C1AC67;
+                text-decoration: none;
+            }
+
+            ul.breadcrumb li a:hover {
+                color: #97946b;
+                text-decoration: underline;
+            }
+        </style>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    </head>
+
+    <body>
+        <div layout:fragment="content">
+
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>Management Staff Page</h1>
+                        <div class="section-header-breadcrumb">
+                            <div class="breadcrumb-item active"><a href="#">Manage</a></div>
+                            <div class="breadcrumb-item">Staff</div>
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <form th:action="@{/admin/profile/account/edit}" method="post" enctype="multipart/form-data">
+                            <div class="row mb-5">
+                                <div class="col-sm-4">
+                                    <div class="card mb-4 bg-light pt-5 pb-5">
+                                        <div class="card-body text-center" >
+
+                                            <img th:if="${session.user.avatar}==null" th:src="@{/admin/images/avatar/avatar.png}" alt="avatar" class="rounded-circle img-fluid" style="width: 250px;height: 250px; border-radius: 50%">
+                                                <img th:if="${session.user.avatar}!=null" th:src="'data:image/png;base64,' + ${session.user.avatar}" alt="avatar" class="rounded-circle img-fluid" style="width: 250px;height: 250px; border-radius: 50%">
+
+                                                    </div>
+
+                                                    </div>
+                                                    <label for="image-upload" id="image-label">Choose File</label>
+                                                    <input type="file" name="images" id="image-upload" />
+                                                    </div>
+                                                    <div class="col-sm-8 bg-light p-3">
+                                                        <input type="hidden" th:value="${u.id}" name="proId">
+                                                            <div class="mb-3">
+                                                                <label for="exampleFormControlInput1" class="form-label">First name</label>
+                                                                <input style="margin-top: 0px" type="text" th:value="${session.user.firstName}" name="fname" class="form-control" id="exampleFormControlInput1" placeholder="Please enter your first name...">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleFormControlInput1" class="form-label">Last name</label>
+                                                                <input style="margin-top: 0px" type="text" th:value="${session.user.lastName}" name="lname" class="form-control" id="exampleFormControlInput1" placeholder="Please enter your last name...">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleFormControlInput1" class="form-label">Phone number</label>
+                                                                <input style="margin-top: 0px" type="text" th:value="${session.user.phone}" name="phone" class="form-control" id="exampleFormControlInput1" placeholder="Please enter your phone...">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleFormControlInput1" class="form-label">Address</label>
+                                                                <input style="margin-top: 0px" type="text" th:value="${session.user.address}" name="address" class="form-control" id="exampleFormControlInput1" placeholder="Please enter your address...">
+                                                            </div>
+                                                            <div th:if="${not #strings.isEmpty(error)}" style="display: block; margin-left: auto; margin-right: auto;" class="form-group row mb-4">
+                                                                <div class="alert alert-danger">
+                                                                    <i class="fa fa-times-circle"></i>&nbsp;&nbsp;
+                                                                    <span th:text="${error}"></span>
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary float-end">Save changes</button>
+                                                    </div>
+                                                    </div>
+                                                    </form>
+                                                    </div>
+                                                    </div>
+                                                    </section>
+                                                    </div>
+
+                                                    </div>
+
+                                                    <div layout:fragment="js-link">
+                                                        <link rel="stylesheet" href="/user/js/destination.js" type="text/javascript">
+                                                    </div>
+
+                                                    </body>
+
+                                                    </html>

@@ -1,0 +1,24 @@
+    public static String generateToken(Integer userId) {
+        byte[] apiKeySecretBytes = Base64.getEncoder().encode(SECRET_KEY.getBytes());
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS512.getJcaName());
+
+        return Jwts.builder()
+                .setSubject(String.valueOf(userId))
+               .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(signingKey)
+                .compact();
+    }
+
+    public static Integer getUserIdFromToken(String token) {
+        byte[] apiKeySecretBytes = Base64.getEncoder().encode(SECRET_KEY.getBytes());
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS512.getJcaName());
+
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(signingKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return Integer.valueOf(claims.getSubject());
+    }

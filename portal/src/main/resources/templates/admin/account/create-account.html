@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<html  lang="en" 
+       xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" > 
+
+    <head>
+        <div layout:fragment="title">
+            <title>Staff</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css">
+            <link rel="stylesheet" href="/admin/lib/modules/datatables/datatables.min.css">
+                <link rel="stylesheet" href="/admin/lib/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+                    <link rel="stylesheet" href="/admin/lib/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+                        </div>
+
+                        </head>
+
+                        <body>
+                            <div layout:fragment="content">
+                                <div class="main-content">
+                                    <section class="section">
+                                        <div class="section-header">
+                                            <div class="section-header-back">
+                                                <a href="features-posts.html" class="btn btn-icon"
+                                                   ><i class="fas fa-arrow-left"></i
+                                                    ></a>
+                                            </div>
+                                            <h1>Create New Account</h1>
+                                            <div class="section-header-breadcrumb">
+                                                <div class="breadcrumb-item active">
+                                                    <a href="#">Dashboard</a>
+                                                </div>
+                                                <div class="breadcrumb-item"><a th:href="@{admin/account/staff}">Staff</a></div>
+                                                <div class="breadcrumb-item">Create New Account</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="section-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4>Staff Account</h4>
+                                                        </div>
+                                                        <form th:action="@{/admin/account/register}" method="post" enctype="multipart/form-data">
+                                                            <div class="card-body">
+                                                                <div th:if="${not #strings.isEmpty(error)}" style="display: block; margin-left: auto; margin-right: auto;" class="form-group row mb-4">
+                                                                    <div class="alert alert-danger">
+                                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                        <span th:text="${error}"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row mb-4">
+                                                                    <label
+                                                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                                        >First Name</label
+                                                                    >
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <input type="text" name="fname" class="form-control" th:value="${fname}" />
+                                                                    </div><span style="color:red;"> *</span>
+                                                                </div>
+                                                                <div th:if="${not #strings.isEmpty(errorMessage) && fname.isEmpty}" style="" class="form-group row mb-4">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div class="alert alert-danger">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                            <span>First name </span><span th:text="${errorMessage}"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row mb-4">
+                                                                    <label
+                                                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                                        >Last Name</label
+                                                                    >
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <input type="text" name="lname" class="form-control" th:value="${lname}" />
+                                                                    </div><span style="color:red;"> *</span>
+                                                                </div>
+                                                                <div th:if="${not #strings.isEmpty(errorMessage) && lname.isEmpty}" style="" class="form-group row mb-4">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div class="alert alert-danger">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                            <span>Last name </span><span th:text="${errorMessage}"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row mb-4">
+                                                                    <label
+                                                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                                        >Email</label
+                                                                    >
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <input type="text" name="email" class="form-control" th:value="${email}" />
+                                                                    </div><span style="color:red;"> *</span>
+                                                                </div>
+                                                                <div th:if="${not #strings.isEmpty(errorMessage) && email.isEmpty}" style="" class="form-group row mb-4">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div class="alert alert-danger">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                            <span>Email </span><span th:text="${errorMessage}"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div th:if="${not #strings.isEmpty(emailError)}" style="" class="form-group row mb-4">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div class="alert alert-danger">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                            <span th:text="${emailError}"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row mb-4">
+                                                                    <label
+                                                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                                        >Password</label
+                                                                    >
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <input type="password" name="pass" class="form-control" th:value="${pass}" />
+                                                                    </div><span style="color:red;"> *</span>
+                                                                </div>
+                                                                <div th:if="${not #strings.isEmpty(errorMessage) && pass.isEmpty}" style="" class="form-group row mb-4">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div class="alert alert-danger">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                            <span>Password </span><span th:text="${errorMessage}"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div th:if="${not #strings.isEmpty(passwordError)}" style="" class="form-group row mb-4">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div class="alert alert-danger">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                            <span th:text="${passwordError}"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row mb-4">
+                                                                    <label
+                                                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                                        >Password Confirm</label
+                                                                    >
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <input type="password" name="confirm" class="form-control" th:value="${confirm}" />
+                                                                    </div><span style="color:red;"> *</span>
+                                                                </div>
+                                                                <div th:if="${not #strings.isEmpty(errorMessage) && confirm.isEmpty}" style="" class="form-group row mb-4">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div class="alert alert-danger">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                            <span>Password confirm </span><span th:text="${errorMessage}"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row mb-4">
+                                                                    <label
+                                                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                                        >Phone</label
+                                                                    >
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <input type="text" name="phone" class="form-control" th:value="${phone}" />
+                                                                    </div><span style="color:red;"> *</span>
+                                                                </div>
+                                                                <div th:if="${not #strings.isEmpty(errorMessage) && phone.isEmpty}" style="" class="form-group row mb-4">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div class="alert alert-danger">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                            <span>Phone </span><span th:text="${errorMessage}"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div th:if="${not #strings.isEmpty(phoneError)}" style="" class="form-group row mb-4">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div class="alert alert-danger">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                            <span th:text="${phoneError}"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row mb-4">
+                                                                    <label
+                                                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                                        >Address</label
+                                                                    >
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <input type="text" name="address" class="form-control" th:value="${address}" />
+                                                                    </div><span style="color:red;"> *</span>
+                                                                </div>
+                                                                <div th:if="${not #strings.isEmpty(errorMessage) && address.isEmpty}" style="" class="form-group row mb-4">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div class="alert alert-danger">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                            <span>Address </span><span th:text="${errorMessage}"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row mb-4" th:if="${user.getRoleId().getId()}==1">
+                                                                    <label
+                                                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                                        >Company</label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <select class="form-control selectric" name="company">
+                                                                            <option th:each="a: ${clist}" th:value="${a.id}" th:text="${a.name}"></option>
+                                                                        </select>
+                                                                    </div><span style="color:red;"> *</span>
+                                                                </div>
+                                                                <div class="form-group row mb-4" th:if="${user.getRoleId().getId()}==2">
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <input type="hidden" name="company" th:value="${user.getCompanyId().getId()}" class="form-control" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row mb-4" th:if="${user.getRoleId().getId()}==3">
+                                                                    <label
+                                                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                                        >Company</label
+                                                                    >
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <input type="hidden" name="company" th:value="${user.getCompanyId().getId()}" class="form-control" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row mb-4" th:if="${user.getRoleId().getId()}==1">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Role</label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <select class="form-control selectric" name="role">
+                                                                            <option th:value="2">HQ</option>
+                                                                            <option th:value="3">Area</option>
+                                                                        </select>
+                                                                    </div><span style="color:red;"> *</span>
+                                                                </div>  
+                                                                <div class="form-group row mb-4" th:if="${user.getRoleId().getId()}==2">
+
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <input type="hidden" name="role" th:value="3" class="form-control" />
+                                                                    </div>
+                                                                </div> 
+                                                                <div class="form-group row mb-4" th:if="${user.getRoleId().getId()}==3">
+
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <input type="hidden" name="role" th:value="4" class="form-control" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row mb-4">
+                                                                    <label
+                                                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                                        >Avatar</label
+                                                                    >
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div id="image-preview" class="image-preview">
+                                                                            <label for="image-upload" id="image-label">Choose Avatar</label>
+                                                                            <img name="image" th:src="'data:image/png;base64,' + ${images}" width="250" height="250px" alt="alt"/>
+                                                                            <input type="file" name="images" id="image-upload" />
+                                                                            <input type="hidden" name="image" th:value="${image}" />
+                                                                        </div>
+                                                                    </div><span style="color:red;"> *</span>
+                                                                </div>
+                                                                <div th:if="${not #strings.isEmpty(errorMessage) && images == null}" style="" class="form-group row mb-4">
+                                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <div class="alert alert-danger">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                            <span>Image </span><span th:text="${errorMessage}"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row mb-4">
+                                                                    <label
+                                                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                                        ></label>
+                                                                    <div class="col-sm-12 col-md-7">
+                                                                        <button class="btn btn-primary">Create Account</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <form>
+                                                                </div>
+                                                                </div>
+                                                                </div>
+                                                                </div>
+                                                                </section>
+                                                                </div>
+                                                                </div>
+                                                                </body>
+
+                                                                </html>

@@ -1,0 +1,80 @@
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Runtime</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="/admin/lib/modules/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="/admin/lib/modules/fontawesome/css/all.min.css"/>
+
+
+        <link rel="stylesheet" href="/admin/css/style.css"/>
+        <link rel="stylesheet" href="/admin/css/components.css"/>
+        <!-- Start GA -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-94034622-3');
+        </script>
+    </head>
+
+    <body>
+
+        <div id="app">
+            <section class="section">
+                <div class="container mt-5">
+                    <div class="page-error">
+                        <div class="page-inner">
+                            <h1>Account Blocked</h1>
+                            <div class="page-description">
+                                Looks like your account has been blocked for some reason, please wait until your account is unlocked!
+                            </div>
+                            <div class="page-search">
+<!--                                              <form>              	
+                                                <div class="form-group floating-addon floating-addon-not-append">
+                                                  <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                      <div class="input-group-text">                          
+                                                        <i class="fas fa-search"></i>
+                                                      </div>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Search">
+                                                    <div class="input-group-append">
+                                                      <button class="btn btn-primary btn-lg">
+                                                        Search
+                                                      </button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </form>-->
+                                <div class="mt-3">
+                                    <a th:href="@{/user/home}">Back to home</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="simple-footer mt-5">
+                        Copyright &copy; TourViet 2023
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <script src="/admin/lib/modules/jquery.min.js"></script>
+        <script src="/admin/lib/modules/popper.js"></script>
+        <script src="/admin/lib/modules/tooltip.js"></script>
+        <script src="/admin/lib/modules/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/admin/lib/modules/nicescroll/jquery.nicescroll.min.js"></script>
+        <script src="/admin/lib/modules/moment.min.js"></script>
+        <script src="/admin/js/stisla.js"></script>
+
+        <script src="/admin/js/scripts.js"></script>
+        <script src="/admin/js/custom.js"></script>
+    </body>
+
+</html>

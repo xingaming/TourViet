@@ -1,0 +1,552 @@
+
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+
+<!--<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+
+<html lang="en" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/user/layout">
+
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="/user/css/detail.css">
+        <link rel="stylesheet" href="/user/css/booktour.css">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@100;400;500&display=swap');
+            .button-book {
+                width: 80px;
+                height: 20px;
+                flex-shrink: 0;
+                background-color: #1D3133;
+                border: solid 2px #C1AC67;
+            }
+
+            .button-book input[type="submit"] {
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                border: none;
+                color: #C1AC67;
+                font-size: 12px;
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 24px;
+                letter-spacing: 1px;
+            }
+            .payment.selected {
+                background-color: #1E4F2A;
+                color: white;
+            }
+            .payment.selected>p {
+                /*background-color: #1E4F2A;*/
+                color: white;
+            }
+            /*            a{
+                            color: white !important;
+                        }*/
+
+
+            /*            .line {
+                            position: absolute;
+                            top: 73px;
+                            left: 0;
+                            width: 165px !important;
+                            height: 5px;
+                            background-color: #C1AC67;
+                            border-radius: 10px;
+                        }*/
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <div layout:fragment="content">
+            <span th:if="${message != null}">
+                <!--<div id="messageElement" th:text="${message}"></div>-->
+                <div id="messageElement" style="display: none;">[[${message}]]</div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var messageElement = document.getElementById("messageElement");
+                        var message = messageElement.textContent.trim(); // Lấy nội dung của thẻ div
+
+                        Swal.fire({
+                            title: 'Oh!!!',
+                            text: message,
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                    });
+                </script>
+            </span>
+            <!--header-->
+            <div class="hero" style="margin-bottom: 0px">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="overlay" >
+                                <div class="overlay-content">
+                                    BOOK TOUR
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <!--<span th:text="${session}"></span>-->
+            <!--header-->
+
+            <div id="tourism" class="untree_co-section">
+                <div class="container">
+
+                    <div class="container" th:each="tour : ${tourShedule}">
+                        <div class="tab_box" style="position: sticky; top: 0;" >
+
+                            <button style="color: #C1AC67" class="tab_btn ">1. SELECT SERVICES</button>
+                            <button class="tab_btn" >2.ENTER PASSENGE INFORMATION ONLY</button>
+                            <button class="tab_btn">3. PAYMENT</button>
+                            <button class="tab_btn">4. CONFIRMATION</button>
+
+
+                        </div>
+                        <form class="" id="myForm" onsubmit="return validatePaymentSelection()"  method="post" th:action="@{/user/booktour/passenge/{id} (id=${tour.id})}" >
+                            <div class="page-book">
+                                <div class="container body-content active select-service">
+                                    <div class="row">
+
+                                        <div class="col-xl-8">
+                                            <div id="detail-question" class="detail-question input-number">
+                                                <div class="title-question">
+                                                    <p class="title-content-question">NUMBER OF PASSENGERS ONLY</p>
+                                                </div>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-xl-6">
+                                                            <!--                                                            <span th:each="tour : ${tourShedule}">
+                                                                                                                            <input type="hidden" class="content" name="tourId" th:value="${tour.tourId.id}" />
+                                                                                                                        </span>-->
+                                                            <div class="input-adult adult">
+                                                                <h6>ADULT</h6>
+                                                                <input type="number" class="content" name="count_adult" th:value="${adult}"/>
+
+                                                            </div> 
+
+                                                            <div class="input-adult children">
+                                                                <h6>CHILDREN</h6>
+                                                                <input type="number" class="content"  name="count_children" th:value="${children}"/>
+                                                            </div>
+
+                                                            <div class="input-adult">
+                                                                <h6>BABY</h6>
+                                                                <input type="number" class="content" name="count_baby" th:value="${baby}"/>
+                                                            </div>
+
+                                                            <div style="font-weight: bold; font-size: 20px" th:each="tour : ${tourShedule}" class="input-adult">
+                                                                Slot:
+                                                                <span style="color: #008000;font-weight: bold" class="quantity-green" th:text="${tour.quantityMax - tour.quantityPassenger}"></span>
+                                                                <span style=" color: #ff0000;font-weight: bold" class="quantity-red" th:text="${'/' + tour.quantityMax}"></span>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="cus-sprice ">
+
+                                                                <div class="">
+
+                                                                    <p class="content-title-price">Child ticket price</p>
+                                                                </div>
+
+                                                                <p class="content-price">
+
+                                                                    Children from 1m - 1m3 charge child ticket
+                                                                </p>
+                                                                <p class="content-price">
+                                                                    Over 1m3 is charged as an adult 
+                                                                </p>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!--                                                                                        <div id="detail-question" class="detail-question input-number">
+                                                                                                                                        <div class="title-question">
+                                                                                                                                            <p class="title-content-question">ADDED SERVICES</p>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="container">
+                                                                                        
+                                                                                                                                            <div class="row choose-service">
+                                                                                                                                                <div class="col-xl-6">
+                                                                                                                                                    <span style="cursor: pointer" class="tourguide tab-tourguide active" onclick="selectOption('tourguide')">
+                                                                                                                                                        <input type="hidden" name="selected_option" value="">
+                                                                                                                                                        TOUR GUIDE
+                                                                                                                                                    </span>
+                                                                                                                                                </div>
+                                                                                                                                                <div class="col-xl-6">
+                                                                                                                                                    <span style="cursor: pointer" class="tourguide tab-tourguide" onclick="selectOption('notourguide')">
+                                                                                                                                                        <input type="hidden" name="selected_option" value="">
+                                                                                                                                                        NO TOUR GUIDE
+                                                                                                                                                    </span>
+                                                                                                                                                </div>
+                                                                                                                                                <script>
+                                                                                                                                                    document.addEventListener('DOMContentLoaded', function () {
+                                                                                                                                                        const tabs = document.querySelectorAll('.tab-tourguide');
+                                                                                        
+                                                                                                                                                        tabs.forEach((tab) => {
+                                                                                                                                                            tab.addEventListener('click', function (e) {
+                                                                                                                                                                tabs.forEach((tab) => {
+                                                                                                                                                                    tab.classList.remove('active');
+                                                                                                                                                                });
+                                                                                        
+                                                                                                                                                                const currentTab = e.target;
+                                                                                                                                                                const currentIndex = Array.from(tabs).indexOf(currentTab);
+                                                                                        
+                                                                                                                                                                currentTab.classList.add('active');
+                                                                                        
+                                                                                        
+                                                                                                                                                                ;
+                                                                                                                                                            });
+                                                                                                                                                        });
+                                                                                                                                                    });
+                                                                                        
+                                                                                        
+                                                                                                                                                </script>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="title-note ">
+                                                                                                                                                OTHER NOTES
+                                                                                        
+                                                                                                                                            </div>
+                                                                                                                                            <div class="note">
+                                                                                                                                                <div class="note-more">
+                                                                                                                                                    (*) For services without a guide, we will provide a shuttle service for you to move between locations as shown in the tour itinerary.
+                                                                                                                                                </div>
+                                                                                                                                                <div class="content">
+                                                                                        
+                                                                                                                                                    <ul>
+                                                                                                                                                        <li>In terms of eating and drinking, you are self-sufficient according to your choice.</li>
+                                                                                                                                                        <li>You can participate in games or outdoor activities (own expense)</li>
+                                                                                                                                                        <li>Restaurants, places to eat you can also refer to the suggestions below</li>
+                                                                                                                                                        <li>Outdoor activities, entertainment, shopping, ... You pay for yourself</li>
+                                                                                        
+                                                                                                                                                    </ul>
+                                                                                        
+                                                                                        
+                                                                                                                                                </div>
+                                                                                        
+                                                                                        
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                    </div>-->
+
+                                            <div id="detail-question" class="detail-question input-number">
+                                                <div class="title-question">
+                                                    <p class="title-content-question">PAYMENT METHODS</p>
+                                                </div>
+                                                <div class="container">
+                                                    <div class="choose-service">
+                                                        <div class=""  onclick="selectOptionPayment('cash')">
+                                                            <div class="payment"  onclick="toggleContent('contentDiv', 'contentDiv2')" style="margin-bottom: 50px; cursor: pointer" id="btn1">
+                                                                <input type="hidden" name="selected_option_payment" value="">
+                                                                <p>PAYMENT IN CASH</p>
+                                                                <p class="sub-content">Within 24 hours after you have successfully booked the tour, please come to our office to pay</p>
+                                                            </div>
+                                                        </div>
+                                                        <div id="contentDiv" class="payment1 note-cash payment-child"  style="display: none; ">
+                                                            <div class="note note-cash">
+                                                                <div class="title-note-cash ">
+                                                                    Ho Chi Minh:
+                                                                </div>
+                                                                <div class="content">
+                                                                    <ul>
+                                                                        <li>207A, Ward 21, Binh Thanh District, Ho Chi Minh City</li>
+                                                                        <li>100 CMT8, District 3, Ho Chi Minh City</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="title-note-cash ">
+                                                                    Da Nang: 50 Nguyen Van Linh, Thanh Khe District, Danang City
+                                                                </div>
+                                                                <div class="title-note-cash ">
+                                                                    Ha Noi: 48 Phan Chu Trinh, Hoan Kiem District, Hanoi City
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="choose-service momo">
+                                                        <div class="" onclick="selectOptionPayment('momo')">
+                                                            <div class="payment "  onclick="toggleContent('contentDiv2', 'contentDiv')" style="margin-bottom: 50px; cursor: pointer" id="btn2">
+                                                                <input type="hidden" name="selected_option_payment" value="">
+                                                                <p>PAYING WITH MOMO . E-wallet</p>
+                                                                <p class="sub-content">The maximum limit is 20,000,000 VND. After successful booking and payment, TOUR VIET will send your e-ticket via email.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div id="contentDiv2" class="payment1 note-cash payment-child"  style="display: none; ">
+                                                            <div class="note note-cash">
+                                                                <div class="title-note-cash ">
+                                                                    Saigontourist accepts payment by Momo E-Wallet.
+                                                                </div>
+                                                                <div class="title-note-cash ">
+                                                                    (*) Maximum limit is 20,000,000 VND
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                    function toggleContent(contentToShow, contentToHide) {
+                                                        var contentDivToShow = document.getElementById(contentToShow);
+                                                        var contentDivToHide = document.getElementById(contentToHide);
+
+                                                        if (contentDivToShow.style.display === "none") {
+                                                            contentDivToShow.style.display = "block";
+                                                            contentDivToHide.style.display = "none";
+                                                        } else {
+                                                            contentDivToShow.style.display = "none";
+                                                        }
+
+                                                        // Đổi màu của button khi được chọn
+                                                        var btn1 = document.getElementById("btn1");
+                                                        var btn2 = document.getElementById("btn2");
+
+                                                        if (contentToShow === "contentDiv") {
+                                                            btn1.classList.add("selected");
+                                                            btn2.classList.remove("selected");
+                                                        } else if (contentToShow === "contentDiv2") {
+                                                            btn2.classList.add("selected");
+                                                            btn1.classList.remove("selected");
+                                                        }
+                                                    }
+                                                </script>
+
+
+                                            </div>
+
+                                            <div class="agree">
+                                                <input type="checkbox" id="vehicle1" name="check" value="agree" >
+                                                <label for="vehicle1"> I agree to the terms of TourViet</label>
+                                                <div class="detail-question">
+                                                    <div style="margin-bottom: 30px" class="title-question">
+                                                        <p class="title-content-question">Tour Policy: <a href="/user/policy" style="color: #C1AC67;">Here</a></p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <div class="row justify-content-between align-items-center">
+                                                    <div class="col-md-6 panigation">
+                                                        <!--<button class="previous" style="margin-right: 10px;" onclick="history.back()">Previous</button>-->
+                                                        <button class="next" type="submit">Next</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <script>
+                                            function validatePaymentSelection() {
+                                                var cashSelected = document.getElementById("btn1").classList.contains("selected");
+                                                var momoSelected = document.getElementById("btn2").classList.contains("selected");
+
+                                                if (!cashSelected && !momoSelected) {
+                                                    Swal.fire({
+                                                        icon: "error",
+                                                        title: "Error",
+                                                        text: "Please choose method payment"
+                                                    });
+                                                    return false;
+                                                }
+
+                                                return true;
+                                            }
+
+                                            function selectOptionPayment(option) {
+                                                if (option === "cash") {
+                                                    document.getElementById("btn1").classList.add("selected");
+                                                    document.getElementById("btn2").classList.remove("selected");
+                                                    document.querySelector("input[name=selected_option_payment]").value = "cash";
+                                                } else if (option === "momo") {
+                                                    document.getElementById("btn1").classList.remove("selected");
+                                                    document.getElementById("btn2").classList.add("selected");
+                                                    document.querySelector("input[name=selected_option_payment]").value = "momo"; 
+                                                }
+
+                                            }
+                                        </script>
+
+
+                                        <!--                                        <script>
+                                                                                    
+                                                                                    var selectedOptionPayment = "";
+                                        
+                                                                                    
+                                                                                    function selectOptionPayment(option1) {
+                                                                                        selectedOptionPayment = option1;
+                                                                                        document.querySelector('input[name="selected_option_payment"]').value = option1; // Cập nhật giá trị cho input ẩn
+                                                                                    }
+                                        
+                                                                                    function next() {
+                                        //                                                if (selectedOption === "") {
+                                        //                                                    document.querySelector('input[name="selected_option"]').value = "tourguide"; // Đặt giá trị null nếu selectedOption rỗng
+                                        //                                                }
+                                        //
+                                        //                                                if (selectedOptionPayment === "") {
+                                        //                                                    document.querySelector('input[name="selected_option_payment"]').value = "cash,"; // Đặt giá trị null nếu selectedOption rỗng
+                                        //                                                }
+                                        //                                                var form = document.getElementById('myForm');
+                                        //                                                form.submit();
+                                                                                        if (selectedOptionPayment === "") {
+                                                                                            Swal.fire({
+                                                                                                icon: "error",
+                                                                                                title: "Error",
+                                                                                                text: "Please choose method payment"
+                                                                                            });
+                                                                                            
+                                                                                        } else {
+                                                                                            var form = document.getElementById('myForm');
+                                                                                            form.submit();
+                                                                                        }
+                                                                                    }
+                                                                                </script>-->
+
+                                        <div  class="col-xl-4">
+                                            <div id="detail-question" class="detail-question hotline">
+                                                <div class="title-hotline">
+                                                    <p class="title-content-hotline">Hotline: 1900 6568 </p>
+                                                </div>
+                                                <div th:each="tour : ${tourShedule}" class="total">
+                                                    <!--<div class="">-->
+                                                    <img th:src="'data:image/png;base64,'  + ${tour.tourId.image}" alt="Image" class="total-img">
+                                                    <!--</div>-->
+                                                    <div th:text="${tour.tourId.name}" class="title-total">
+
+
+                                                    </div>
+                                                    <div class="check-in">
+
+                                                        <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Check in: </span><p th:text= "${#dates.format(tour.startDate, 'dd-MMM-yyyy')}"> </p>
+                                                    </div>
+                                                    <div class="check-in">
+
+                                                        <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Check out: </span><p th:text="${#dates.format(tour.endDate, 'dd-MMM-yyyy')}"> </p>
+                                                    </div>
+
+                                                    <div class="check-in">
+
+                                                        <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Duration: </span><p th:text="${duration1} +' days ' + ${duration} + ' nights '"> </p>
+                                                    </div>
+
+                                                    <div class="check-in">
+                                                        <img th:src="@{/user/lib/icon/icon-person.png}" alt="Image" class="icon-tour-detail">
+                                                        <span id="adultCount">Adult </span>
+                                                        <p class="adult-price-paragraph" id="pricePerAdult" th:text="${tour.price + ' USD'}"></p>
+                                                        <span> x </span>
+                                                        <span id="adultQuantity">0</span>
+                                                    </div>
+
+                                                    <div class="check-in">
+                                                        <img th:src="@{/user/lib/icon/icon-person.png}" alt="Image" class="icon-tour-detail">
+                                                        <span id="childrenCount">Children </span>
+                                                        <p class="children-price-paragraph" id="pricePerChild" th:text="${tour.price div 2 + ' USD'}"></p>
+                                                        <span> x </span>
+                                                        <span id="childrenQuantity">0</span>
+                                                    </div>
+
+
+                                                    <div class="title-total" style="font-size: 25px; text-align: center">
+                                                        <div >TOTAL: <span style="color: #55776C" id="totalPrice"></span></div> 
+                                                    </div>
+                                                    <!-- The HTML code remains the same -->
+
+                                                    <script>
+                                                        // Hàm tính tổng tiền và cập nhật số lượng
+                                                        function updateQuantityAndTotal(type, quantity) {
+                                                            // Lấy giá trị giá tour và giá trẻ em từ các biến JavaScript đã lưu trữ
+                                                            const pricePerAdult = parseFloat(document.getElementById("pricePerAdult").textContent);
+                                                            const pricePerChild = parseFloat(document.getElementById("pricePerChild").textContent);
+
+                                                            // Kiểm tra giá trị nhập vào và đặt giá trị mặc định là 0 nếu không có giá trị hoặc đã bị xóa
+                                                            const parsedQuantity = quantity.trim() !== "" ? parseInt(quantity) : 0;
+
+                                                            // Cập nhật số lượng
+                                                            const quantityElement = document.getElementById(`${type}Quantity`);
+                                                            quantityElement.textContent = parsedQuantity;
+
+                                                            // Tính toán tổng tiền
+                                                            const adultQuantity = parseInt(document.getElementById("adultQuantity").textContent);
+                                                            const childrenQuantity = parseInt(document.getElementById("childrenQuantity").textContent);
+
+                                                            const totalAmount = pricePerAdult * adultQuantity + pricePerChild * childrenQuantity;
+                                                            const totalPriceElement = document.getElementById("totalPrice");
+                                                            totalPriceElement.textContent = totalAmount.toFixed(2) + " USD";
+                                                        }
+
+                                                        // Lắng nghe sự kiện khi giá trị nhập vào trong form thay đổi
+                                                        const adultInput = document.querySelector(".adult .content");
+                                                        const childrenInput = document.querySelector(".children .content");
+
+
+                                                        adultInput.addEventListener("input", function () {
+                                                            updateQuantityAndTotal("adult", this.value);
+                                                        });
+
+                                                        childrenInput.addEventListener("input", function () {
+                                                            updateQuantityAndTotal("children", this.value);
+                                                        });
+
+                                                    </script>
+
+
+
+
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </div>
+                        </form>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <a href="#" class="back" ></a>
+
+        </div>
+
+    </body>
+
+</html>

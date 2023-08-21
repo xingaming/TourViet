@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/admin/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div layout:fragment="title">
+        <title>View Tour Detail</title>
+    </div>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <div layout:fragment="css">
+        <style>
+            /* CSS cho gạch phân cách mờ mờ (border-bottom) */
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th, td {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                padding: 8px;
+            }
+        </style>
+    </div>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <!-- Main Content -->
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>View Tour Detail</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a th:href="@{/admin/dashboard}">Dashboard</a></div>
+                            <div class="breadcrumb-item active"><a th:href="@{/admin/tour}">View tour</a></div>
+                            <div class="breadcrumb-item active"><a th:href="@{/admin/schedule/{tourId}(tourId=${tourId})}">View schedule</a></div>
+                            <div class="breadcrumb-item">Detail schedule image</div>
+                </div>
+            </div>
+
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Schedule Image Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Image:</th>
+                                            <td><img th:src="'data:image/png;base64,' + ${currentScheduleImage?.image}" width="150px" height="100px" alt="alt" style="margin-top: 25px" /><br/><br/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Description:</th>
+                                            <td th:utext="${currentScheduleImage?.description}"></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <!-- Add more tour details here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div layout:fragment="js">
+
+    </div>
+
+</body>
+
+</html>

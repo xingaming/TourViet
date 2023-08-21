@@ -1,0 +1,769 @@
+/* HEADER */
+.category{
+    border: solid ;
+}
+.divImage{
+    text-align: center;
+}
+.flowerImage{
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    border:  solid lightgrey medium;
+}
+.detailImage{
+    margin-bottom: 20px;
+}
+h1{
+    margin-top: 50px;
+}
+.header{
+    /*    display: flex;
+        align-items: center;
+        gap: 0px; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    /* khi cuộn trang ảnh ko lấp nav */
+    /* overflow: hidden; */
+    box-shadow:1px 1px 10px #233A3A ;
+    background-color: #1D3133;
+}
+.navbar{
+    /* background-image: linear-gradient(90deg, #fff6a2, #fc8a15, #AB3E16); */
+    /* background-color: burlywood; */
+}
+/* .list{
+    
+    position: absolute;
+    right: 20px;
+} */
+.dropdown-item{
+    font-family: 'Varela Round', sans-serif;
+    font-size:15px ;
+    opacity: 0.8;
+}
+.dropdown-item:hover{
+    background-color: #ccc;
+    color: white
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #ccc;
+}
+.nav-link{
+    color: #FFF;
+    font-size: 15px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 1px;
+    margin: 0 5px;
+    padding: 0px;
+    /*position: relative;*/
+}
+.dropdown-hover .dropdown-menu {
+    display: none;
+}
+
+.dropdown-hover:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu{
+    /*color: white;*/
+    border-radius: 10px;
+    border: 4px solid #C1AC67;
+    background-color: #1D3133;
+}
+.border-item{
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    margin-right: 10px
+}
+
+.submit{
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.nav-item-icon{
+
+    /*position: absolute;*/
+    /*margin-right: 10px;*/
+    width: 50px;
+    height: auto;
+}
+.dropdown-divider{
+    border-color: #C1AC67B2;
+    width: 200px;
+    margin-left: 20px
+}
+.dropdown-spe{
+    display: none
+}
+.nav-link:hover{
+    color: #C1AC67;
+}
+
+.dropdown-item{
+    color: white;
+
+}
+.responsive-des > .dropdown-menu {
+    column-count: 3;
+    margin-left: -250px
+}
+.destination-more{
+    display: none;
+}
+.drop-title{
+    background-image: none;
+
+    background-color: transparent!important;
+}
+.dropdown-menu > a:hover {
+    background-image: none;
+
+    background-color: transparent!important;
+}
+
+.nav-link-3::before,
+.nav-link-2::after{
+    position: absolute;
+    content: "";
+    left: -5px;
+    border-left: 3px solid #ccc;
+    height: 17px;
+    top: 50%;
+    transform:translateY(-60%) ;
+}
+.border-item:hover{
+    /*background-color: #ccc;*/
+    border: 1px solid #C1AC67;
+    border-radius: 10px;
+    color: #C1AC67;
+}
+.navbar-brand{
+    position: relative;
+    color: #C1AC67;
+    font-size: 30px;
+    font-family: Abril Fatface;
+    line-height: 42px;
+    letter-spacing: 8px;
+    /* padding-top: 20px; */
+    font-family: 'Abril Fatface', cursive;
+    /* pointer-events:none; */
+    margin-left: 90px;
+    margin-right: 185px;
+    /* background: -webkit-linear-gradient(burlywood, #ec920b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+}
+.navbar-brand:hover{
+    color: white;
+    text-shadow: 2px 2px 4px #ec920b;
+}
+.navbar-toggler-icon:active{
+    border: rgb(204, 187, 187);
+}
+.navbar-toggler{
+    background-color: burlywood;
+}
+
+.search{
+    margin: 0 70px;
+    /* text-align: center; */
+    position: relative;
+}
+
+.icon-cart{
+    position: absolute;
+    right: 30px;
+    top: 25px;
+    font-size: 22px;
+    color: #88746a;
+}
+.icon-bell{
+    position: absolute;
+    right: 85px;
+    top: 25px;
+    font-size: 22px;
+    color: #88746a;
+}
+.control:focus{
+    box-shadow: none;
+    border: #fc8a15 solid;
+}
+
+.input-group-text{
+    background-color:#fc8a15 ;
+    /*border: #fc8a15 solid;*/
+}
+.icon-search{
+    font-size:15px ;
+}
+
+
+.menu{
+    box-shadow: 5px 10px 18px #888888;
+}
+/* HEADER */
+
+
+/* CAROUSEL */
+.carousel{
+    margin-top: 90px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.carousel-3,
+.carousel-2,
+.carousel-1{
+    width: 100%;
+    height: 250px;
+    /* background-color: #ec920b; */
+    border-radius: 25px;
+    background-image: linear-gradient(330deg, #fff6a2, #fc8a15, #ec7903);
+    position: relative;
+}
+.content-carousel .content1-page1{
+    position: absolute;
+    color: white;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 50px;
+    left: 70px;
+    top: 20px ;
+}
+.content-carousel .content2-page1{
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 25px;
+    left: 70px;
+    top: 120px;
+}
+.carousel-1 .icon-carousel1{
+    width: 200px;
+    height: 250px;
+    position: absolute;
+    right: 50px;
+    top: 2px;
+}
+.carousel-1 .icon-carousel2{
+    position: absolute;
+    width: 200px;
+    height: 250px;
+    right: 170px;
+    top: -25px;
+}
+
+.content-carousel2 .content1-page2{
+    /* position: relative; */
+    color: white;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 50px;
+    /* left: 550px; */
+    text-align: center;
+    margin-top: 30px;
+}
+.icon-review,
+.icon-video,
+.icon-booking,
+.icon-makeup{
+    /* position: absolute; */
+    width: 70px;
+    height: 70px;
+    /* left: 400px; */
+    margin-left: 140px;
+    position: relative;
+}
+
+.content2-page2{
+    /* position: absolute; */
+    margin-left: 145px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.content3-page2{
+    margin-left: 155px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.content4-page2{
+    margin-left: 155px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.content5-page2{
+    margin-left: 150px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.carousel-3 .content1-page3{
+    /* position: absolute; */
+    color:white;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 50px;
+    /* left: 70px;
+    top: -40px ; */
+    text-align: center;
+}
+.carousel-3 .content2-page3{
+    /* position: absolute; */
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 25px;
+    /* left: 70px;
+    top: 65px; */
+    text-align: center;
+}
+.icon-stars{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: 150px;
+    top: 70px;
+    display: none;
+}
+.icon-groom{
+    position: absolute;
+    width: 200px;
+    /* height: 150px; */
+    right: 350px;
+    top: 25px;
+}
+.icon-bride{
+    position: absolute;
+    width: 200px;
+    right: 200px;
+    top:25px ;
+}
+.icon-wedding{
+    position: absolute;
+    width: 200px;
+    right: -25px;
+    top:0px ;
+}
+.icon-flower{
+    position: absolute;
+    top: 1px;
+}
+.carousel-control-next-icon{
+    position: absolute;
+    right: 0;
+}
+.carousel-control-prev-icon{
+    position: absolute;
+    left: 0;
+    top: 110px;
+}
+/* CAROUSEL */
+
+/* LAYOUT */
+body{
+    /* background-color: #ccc; */
+}
+.container1{
+    margin-top: 50px;
+    box-shadow: 5px 10px 18px #888888;
+    /* margin-left: 40px;
+    margin-right: 20px; */
+}
+.layout-1{
+    /* background-color: cornflowerblue; */
+    background-image: url("../images/pattern1.png");
+    /* border: solid #ccc 10px; */
+}
+.box-1{
+    height: 400px;
+    background-color: white;
+    font-family: 'Indie Flower', cursive;
+    font-size: 40px;
+    text-align: center;
+    border-right: solid #ccc 10px;
+    position: relative;
+    /* box-shadow:1px 1px 10px rgb(241, 240, 240) ; */
+}
+.content-box1{
+    /* font-family: 'Indie Flower', cursive; */
+    font-family: 'Caveat', cursive;
+    font-size: 40px;
+    text-align: center;
+    /* margin-top: 70px; */
+    top: 100px;
+    left: 20px;
+    right: 20px;
+    font-weight: bold;
+    position: absolute;
+}
+/* img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: 0 0;
+} */
+.box-2{
+    height: 250px;
+    /* background-color: blanchedalmond; */
+    background-image: url("../images/makeup2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-right: solid #ccc 5px;
+    border-bottom: solid #ccc 10px;
+    /* background-position: -100px -150px; */
+    /* image-rendering: pixelated; */
+    /* border: solid #ccc 10px; */
+}
+.box-3{
+    height: 250px;
+    /* width: 200px; */
+    background-color:white;
+    border-left: solid #ccc 5px;
+    border-bottom: solid #ccc 10px;
+    /* background-image: url("makeup1.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%; */
+    /* border: solid #ccc 10px; */
+}
+.content-box3{
+    font-family: 'Courgette', cursive;
+    /* text-align: center; */
+    margin-top: 90px;
+    margin-left: 30px;
+    font-size: 20px;
+}
+.box-4{
+    height: 200px;
+    background-color: brown;
+}
+.box-5{
+    /* background-color: cadetblue; */
+    height: 200px;
+    background-image: url("../images/makeup3.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-right: solid #ccc 5px;
+    border-bottom: solid #ccc 5px;
+
+}
+.box-6{
+    /* background-color: rgb(105, 204, 23); */
+    height: 200px;
+    background-image: url("../images/makeup4.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0px 0;
+    border-right: solid #ccc 5px;
+    border-left: solid #ccc 5px;
+    border-bottom: solid #ccc 5px;
+    /* border-top: solid #ccc 0px; */
+}
+.box-7{
+    background-color:white;
+    height: 200px;
+    border-right: solid #ccc 5px;
+    border-left: solid #ccc 5px;
+    border-bottom: solid #ccc 5px;
+}
+.content-box7{
+    font-family: 'Courgette', cursive;
+    /* text-align: center; */
+    margin-top: 40px;
+    margin-left: 30px;
+    font-size: 20px;
+}
+.box-8{
+    /* background-color: rgb(220, 89, 106); */
+    height: 200px;
+    background-image: url("../images/makeup5.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-left: solid #ccc 5px;
+    border-bottom: solid #ccc 5px;
+}
+.box-9{
+    /* background-color: chocolate; */
+    height: 600px;
+    background-image: url("../images/makeup6.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-right: solid #ccc 5px;
+    border-bottom: solid #ccc 5px;
+    border-top: solid #ccc 5px;
+}
+.box-10{
+    /* background-color: cyan; */
+    height: 600px;
+    background-image: url("../images/makeup7.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-left: solid #ccc 5px;
+    border-bottom: solid #ccc 5px;
+    border-top: solid #ccc 5px;
+}
+.box-11{
+    height: 200px;
+    background-image: url("../images/makeup8.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-right: solid #ccc 5px;
+    border-top: solid #ccc 5px;
+}
+.box-12{
+    height: 200px;
+    background-color:white;
+    height: 200px;
+    border-left: solid #ccc 5px;
+    border-top: solid #ccc 5px;
+}
+.content-box12{
+    font-family: 'Courgette', cursive;
+    /* text-align: center; */
+    margin-top: 75px;
+    margin-left: 30px;
+    font-size: 15px;
+}
+
+/* LAYOUT */
+
+/* FOOTER */
+.footer {
+    /* background-color: #fc8a15; */
+}
+.row-footer{
+    height: auto;
+
+    background-color: #fc8a15;
+    /* box-shadow: 5px 10px 18px #888888; */
+}
+.footer-content1{
+    /* background-color: #fc8a15; */
+    margin-left: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.footer-content1 .header1-footer{
+    font-family: 'Bebas Neue', cursive;
+    color: white;
+}
+
+.footer-content1 .para{
+    font-family: 'Quicksand', sans-serif;
+    color: rgb(241, 227, 227);
+}
+
+.icon-mobile{
+    color: white;
+}
+
+.icon-mail{
+    color: white;
+}
+input[type=email] {
+    margin-top: 20px;
+    border-radius: 25px;
+    height: 40px;
+    width: 250px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+input[type=submit]{
+    border-radius: 10px;
+    height: 40px;
+    width: 100px;
+    background-color: #C1AC67;
+    color: #1D3133;
+    font-weight: bold;
+    font-family: 'Quicksand', sans-serif;
+    margin-right: 15px
+}
+
+.footer-content2{
+    margin-left: 50px;
+    margin-top: 50px;
+
+}
+
+.footer-content2 .header2-footer{
+    font-family: 'Bebas Neue', cursive;
+    color: white;
+}
+
+.footer-content2 ul{
+    list-style-type: none;
+}
+.list-review .review2,
+.list-review .review3,
+.list-review .review1{
+    margin-left: -40px;
+    margin-bottom: 30px;
+    font-family: 'Quicksand', sans-serif;
+    color: rgb(241, 227, 227);
+}
+
+.footer-content3{
+    margin-left: 50px;
+    margin-top: 50px;
+    /* margin-bottom: auto; */
+}
+
+.footer-content3 .header3-footer{
+    font-family: 'Bebas Neue', cursive;
+    color: white;
+}
+.row-ins1,
+.row-ins2{
+    margin-left: 5px;
+}
+
+.ins-img1{
+    background-image: url("../images/makeup9.jpg");
+    background-position: center;
+    height: 100px;
+    border: solid #fc8a15 5px;
+}
+
+.ins-img2{
+    background-image: url("../images/makeup10.jpg");
+    background-position: -250px -300px;
+    height: 100px;
+    border: solid #fc8a15 5px;
+}
+
+.ins-img3{
+    background-image: url("../images/makeup12.jpg");
+    background-position: center;
+    height: 100px;
+    border: solid #fc8a15 5px;
+}
+
+.ins-img4{
+    background-image: url("../images/makeup11.jpg");
+    background-position: center;
+    height: 100px;
+    border: solid #fc8a15 5px;
+}
+/* FOOTER */
+
+#id{
+    color: red;
+}
+
+.tab_box{
+    width: 100%;
+    display: flex;
+    /*justify-content: space-around;*/
+    margin-right: 50px;
+    align-items: flex-start;
+    border-bottom: 2px solid #1D3133;
+    position: relative
+
+}
+.line{
+    position: absolute;
+    top: 73px;
+    left: 0;
+    width: 90px;
+    height: 5px;
+    background-color: #C1AC67;
+    border-radius: 10px;
+}
+
+
+
+.tab_box .tab_btn{
+    font-size: 15px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 38px;
+    color: rgba(29, 49, 51, 0.80);
+    background: none;
+    border: none;
+    padding: 18px;
+    cursor: pointer;
+    outline: none;
+}
+
+/*#btn1{
+    border-bottom: 4px solid #C1AC67;
+}*/
+
+.content_box{
+    display:  flex;
+    /*justify-content: center;*/
+    align-items : center;
+    /*margin: 5% auto;*/
+    /*padding: 20px;*/
+    /*position:  absolute;*/
+    /*transform: translateX(1500%);*/
+}
+
+
+/*.untree_co-section_video{
+    padding-top: 800px!important;
+}*/
+/*#content1{
+   transform: translateX(0px);
+}*/
+
+/*#btn1{
+    color: #C1AC67;
+}*/
+
+.content_box_child{
+    display: none;
+}
+
+.content_box_child.active{
+    display: block !important;
+}
+.tab_box .tab_btn.active {
+    color: #C1AC67;
+}
+
+.img-tourism{
+    height: 292px;
+    width: 240px
+}
+
+.destination_tourism{
+    color: #C1AC67;
+    text-decoration: none;
+
+}
+
+.destination_tourism:hover{
+    color: #C1AC67;
+    font-weight: bold;
+    text-decoration: none;
+
+}
+.scroll-link{
+    color: #ffffff !important;
+}
+.scroll-link:hover{
+    color: #C1AC67!important;
+}
+
+/*.button-clicked{
+    color: #C1AC67;
+}*/

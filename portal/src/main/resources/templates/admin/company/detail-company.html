@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="/admin/layout"
+    xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div layout:fragment="title">
+        <title>Company Detail</title>
+    </div>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <div layout:fragment="css">
+        <!-- Đặt CSS của trang view detail ở đây (nếu có) -->
+        <style>
+            /* CSS tùy chỉnh cho trang view detail */
+
+        </style>
+    </div>
+
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+                <div class="section-header">
+                    <h1>Company Detail</h1>
+                    <div class="section-header-breadcrumb">
+                        <div class="breadcrumb-item active"><a th:href="@{/admin/dashboard}">Dashboard</a></div>
+                        <div class="breadcrumb-item"><a th:href="@{/admin/companies}">View Companies</a></div>
+                        <div class="breadcrumb-item">Company Detail</div>
+                    </div>
+                </div>
+
+                <div class="section-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Company Information</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group row mb-4">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Name</label>
+                                        <div class="col-sm-12 col-md-7">
+                                            <span th:text="${company?.name}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mb-4">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Address</label>
+                                        <div class="col-sm-12 col-md-7">
+                                            <span th:text="${company?.address}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mb-4">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Email</label>
+                                        <div class="col-sm-12 col-md-7">
+                                            <span th:text="${company?.email}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mb-4">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hotline</label>
+                                        <div class="col-sm-12 col-md-7">
+                                            <span th:text="${company?.hotline}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mb-4">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Logo</label>
+                                        <div class="col-sm-12 col-md-7">
+                                            <img th:src="'data:image/png;base64,' + ${company?.logo}" width="250" height="250px"
+                                                alt="Company Logo" />
+                                        </div>
+                                    </div>
+
+                                    <!-- Các trường thông tin khác của công ty (nếu có) -->
+
+                                    <!-- Nút quay lại trang danh sách công ty -->
+                                    <a th:href="@{/admin/companies}" class="btn btn-primary">Back to Company List</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div layout:fragment="js">
+        <!-- Đặt JavaScript của trang view detail ở đây (nếu có) -->
+        <script>
+            // JavaScript tùy chỉnh cho trang view detail (nếu có)
+
+        </script>
+    </div>
+
+</body>
+
+</html>

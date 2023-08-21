@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<!--<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+<html lang="en" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/user/layout">
+    <head>
+
+        <title>Create tour</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="../user/css/create_tour.css">
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@100;400;500&display=swap');
+
+            .overlay {
+                padding: 10px 20px;
+                position: absolute;
+                top: 85px;
+                left: 0;
+                width: 100%;
+                height: auto;
+                flex-shrink: 0;
+                border-radius: 10px;
+                background: linear-gradient(90deg, #496749 33.84%, #F5D879 100%);
+                box-shadow: 10px 10px 40px 0px rgba(0, 0, 0, 0.80);
+                /*width: auto;*/
+            }
+            .overlay-content {
+                display: flex;
+                width: 100%;
+                flex-direction: column;
+                flex-shrink: 0;
+                color: #FFF;
+                text-align: center;
+                font-size: 35px;
+                font-family: Abril Fatface;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 60px;
+                letter-spacing: 1px;
+            }
+
+            .option{
+                /* Set a fixed height for the options section */
+                max-height: 650px; /* Adjust the height as per your requirement */
+                overflow-y: scroll; /* Add a vertical scrollbar when content overflows */
+
+            }
+            .row{
+                margin-bottom: 80px;
+            }
+
+            /*            body{
+                            background-color: #B2E3AF !important;
+                        }*/
+            .title-container1 {
+                display: flex;
+                align-items: center;
+            }
+
+            .title {
+                font-size: 24px;
+                color: #007550;
+                font-weight: bold;
+                font-family:  Poppins;
+                padding-right: 10px;
+
+            }
+
+            .line1 {
+                flex-grow: 1;
+                height: 2px;
+                background-color: #B2E3AF;
+            }
+            table {
+                border-collapse: collapse;
+                border: 1px solid black;
+            }
+
+            td, th {
+                border: 1px solid black;
+                padding: 8px;
+            }
+
+            /* Đặt màu nền cho hàng tiêu đề */
+            th {
+                background-color: lightgreen;
+            }
+            tr:hover {
+                cursor: pointer;
+            }
+
+            .delete-button {
+                background-color: transparent;
+                border: none;
+                color: red;
+                cursor: pointer;
+                padding: 0; /* Thêm padding để loại bỏ khoảng cách thừa */
+            }
+
+
+
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
+    </head>
+
+    <body>
+
+
+
+        <div layout:fragment="content">
+
+            <div class="hero" style="margin-bottom: 80px">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="overlay" >
+                                <div class="overlay-content">
+                                    Let's create a tour according to your interests
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <form id="dragDropForm" th:action="@{/user/create-tour}" method="post" onsubmit="return validateForm()">
+
+                <div style="margin-bottom: 50px;" class="container-fluid content">
+
+
+                    <div class="option">
+
+                        <div id="left">
+                            <h2 class="region">Choose region</h2>
+                            <th:block  th:each="list: ${listRegion}" >
+
+
+                                <div class="list_item" draggable="true" th:data-region-id="${list.id}" th:data-region-name="${list.nameArea}">
+                                    <img th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="alt">
+                                    <span th:text="${list.nameArea}"></span>
+                                </div>
+
+                            </th:block>
+                        </div>
+
+                        <div  id="left1">
+                            <h2 class="region">Choose accommodation</h2>
+                            <div class="list_accommodation" draggable="true"><img  th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="alt"> Hotel</div>
+                            <div class="list_accommodation" draggable="true"><img  th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="alt"> Resort</div>
+                            <div class="list_accommodation" draggable="true"><img  th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="alt"> Homestay</div>
+                            <div class="list_accommodation" draggable="true"><img  th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="alt"> Hostel</div>
+                            <div class="list_accommodation" draggable="true"><img  th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="alt"> Villas and apartments for rent</div>
+
+                        </div>
+
+                        <div  id="left2">
+                            <h2 class="region">Choose transport</h2>
+                            <div class="list_transport" draggable="true"><img  th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="alt"> Shuttle bus</div>
+                            <div class="list_transport" draggable="true"><img  th:src="@{/user/lib/icon/icon-arrow-next.png}" alt="alt">Self-sufficient travel </div>
+
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div style="" class=" form_selected" id="sticky-form">
+
+                        <div class="title-container1">
+                            <i class="title">Choose a service</i>
+                            <span class="line1"></span>
+                        </div>
+                        <script th:inline="javascript">
+                            const listAddress = /*[[${listAddress}
+                             ]]*/ [];
+                            console.log(listAddress);
+                        </script>
+                        <script>
+
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const resultDiv = document.getElementById("result");
+                                const submitButton = document.getElementById("submitButton");
+                                const textarea = document.getElementById("textAreaExample2");
+                                const selectedValuesContainer = document.getElementById("selectedValuesContainer"); // Container for selected values
+
+                                let selectedRegionId = null; // Store the selected region ID
+                                const selectedNames = []; // Array to store selected names
+
+                                submitButton.addEventListener("click", function (e) {
+                                    e.preventDefault();
+                                    const rightBox = document.getElementById("right");
+                                    const draggedItem = rightBox.querySelector(".list_item");
+                                    if (draggedItem) {
+                                        const regionId = draggedItem.getAttribute("data-region-id");
+                                        const regionName = draggedItem.getAttribute("data-region-name");
+                                        document.querySelector("#right input[name='region']").value = regionName;
+//                                        const filteredTourist = touristData.filter(item => item.region_id === parseInt(regionId));
+                                        const filteredTourist = listAddress.filter(address => address.regionId.id === parseInt(regionId));
+                                        // Clear previous results and create a new table
+                                        resultDiv.innerHTML = "";
+                                        const table = document.createElement("table");
+
+//                            try {
+//                            const response = await fetch("/tour_address");
+//                            const addressData = await response.json();
+//                            const filteredTourist = addressData.filter(item => item.region_id === parseInt(regionId));
+//                            // Clear previous results and create a new table
+//                            resultDiv.innerHTML = "";
+//                            const table = document.createElement("table");
+//                            // ... Rest of your code ...
+//                            } catch (error) {
+//                            console.error("Error fetching address data:", error);
+//                            }
+
+                                        // Create table header
+                                        const headerRow = document.createElement("tr");
+                                        const nameHeader = document.createElement("th");
+                                        nameHeader.textContent = "Name";
+                                        const descriptionHeader = document.createElement("th");
+                                        descriptionHeader.textContent = "Description";
+                                        headerRow.appendChild(nameHeader);
+                                        headerRow.appendChild(descriptionHeader);
+                                        table.appendChild(headerRow);
+                                        // Populate table with data
+                                        filteredTourist.forEach(item => {
+                                            const row = document.createElement("tr");
+                                            const nameCell = document.createElement("td");
+                                            nameCell.innerHTML = `<b>${item.name}</b>`;
+                                            const descriptionCell = document.createElement("td");
+                                            descriptionCell.textContent = item.description;
+                                            row.appendChild(nameCell);
+                                            row.appendChild(descriptionCell);
+                                            table.appendChild(row);
+                                            // Add click event listener to each row
+                                            row.addEventListener("click", function () {
+                                                if (!selectedNames.includes(item.name)) {
+                                                    selectedNames.push(item.name);
+                                                    textarea.value = selectedNames.join(", ");
+                                                    // Add selected value with delete button
+                                                    const selectedValueSpan = document.createElement("span");
+                                                    selectedValueSpan.className = "selected-value";
+                                                    selectedValueSpan.innerHTML = `<button class="delete-button" data-name="${item.name}">❌</button> ${item.name},`;
+                                                    selectedValuesContainer.appendChild(selectedValueSpan);
+                                                    // Add click event listener to delete button
+                                                    const deleteButton = selectedValueSpan.querySelector(".delete-button");
+                                                    deleteButton.addEventListener("click", function () {
+                                                        const nameToRemove = deleteButton.getAttribute("data-name");
+                                                        selectedNames.splice(selectedNames.indexOf(nameToRemove), 1);
+                                                        textarea.value = selectedNames.join(", ");
+                                                        selectedValuesContainer.removeChild(selectedValueSpan);
+                                                    });
+                                                }
+                                            });
+                                        });
+                                        resultDiv.appendChild(table);
+                                        if (regionId !== selectedRegionId) {
+                                            selectedRegionId = regionId;
+                                            selectedNames.length = 0; // Clear the selected names
+                                            textarea.value = ""; // Clear the textarea
+                                            selectedValuesContainer.innerHTML = ""; // Clear the selected values container
+                                        }
+
+                                        if (submitButton.textContent === "Hint") {
+                                            submitButton.textContent = "Close";
+                                            resultDiv.style.display = 'block';
+                                        } else {
+                                            submitButton.textContent = "Hint";
+                                            resultDiv.style.display = 'none';
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <div class="row" style="margin-bottom: 10px">
+
+                            <div class="col-lg-4 droppable-area" >
+                                <div>Drag region here</div>
+                                <div id="right"><input type="hidden" name="region" th:value="${region}"></div>
+
+                            </div>
+                            <span><button style="margin-top: 100px" class="btn btn-success" id="submitButton">Hint</button></span>
+
+                            <div class="col-lg-6 droppable-area" >
+                                <div>Tell us which places you want to go</div>
+                                <div class="form-outline">
+                                    <!--<div style="border: 1px solid lightgreen" id="selectedValuesContainer" class="selected-values-container"></div>-->
+                                    <textarea style="background-color: white !important" class="form-control " name="destination" id="textAreaExample2" rows="4" placeholder="You can enter the places you want to explore"></textarea>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div  class="row">
+                            <div class="col-lg-12">
+                                <div id="result" style="display: none;"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 droppable-area" >
+                                <div>Drag accommodation here</div>
+                                <div id="right1"><input type="hidden" name="accommodation" th:value="${accommodation}"></div>
+                            </div>
+                            <div class="col-lg-6 droppable-area" >
+                                <div>Drag transport here</div>
+                                <div id="right2"><input type="hidden" name="transport" th:value="${transport}"></div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 droppable-area">
+                                <div id="detail-question" class="detail-question input-number">
+                                    <div style="margin-bottom: 10px">Select Service</div>
+                                    <div class="container">
+
+                                        <div style="margin-bottom: 10px" class="row choose-service">
+                                            <div class="col-xl-3">
+                                                <input type="radio" name="selected_option" id="tour_guide_option" checked="true" class="tab-tourguide" value="tour_guide">
+                                                <label for="tour_guide_option">TOUR GUIDE</label>
+                                            </div>
+                                            <div class="col-xl-3">
+                                                <input type="radio" name="selected_option" id="no_tour_guide_option" class="tab-tourguide" value="no_tour_guide">
+                                                <label for="no_tour_guide_option">NO TOUR GUIDE</label>
+                                            </div>
+
+
+                                            <input type="hidden" name="selected_option" id="selectedOptionInput" value="">
+
+                                            <script>
+                                                document.addEventListener('DOMContentLoaded', function () {
+                                                    const tabs = document.querySelectorAll('.tab-tourguide');
+                                                    tabs.forEach((tab) => {
+                                                        tab.addEventListener('click', function (e) {
+                                                            tabs.forEach((tab) => {
+                                                                tab.classList.remove('active');
+                                                            });
+                                                            const currentTab = e.target;
+                                                            const currentIndex = Array.from(tabs).indexOf(currentTab);
+                                                            currentTab.classList.add('active');
+                                                            ;
+                                                        });
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+                                        <div class="title-note ">
+                                            OTHER NOTES
+
+                                        </div>
+                                        <div class="note">
+                                            <div class="note-more">
+                                                (*) For the trip without a tour guide, you will not be supported, guaranteed safety, ...
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="title-container1">
+                            <i class="title">Enter information</i>
+                            <span class="line1"></span>
+                        </div>
+
+                        <div style="margin-top: 20px" class="row">
+                            <div class="col-xl-6">
+
+                                <div class="input-adult adult ">
+                                    <h6  class="text-input">FULL NAME *</h6>
+                                    <input style="width: 80%" type="text" class="content" name="fullname"  th:value="${count_adult}">
+
+                                </div> 
+
+                                <div class="input-adult children">
+                                    <h6 class="text-input">EMAIL *</h6>
+                                    <input style="width: 80%" type="text" class="content"  name="email" th:value="${count_children}">
+                                </div>
+
+                                <div class="input-adult">
+                                    <h6 class="text-input">PHONE *</h6>
+                                    <input type="number" class="content" name="phone" th:value="${count_baby}">
+                                </div>
+                                <div class="input-adult">
+                                    <h6 class="text-input">ADDRESS *</h6>
+                                    <input style="width: 80%" type="text" class="content" name="address" th:value="${count_baby}">
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-xl-6">
+
+                                <div class="input-adult adult ">
+                                    <h6  class="text-input">ADULT *</h6>
+                                    <input type="number" class="content" name="count_adult"  th:value="${count_adult}">
+
+                                </div> 
+
+                                <div class="input-adult children">
+                                    <h6 class="text-input">CHILDREN</h6>
+                                    <input type="number" class="content"  name="count_children" th:value="${count_children}">
+                                </div>
+                                <div class="input-adult">
+                                    <h6 class="text-input">BABY</h6>
+                                    <input type="number" class="content" name="count_baby" th:value="${count_baby}">
+                                </div>
+
+                            </div>
+
+
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-8 droppable-area">
+                                <div class="form-group">
+                                    <label for="startDate">Duration </label><span id="result"></span>
+                                    <input type="text" id="startDate" class="" style="background-color: #B2E3AF" readonly>
+                                    <input type="hidden" name="startDay" id="startDay"> <!-- Add an ID for the hidden field -->
+                                    <input type="hidden" name="endDay" id="endDay"> 
+                                </div>
+                                <div id="inputFields"></div>
+                                <input type="hidden" name="inputFields" id="inputFieldsHidden">
+
+                            </div>
+                            <div style="font-weight: 500; color: #057550" class="col-lg-4 droppable-area">
+
+                                <div class="cus-sprice ">
+
+                                    <div class="">
+
+                                        <p class="content-title-price">NOTE</p>
+                                    </div>
+
+                                    <p class="content-price">
+
+                                        <i>You can enter the specific itinerary you want, ex:</i>
+                                    </p>
+                                    <ul class="content-price">
+                                        <li>Day 1: Go to I Resort in the morning, have lunch at a restaurant, go to the beach in the evening,..</li>
+                                        <li>Day 2: ...</li>
+
+                                    </ul>
+
+                                    <p class="content-price">
+                                        <i>* If you'd like us to assist in creating a schedule according to the locations you've chosen, you don't need to enter.</i>
+
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+                            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+                            <script>
+                                                $(document).ready(function () {
+                                                    //                   
+                                                    // Initialize the date range picker
+                                                    $('#startDate, #endDate').daterangepicker({
+                                                        opens: 'left', // The side from which the date picker opens (left or right)
+                                                        autoUpdateInput: false, // Prevent the input from updating on selection
+                                                        locale: {
+                                                            cancelLabel: 'Clear', // Custom text for the cancel button
+                                                            format: 'YYYY-MM-DD', // Date format
+                                                        }
+                                                    });
+                                                    // Update the input fields when a date range is selected
+                                                    $('#startDate, #endDate').on('apply.daterangepicker', function (ev, picker) {
+
+                                                        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' to ' + picker.endDate.format('YYYY-MM-DD'));
+                                                        // Calculate and display the number of days
+                                                        var startDate = picker.startDate;
+                                                        var endDate = picker.endDate;
+                                                        var daysDiff = endDate.diff(startDate, 'days');
+                                                        var days = daysDiff - 1;
+                                                        $('#startDay').val(picker.startDate.format('YYYY-MM-DD'));
+                                                        $('#endDay').val(picker.endDate.format('YYYY-MM-DD'));
+                                                        $('#result').text(' ' + daysDiff + ' days ' + days + ' nights');
+                                                        // Create input text fields based on the number of days
+                                                        $('#inputFields').empty();
+                                                        for (var i = 0; i <= daysDiff; i++) {
+                                                            var y = i + 1;
+                                                            $('#inputFields').append('<input style="margin-bottom:20px; background-color:#B2E3AF; color:white;" type="text" class="" placeholder="Day ' + y + '">');
+                                                        }
+                                                    });
+                                                    // Clear the input fields when the 'Clear' button is clicked
+                                                    $('#startDate, #endDate').on('cancel.daterangepicker', function (ev, picker) {
+                                                        $(this).val('');
+                                                        $('#result').text('Number of days: ');
+                                                        $('#inputFields').empty();
+                                                    });
+                                                    // Handle the click event of the submit button
+                                                    $('#submitBtn').on('click', function () {
+                                                        var values = [];
+                                                        // Loop through all input fields and collect their values
+                                                        $('#inputFields input').each(function () {
+                                                            values.push($(this).val());
+                                                        });
+                                                        document.querySelector("input[name='inputFields']").value = values.join(', ');
+                                                        // Do whatever you want with the values (e.g., send them to the server or perform some calculations)
+                                                        console.log(values);
+                                                    });
+                                                });
+                            </script>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 droppable-area" >
+                                <div>Note</div>
+
+                                <textarea style="background-color: white !important" class="form-control " name="input_note" rows="4" placeholder="You can enter the places you want to explore"></textarea>
+
+                                <!--<input  style="width: 100%" type="text" class="" name="input_note" th:value="${input_accommodation}">-->
+                            </div>
+
+                            <div class="col-lg-4 droppable-area">
+                                <div class="input-adult">
+                                    <h6 class="text-input">Estimated costs (1 person)(USD)</h6>
+                                    <input type="text" class="content" name="price">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!--<hr/>-->
+                        <input type="submit" value="SEND">
+                        <!--<button id="submitBtn" class="btn btn-primary" type="submit">Submit</button>-->
+                    </div>
+
+                </div>
+            </form>
+            <script>
+
+                function validateForm() {
+                    var accommodation = document.getElementById("right1").querySelector("input[type='hidden']").value;
+                    var inputNote = document.getElementsByName("input_note")[0].value.trim();
+                    var inputFullname = document.getElementsByName("fullname")[0].value.trim();
+                    var inputEmail = document.getElementsByName("email")[0].value.trim();
+                    var inputPhone = document.getElementsByName("phone")[0].value.trim();
+                    var price = document.getElementsByName("price")[0].value.trim();
+
+                    var inputAddress = document.getElementsByName("address")[0].value.trim();
+                    var inputAdult = document.getElementsByName("count_adult")[0].value.trim();
+                    var inputStartDay = document.getElementsByName("startDay")[0].value.trim();
+                    var inputDestination = document.getElementsByName("destination")[0].value.trim();
+                    var inputEndDay = document.getElementsByName("endDay")[0].value.trim();
+                    var selectedOption = document.querySelector('input[name="selected_option"]:checked').value;
+                    var region = document.getElementById("right").querySelector("input[type='hidden']").value;
+//                    var inputRegion = document.getElementsByName("input_region")[0].value.trim();
+
+                    var transport = document.getElementById("right2").querySelector("input[type='hidden']").value;
+                    var values = [];
+                    // Loop through all input fields and collect their values
+                    $('#inputFields input').each(function () {
+                        values.push($(this).val());
+                    });
+                    // Store the values in the hidden field
+                    $('#inputFieldsHidden').val(values.join(', '));
+                    if (region === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Please choose or enter a region value."
+                        });
+                        //                        Swal.fire("Please choose or enter a region value.");
+                        return false;
+                    }
+
+
+                    if (accommodation === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Please choose or enter an accommodation value"
+                        });
+                        //                        Swal.fire("Please choose or enter an accommodation value.");
+                        return false;
+                    }
+
+//                    if (inputNote === "") {
+//                        alert("Please enter a value for count_adult.");
+//                        return false;
+//                    }
+
+
+
+                    if (transport === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Please choose a transport value."
+                        });
+                        //                        Swal.fire("Please choose a transport value.");
+                        return false;
+                    }
+
+
+//                    if (!selectedOption.checked) {
+//                        Swal.fire({
+//                            icon: "error",
+//                            title: "Error",
+//                            text: "Please select an option."
+//                        });
+//                        return false; // Dừng việc submit nếu không có lựa chọn nào được chọn
+//                    }
+
+
+                    if (inputFullname === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Please enter your fullname."
+                        });
+                        return false;
+                    }
+
+                    if (inputEmail === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Please enter an email address."
+                        });
+                        //                        Swal.fire("Please enter an email address.");
+                        return false;
+                    } else {
+                        // Kiểm tra định dạng email bằng regular expression
+                        var emailPattern = /^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)?@gmail\.com$/;
+                        if (!inputEmail.match(emailPattern)) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: "Please enter a valid email address."
+                            });
+                            return false;
+                        }
+                    }
+
+                    if (inputPhone === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Please enter a phone number."
+                        });
+                        return false;
+                    }
+
+                    if (inputAddress === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Please enter an address."
+                        });
+                        return false;
+                    }
+
+                    if (inputAdult === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Please enter an count_adult."
+                        });
+                        //                        Swal.fire("Please enter an count_adult.");
+                        return false;
+                    }
+
+
+
+                    if (inputDestination === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Please enter the places you want to visit"
+                        });
+                        //                        Swal.fire("Please enter the places you want to visit");
+                        return false;
+                    }
+
+                    if (inputStartDay === "" || inputEndDay === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Please select duration"
+                        });
+                        //                        Swal.fire("Please select duration");
+                        return false;
+                    }
+                    if (price === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Please input estimated costs"
+                        });
+                        //                        Swal.fire("Please select duration");
+                        return false;
+                    }
+
+
+
+                    return true;
+                }
+            </script>
+
+
+            <script>
+
+                let rightBox = document.getElementById("right");
+                let leftBox = document.getElementById("left");
+                let draggedItem = null;
+                let rightBoxItem = null;
+                rightBox.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                });
+                rightBox.addEventListener("drop", function (e) {
+                    if (rightBoxItem && draggedItem !== rightBoxItem) {
+                        leftBox.appendChild(rightBoxItem);
+                    }
+
+                    if (draggedItem) {
+                        rightBox.appendChild(draggedItem);
+                        rightBoxItem = draggedItem;
+                        document.querySelector("#right input[name='region']").value = draggedItem.textContent.trim();
+                    }
+                });
+                leftBox.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                });
+                leftBox.addEventListener("drop", function (e) {
+                    if (draggedItem) {
+                        leftBox.appendChild(draggedItem);
+                        rightBoxItem = null;
+                    }
+                });
+                let lists = document.getElementsByClassName("list_item");
+                for (list of lists) {
+                    list.addEventListener("dragstart", function (e) {
+                        draggedItem = e.target;
+                    });
+                }
+
+                let right1Box = document.getElementById("right1");
+                let left1Box = document.getElementById("left1");
+                let draggedItem1 = null;
+                let rightBoxItem1 = null;
+                right1Box.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                });
+                right1Box.addEventListener("drop", function (e) {
+                    if (rightBoxItem1 && draggedItem1 !== rightBoxItem1) {
+                        left1Box.appendChild(rightBoxItem1);
+                    }
+
+                    if (draggedItem1) {
+                        right1Box.appendChild(draggedItem1);
+                        rightBoxItem1 = draggedItem1;
+                        document.querySelector("#right1 input[name='accommodation']").value = draggedItem1.textContent.trim();
+                    }
+                });
+                left1Box.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                });
+                left1Box.addEventListener("drop", function (e) {
+                    if (draggedItem1) {
+                        left1Box.appendChild(draggedItem1);
+                        rightBoxItem1 = null;
+                    }
+                });
+                let lists1 = document.getElementsByClassName("list_accommodation");
+                for (list1 of lists1) {
+                    list1.addEventListener("dragstart", function (e) {
+                        draggedItem1 = e.target;
+                    });
+                }
+
+                let right2Box = document.getElementById("right2");
+                let left2Box = document.getElementById("left2");
+                let draggedItem2 = null;
+                let rightBoxItem2 = null;
+                right2Box.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                });
+                right2Box.addEventListener("drop", function (e) {
+                    if (rightBoxItem2 && draggedItem2 !== rightBoxItem2) {
+                        left2Box.appendChild(rightBoxItem2);
+                    }
+
+                    if (draggedItem2) {
+                        right2Box.appendChild(draggedItem2);
+                        rightBoxItem2 = draggedItem2;
+                        document.querySelector("#right2 input[name='transport']").value = draggedItem2.textContent.trim();
+                    }
+                });
+                left2Box.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                });
+                left2Box.addEventListener("drop", function (e) {
+                    if (draggedItem2) {
+                        left2Box.appendChild(draggedItem2);
+                        rightBoxItem2 = null;
+                    }
+                });
+                let lists2 = document.getElementsByClassName("list_transport");
+                for (list2 of lists2) {
+                    list2.addEventListener("dragstart", function (e) {
+                        draggedItem2 = e.target;
+                    });
+                }
+
+
+
+            </script>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="loader">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script src="/user/js/jquery-3.4.1.min.js"></script>
+    <script src="/user/js/popper.min.js"></script>
+    <script src="/user/js/bootstrap.min.js"></script>
+    <script src="/user/js/owl.carousel.min.js"></script>
+    <script src="/user/js/jquery.animateNumber.min.js"></script>
+    <script src="/user/js/jquery.waypoints.min.js"></script>
+    <script src="/user/js/jquery.fancybox.min.js"></script>
+    <script src="/user/js/aos.js"></script>
+    <script src="/user/js/moment.min.js"></script>
+    <script src="/user/js/daterangepicker.js"></script>
+    <script src="/user/js/index.js"></script>
+
+    <script src="/user/js/typed.js"></script>
+
+    <!--        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+
+    <script type="text/javascript">
+                $(function () {
+                    var slides = $('.slides'),
+                            images = slides.find('img');
+                    images.each(function (i) {
+                        $(this).attr('data-id', i + 1);
+                    })
+
+                    var typed = new Typed('.typed-words', {
+                        strings: ["Nha Trang.", " Da Nang.", " Da Lat.", " Ha Noi.", " Hue."],
+                        typeSpeed: 80,
+                        backSpeed: 80,
+                        backDelay: 4000,
+                        startDelay: 1000,
+                        loop: true,
+                        showCursor: true,
+                        preStringTyped: (arrayPos, self) => {
+                            arrayPos++;
+                            console.log(arrayPos);
+                            $('.slides img').removeClass('active');
+                            $('.slides img[data-id="' + arrayPos + '"]').addClass('active');
+                        }
+
+                    });
+                });
+                //            $(document).ready(function () {
+                //                const tabs = document.querySelectorAll('.tab_btn');
+                //                const all_content = document.querySelectorAll('.content');
+                //
+                //                tabs.forEach((tab, index) => {
+                //                    tab.addEventListener('click', () => {
+                //                        // Xóa lớp 'active' khỏi tất cả các phần tử 'tab_btn'
+                //                        tabs.forEach((tab) => {
+                //                            tab.classList.remove('active');
+                //                        });
+                //
+                //                        // Thêm lớp 'active' vào phần tử được nhấp vào
+                //                        tab.classList.add('active');
+                //                    });
+                //                });
+                //            });
+                //            document.addEventListener('DOMContentLoaded', function () {
+                //                const tabs = document.querySelectorAll('.tab_btn');
+                //                tabs.forEach((tab) => {
+                //                    tab.addEventListener('click', function () {
+                //                        // Xóa lớp "active" khỏi tất cả các button
+                //                        tabs.forEach((tab) => {
+                //                            tab.classList.remove('active');
+                //                        });
+                //
+                //                        // Thêm lớp "active" vào button được nhấp vào
+                //                        tab.classList.add('active');
+                //                    });
+                //                });
+                //            });
+
+
+
+    </script>
+
+
+
+
+    <script src="/user/js/custom.js"></script>
+
+</body>
+
+</html>
+

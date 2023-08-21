@@ -1,0 +1,138 @@
+<html  lang="en" 
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org"> 
+
+    <head>
+        <div layout:fragment="title">
+            <title>Cancel booking</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css">
+            <link rel="stylesheet" href="/admin/lib/modules/bootstrap-daterangepicker/daterangepicker.css">
+                <style>
+                    .text_area {
+                        border: 1px solid #E4E6FC; /* Định dạng border cùng một lúc */
+                        background-color: #FDFDFF;
+                        border-radius: 5px;
+                        padding: 10px 15px;
+                    }
+
+                    .text_area:focus {
+                        outline: none;
+                        border-color: #6777EF;
+                    }
+
+                </style>
+        </div>
+
+    </head>
+
+    <body>
+
+        <div layout:fragment="content">
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-header-back">
+                            <a th:href="@{/admin/booking/{bookingId}/payment(bookingId=${bookingId})}" class="btn btn-icon"
+                               ><i class="fas fa-arrow-left"></i
+                                ></a>
+                        </div>
+                        <h1>Cancel booking</h1>
+                        <div class="section-header-breadcrumb">
+                            <div class="breadcrumb-item active">
+                                <a th:href="@{/admin/dashboard}">Dashboard</a>
+                            </div>
+                            <div class="breadcrumb-item"><a th:href="@{/admin/booking}">Booking</a></div>
+                            <div class="breadcrumb-item"><a th:href="@{/admin/booking/{bookingId}/payment(bookingId=${bookingId})}">Payment</a></div>
+                            <div class="breadcrumb-item">Cancel booking</div>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Cancel booking</h4>
+                                    </div>
+                                    <form action="/admin/booking/cancelBooking" method="POST" enctype="multipart/form-data">
+                                        <input type="hidden" name="tourid" th:value="${tourId}">
+                                            <input type="hidden" name="booking_id" th:value="${bookingId}" />
+                                            <!--<input type="hidden" name="scheduleItemid" th:value="${scheduleItemId}" />-->
+                                            <div class="card-body">
+                                                <div class="form-group row mb-4">
+                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Reason</label>
+                                                    <div class="col-sm-12 col-md-7">
+                                                        <textarea name="reason"  class="form-control-plaintext text_area" rows="10"></textarea>
+                                                        <!--<small style="color:red;" class="form-text">*Note: Each idea must add a dash "-"</small>-->
+                                                    </div>
+                                                </div>
+                                                <div th:if="${not #strings.isEmpty(errorMessage)}" style="" class="form-group row mb-4">
+                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                    <div class="col-sm-12 col-md-7">
+                                                        <div class="alert alert-danger">
+                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                            <span>Reason </span><span th:text="${errorMessage}"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row mb-4">
+                                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                    <div class="col-sm-12 col-md-7">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to Cancellation of tour booking?');"><i class="fas fa-sad-tear"></i> Cancel booking</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div layout:fragment="js">
+                <script src="/admin/lib/modules/bootstrap-daterangepicker/daterangepicker.js"></script>
+                <script src="/admin/lib/modules/cleave-js/dist/cleave.min.js"></script>
+                <script>
+                                                            "use strict";
+                                                            var booking = document.getElementById('booking');
+                                                            var booking2 = document.getElementById('booking-2');
+                                                            booking.classList.add('active');
+                                                            booking2.classList.add('active');
+
+
+                                                            var cleaveC = new Cleave('.currency', {
+                                                                numeral: true,
+                                                                numeralThousandsGroupStyle: 'thousand'
+                                                            });
+
+                                                            var dura = () => {
+                                                                var start = $('#start-date').val();
+                                                                var end = $('#end-date').val();
+
+                                                                var date1 = new Date(start);
+                                                                var date2 = new Date(end);
+
+                                                                // The number of milliseconds in one day
+                                                                const ONE_DAY = 1000 * 60 * 60 * 24;
+
+                                                                // Calculate the difference in milliseconds
+                                                                const differenceMs = Math.abs(date2 - date1);
+
+                                                                document.getElementById("duration").value = Math.round(differenceMs / ONE_DAY);
+
+                                                            };
+
+                                                            document.getElementById("duration").addEventListener("click", dura);
+                </script>
+            </div>
+
+    </body>
+
+</html>

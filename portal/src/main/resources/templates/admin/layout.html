@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+       lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <head>
+        <div layout:fragment="title"></div>   
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <!-- General CSS Files -->
+        <link rel="stylesheet" href="/admin/lib/modules/bootstrap/css/bootstrap.min.css">
+            <link rel="stylesheet" href="/admin/lib/modules/fontawesome/css/all.min.css">
+
+                <!-- CSS Libraries -->
+                <link rel="stylesheet" href="/admin/lib/modules/summernote/summernote-bs4.css">
+                    <link rel="stylesheet" href="/admin/lib/modules/jquery-selectric/selectric.css">
+                        <link rel="stylesheet" href="/admin/lib/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+
+                            <!-- Template CSS -->
+                            <link rel="stylesheet" href="/admin/css/style.css">
+                                <link rel="stylesheet" href="/admin/css/components.css">
+
+                                    <style>
+                                        /* CSS cho hiệu ứng loading */
+                                        .loading-container {
+                                            position: fixed;
+                                            top: 50%;
+                                            left: 50%;
+                                            transform: translate(-50%, -50%);
+                                            width: 100%;
+                                            height: 100%;
+                                            background-color: rgba(0, 0, 0, 0.5);
+                                            display: none;
+                                            justify-content: center;
+                                            align-items: center;
+                                            z-index: 9999;
+                                        }
+
+                                        .loading {
+                                            border: 4px solid rgba(255, 255, 255, 0.3);
+                                            border-top: 4px solid white;
+                                            border-radius: 50%;
+                                            width: 40px;
+                                            height: 40px;
+                                            animation: spin 2s linear infinite;
+                                        }
+
+                                        /* Hiển thị loading khi có lớp "visible" */
+                                        .loading-container.visible {
+                                            display: flex;
+                                        }
+
+                                        @keyframes spin {
+                                            0% {
+                                                transform: rotate(0deg);
+                                            }
+                                            100% {
+                                                transform: rotate(360deg);
+                                            }
+                                        }
+                                    </style>
+
+                                    <!-- Own CSS -->    
+                                    <div layout:fragment="css"></div>    
+
+                                    <!-- Start GA -->
+                                    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+                                    <script>
+                                        window.dataLayer = window.dataLayer || [];
+                                        function gtag() {
+                                            dataLayer.push(arguments);
+                                        }
+                                        gtag('js', new Date());
+
+                                        gtag('config', 'UA-94034622-3');
+                                    </script>
+                                    <!-- /END GA -->
+                                    </head>
+
+                                    <body>
+                                        <div id="loading-container" class="loading-container">
+                                            <div class="loading"></div>
+                                        </div>
+                                        <div id="app">
+                                            <div class="main-wrapper main-wrapper-1">
+                                                <div class="navbar-bg"></div>
+                                                <nav class="navbar navbar-expand-lg main-navbar">
+                                                    <form class="form-inline mr-auto">
+                                                        <ul class="navbar-nav mr-3">
+                                                            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                                                            <!--<li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>-->
+                                                        </ul>
+                                                        <!--                        <div class="search-element">
+                                                                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
+                                                                                        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                                                                                        <div class="search-backdrop"></div>
+                                                                                        <div class="search-result">
+                                                                                            <div class="search-header">
+                                                                                                Histories
+                                                                                            </div>
+                                                                                            <div class="search-item">
+                                                                                                <a href="#">How to hack NASA using CSS</a>
+                                                                                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                                                                                            </div>
+                                                                                            <div class="search-item">
+                                                                                                <a href="#">Kodinger.com</a>
+                                                                                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                                                                                            </div>
+                                                                                            <div class="search-item">
+                                                                                                <a href="#">#Stisla</a>
+                                                                                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                                                                                            </div>
+                                                                                            <div class="search-header">
+                                                                                                Result
+                                                                                            </div>
+                                                                                            <div class="search-item">
+                                                                                                <a href="#">
+                                                                                                    <img class="mr-3 rounded" width="30" src="/admin/images/products/product-3-50.png" alt="product">
+                                                                                                        oPhone S9 Limited Edition
+                                                                                                </a>
+                                                                                            </div>
+                                                                                            <div class="search-item">
+                                                                                                <a href="#">
+                                                                                                    <img class="mr-3 rounded" width="30" src="/admin/images/products/product-2-50.png" alt="product">
+                                                                                                        Drone X2 New Gen-7
+                                                                                                </a>
+                                                                                            </div>  
+                                                                                            <div class="search-item">
+                                                                                                <a href="#">
+                                                                                                    <img class="mr-3 rounded" width="30" src="/admin/images/products/product-1-50.png" alt="product">
+                                                                                                        Headphone Blitz
+                                                                                                </a>
+                                                                                            </div>
+                                                                                            <div class="search-header">
+                                                                                                Projects
+                                                                                            </div>
+                                                                                            <div class="search-item">
+                                                                                                <a href="#">
+                                                                                                    <div class="search-icon bg-danger text-white mr-3">
+                                                                                                        <i class="fas fa-code"></i>
+                                                                                                    </div>
+                                                                                                    Stisla Admin Template
+                                                                                                </a>
+                                                                                            </div>
+                                                                                            <div class="search-item">
+                                                                                                <a href="#">
+                                                                                                    <div class="search-icon bg-primary text-white mr-3">
+                                                                                                        <i class="fas fa-laptop"></i>
+                                                                                                    </div>
+                                                                                                    Create a new Homepage Design
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                </div>-->
+                                                    </form>
+                                                    <ul class="navbar-nav navbar-right">
+                                                        <!--                                                        <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
+                                                                                                                    <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                                                                                                                        <div class="dropdown-header">Messages
+                                                                                                                            <div class="float-right">
+                                                                                                                                <a href="#">Mark All As Read</a>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="dropdown-list-content dropdown-list-message">
+                                                                                                                            <a href="#" class="dropdown-item dropdown-item-unread">
+                                                                                                                                <div class="dropdown-item-avatar">
+                                                                                                                                    <img alt="image" src="/admin/images/avatar/avatar-1.png" class="rounded-circle">
+                                                                                                                                        <div class="is-online"></div>
+                                                                                                                                </div>
+                                                                                                                                <div class="dropdown-item-desc">
+                                                                                                                                    <b>Kusnaedi</b>
+                                                                                                                                    <p>Hello, Bro!</p>
+                                                                                                                                    <div class="time">10 Hours Ago</div>
+                                                                                                                                </div>
+                                                                                                                            </a>
+                                                                                                                            <a href="#" class="dropdown-item dropdown-item-unread">
+                                                                                                                                <div class="dropdown-item-avatar">
+                                                                                                                                    <img alt="image" src="/admin/images/avatar/avatar-2.png" class="rounded-circle">
+                                                                                                                                </div>
+                                                                                                                                <div class="dropdown-item-desc">
+                                                                                                                                    <b>Dedik Sugiharto</b>
+                                                                                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                                                                                                                    <div class="time">12 Hours Ago</div>
+                                                                                                                                </div>
+                                                                                                                            </a>
+                                                                                                                            <a href="#" class="dropdown-item dropdown-item-unread">
+                                                                                                                                <div class="dropdown-item-avatar">
+                                                                                                                                    <img alt="image" src="/admin/images/avatar/avatar-3.png" class="rounded-circle">
+                                                                                                                                        <div class="is-online"></div>
+                                                                                                                                </div>
+                                                                                                                                <div class="dropdown-item-desc">
+                                                                                                                                    <b>Agung Ardiansyah</b>
+                                                                                                                                    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                                                                                                                    <div class="time">12 Hours Ago</div>
+                                                                                                                                </div>
+                                                                                                                            </a>
+                                                                                                                            <a href="#" class="dropdown-item">
+                                                                                                                                <div class="dropdown-item-avatar">
+                                                                                                                                    <img alt="image" src="/admin/images/avatar/avatar-4.png" class="rounded-circle">
+                                                                                                                                </div>
+                                                                                                                                <div class="dropdown-item-desc">
+                                                                                                                                    <b>Ardian Rahardiansyah</b>
+                                                                                                                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit ess</p>
+                                                                                                                                    <div class="time">16 Hours Ago</div>
+                                                                                                                                </div>
+                                                                                                                            </a>
+                                                                                                                            <a href="#" class="dropdown-item">
+                                                                                                                                <div class="dropdown-item-avatar">
+                                                                                                                                    <img alt="image" src="/admin/images/avatar/avatar-5.png" class="rounded-circle">
+                                                                                                                                </div>
+                                                                                                                                <div class="dropdown-item-desc">
+                                                                                                                                    <b>Alfa Zulkarnain</b>
+                                                                                                                                    <p>Exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+                                                                                                                                    <div class="time">Yesterday</div>
+                                                                                                                                </div>
+                                                                                                                            </a>
+                                                                                                                        </div>
+                                                                                                                        <div class="dropdown-footer text-center">
+                                                                                                                            <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </li>
+                                                                                                                <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
+                                                                                                                    <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                                                                                                                        <div class="dropdown-header">Notifications
+                                                                                                                            <div class="float-right">
+                                                                                                                                <a href="#">Mark All As Read</a>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="dropdown-list-content dropdown-list-icons">
+                                                                                                                            <a href="#" class="dropdown-item dropdown-item-unread">
+                                                                                                                                <div class="dropdown-item-icon bg-primary text-white">
+                                                                                                                                    <i class="fas fa-code"></i>
+                                                                                                                                </div>
+                                                                                                                                <div class="dropdown-item-desc">
+                                                                                                                                    Template update is available now!
+                                                                                                                                    <div class="time text-primary">2 Min Ago</div>
+                                                                                                                                </div>
+                                                                                                                            </a>
+                                                                                                                            <a href="#" class="dropdown-item">
+                                                                                                                                <div class="dropdown-item-icon bg-info text-white">
+                                                                                                                                    <i class="far fa-user"></i>
+                                                                                                                                </div>
+                                                                                                                                <div class="dropdown-item-desc">
+                                                                                                                                    <b>You</b> and <b>Dedik Sugiharto</b> are now friends
+                                                                                                                                    <div class="time">10 Hours Ago</div>
+                                                                                                                                </div>
+                                                                                                                            </a>
+                                                                                                                            <a href="#" class="dropdown-item">
+                                                                                                                                <div class="dropdown-item-icon bg-success text-white">
+                                                                                                                                    <i class="fas fa-check"></i>
+                                                                                                                                </div>
+                                                                                                                                <div class="dropdown-item-desc">
+                                                                                                                                    <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>
+                                                                                                                                    <div class="time">12 Hours Ago</div>
+                                                                                                                                </div>
+                                                                                                                            </a>
+                                                                                                                            <a href="#" class="dropdown-item">
+                                                                                                                                <div class="dropdown-item-icon bg-danger text-white">
+                                                                                                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                                                                                                </div>
+                                                                                                                                <div class="dropdown-item-desc">
+                                                                                                                                    Low disk space. Let's clean it!
+                                                                                                                                    <div class="time">17 Hours Ago</div>
+                                                                                                                                </div>
+                                                                                                                            </a>
+                                                                                                                            <a href="#" class="dropdown-item">
+                                                                                                                                <div class="dropdown-item-icon bg-info text-white">
+                                                                                                                                    <i class="fas fa-bell"></i>
+                                                                                                                                </div>
+                                                                                                                                <div class="dropdown-item-desc">
+                                                                                                                                    Welcome to Stisla template!
+                                                                                                                                    <div class="time">Yesterday</div>
+                                                                                                                                </div>
+                                                                                                                            </a>
+                                                                                                                        </div>
+                                                                                                                        <div class="dropdown-footer text-center">
+                                                                                                                            <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                               
+                                                        </li>-->
+                                                        <span th:if="${session.user != null}">
+                                                            <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+
+                                                                    <img th:if="${session.user.avatar} == null" th:src="@{/admin/images/avatar/avatar.png}"  class="rounded-circle mr-1"  alt="alt"/>
+                                                                    <img th:if="${session.user.avatar} != null" alt="image" th:src="'data:image/png;base64,' + ${session.user.avatar}" class="rounded-circle mr-1">
+                                                                        <div class="d-sm-none d-lg-inline-block">Hi, <span th:if="${session.user != null}" th:text="${session.user.firstName} + ' ' + ${session.user.lastName}"></span></span></div></a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <!--<div class="dropdown-title">Logged in 5 min ago</div>-->
+                                                                    <a th:href="@{/admin/account/profile/{userId}(userId=${session.user.id})}" class="dropdown-item has-icon">
+                                                                        <i class="far fa-user"></i> Profile
+                                                                    </a>
+
+                                                                    <!--                                                                <a href="features-activities.html" class="dropdown-item has-icon">
+                                                                                                                                        <i class="fas fa-bolt"></i> Activities
+                                                                                                                                    </a>
+                                                                                                                                    <a href="features-settings.html" class="dropdown-item has-icon">
+                                                                                                                                        <i class="fas fa-cog"></i> Settings
+                                                                                                                                    </a>-->
+                                                                    <div class="dropdown-divider"></div>
+                                                                    <a th:href="@{/admin/logout}" class="dropdown-item has-icon text-danger">
+                                                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                                                    </a>
+                                                                </div>
+                                                        </span>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                                <div class="main-sidebar sidebar-style-2">
+                                                    <aside id="sidebar-wrapper">
+                                                        <div class="sidebar-brand">
+                                                            <a th:href="@{/admin/dashboard}">Tour Viet</a>
+                                                        </div>
+                                                        <div class="sidebar-brand sidebar-brand-sm">
+                                                            <a th:href="@{/admin/dashboard}">TV</a>
+                                                        </div>
+                                                        <ul class="sidebar-menu">
+
+                                                            <li class="menu-header">Dashboard</li>
+                                                            <li id="dash-board">
+                                                                <a th:href="@{/admin/dashboard}" class="nav-link" onclick="showLoadingOnLink()"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+                                                            </li>
+
+                                                            <li class="menu-header">Manage</li>
+                                                            <li class="dropdown" id="tour">
+                                                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-umbrella-beach"></i><span>Management tour</span></a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li id="tour-1"><a class="nav-link" th:href="@{/admin/tour}" onclick="showLoadingOnLink()">View tours</a></li>
+                                                                    <li th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}" id="tour-2"><a class="nav-link" th:href="@{/admin/create-tour}" onclick="showLoadingOnLink()">Create Tour</a></li>
+                                                                    <li  th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}"  id="tour-3"><a class="nav-link" th:href="@{/admin/tour_create}" onclick="showLoadingOnLink()">Self-designed tour</a></li>
+                                                                    <!--<li id="tour-2"><a class="nav-link" th:href="@{/admin/booking}">Booking List</a></li>-->
+                                                                    <!--<li id="tour-4"><a class="nav-link" th:href="@{/admin/invoice}">Invoice List</a></li>-->
+                                                                </ul>
+                                                            </li>
+
+                                                            <!--                                                            <li class="dropdown" id="tour">
+                                                                                                                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-umbrella-beach"></i><span>Self-made tour manager</span></a>
+                                                                                                                            <ul class="dropdown-menu">
+                                                                                                                                <li id="tour-1"><a class="nav-link" th:href="@{/admin/tour_create}" onclick="showLoadingOnLink()">Self-designed tour</a></li>
+                                                                                                                                <li th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}" id="tour-2"><a class="nav-link" th:href="@{/admin/create-tour}" onclick="showLoadingOnLink()">Create Tour</a></li>
+                                                                                                                                <li id="tour-2"><a class="nav-link" th:href="@{/admin/booking}">Booking List</a></li>
+                                                                                                                                <li id="tour-4"><a class="nav-link" th:href="@{/admin/invoice}">Invoice List</a></li>
+                                                                                                                            </ul>
+                                                                                                                        </li>-->
+
+
+
+                                                            <!--                            <li class="dropdown" id="schedule">
+                                                                                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-alt"></i><span>Management schedule</span></a>
+                                                                                            <ul class="dropdown-menu">
+                                                                                                <li id="schedule-1"><a class="nav-link" th:href="@{/admin/schedule}">View schedule</a></li>
+                                                                                                <li id="schedule-2"><a class="nav-link" th:href="@{/admin/create-schedule}">Create Schedule</a></li>
+                                                                                            </ul>
+                                                                                        </li>-->
+
+                                                            <li class="dropdown" id="booking" th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}">
+                                                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar"></i><span>Management booking</span></a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li id="booking-1"><a class="nav-link" th:href="@{/admin/booking}" onclick="showLoadingOnLink()">View bookings</a></li>
+                                                                </ul>
+                                                            </li>
+
+                                                            <li class="dropdown" id="company" th:if="${session.user.roleId.id == 1}">
+                                                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i><span>Management company</span></a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li id="company-1"><a class="nav-link" th:href="@{/admin/companies}" onclick="showLoadingOnLink()">View companies</a></li>
+                                                                    <li id="company-2"><a class="nav-link" th:href="@{/admin/create-company}" onclick="showLoadingOnLink()">Create company</a></li>
+                                                                    <li id="company-3"><a class="nav-link" th:href="@{/admin/registration-companies}" onclick="showLoadingOnLink()">Registration required</a></li>
+                                                                </ul>
+                                                            </li>
+
+                                                            <li class="dropdown" id="region" th:if="${session.user.roleId.id == 1}">
+                                                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-map-marked"></i><span>Management region</span></a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li id="region-1"><a class="nav-link" th:href="@{/admin/regions}" onclick="showLoadingOnLink()">View regions</a></li>
+                                                                    <li id="region-2"><a class="nav-link" th:href="@{/admin/create-region}" onclick="showLoadingOnLink()">Create region</a></li>
+                                                                </ul>
+                                                            </li>
+
+                                                            <li class="dropdown" id="account">
+                                                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-user-circle"></i><span>Account</span></a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li th:if="${session.user.roleId.id == 1}" id="account-1"><a class="nav-link" th:href="@{/admin/account/user}" onclick="showLoadingOnLink()">Users</a></li>
+                                                                    <li id="account-2"><a class="nav-link" th:href="@{/admin/account/staff}" onclick="showLoadingOnLink()">Staffs</a></li>
+                                                                </ul>
+                                                            </li>
+
+                                                            <li class="dropdown" id="response">
+                                                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-comment-dots"></i><span>Response</span></a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li id="response-1"><a class="nav-link" th:href="@{/admin/feedback}" onclick="showLoadingOnLink()">Feedback</a></li>
+                                                                    <li id="response-2"><a class="nav-link" th:href="@{/admin/contact}" onclick="showLoadingOnLink()">Contact</a></li>
+                                                                </ul>
+                                                            </li>
+
+                                                        </ul>
+
+                                                        <!--                                                        <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+                                                                                                                    <a th:href="@{/user/home}" class="btn btn-primary btn-lg btn-block btn-icon-split">
+                                                                                                                        <i class="fas fa-rocket"></i> Visit website
+                                                                                                                    </a>
+                                                                                                                </div>        -->
+                                                    </aside>
+                                                </div>
+
+                                                <!-- Main Content -->
+                                                <div layout:fragment="content">
+
+                                                </div>
+
+                                                <footer class="main-footer">
+                                                    <div class="footer-left">
+                                                        Bản quyền của TourViet ® 2023. Bảo lưu mọi quyền.
+                                                    </div>
+                                                    <div class="footer-right">
+                                                        Ghi rõ nguồn "www.travel.com.vn" ® khi sử dụng lại thông tin từ website này.
+                                                    </div>
+                                                </footer>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- General JS Scripts -->
+                                        <script src="/admin/lib/modules/jquery.min.js"></script>
+                                        <script src="/admin/lib/modules/popper.js"></script>
+                                        <script src="/admin/lib/modules/tooltip.js"></script>
+                                        <script src="/admin/lib/modules/bootstrap/js/bootstrap.min.js"></script>
+                                        <script src="/admin/lib/modules/nicescroll/jquery.nicescroll.min.js"></script>
+                                        <script src="/admin/lib/modules/moment.min.js"></script>
+                                        <script src="/admin/js/stisla.js"></script>
+
+                                        <!-- JS Libraies -->
+                                        <script src="/admin/lib/modules/summernote/summernote-bs4.js"></script>
+                                        <script src="/admin/lib/modules/jquery-selectric/jquery.selectric.min.js"></script>
+                                        <script src="/admin/lib/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
+                                        <script src="/admin/lib/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+
+                                        <!-- Page Specific JS File -->
+                                        <div layout:fragment="js">
+
+                                        </div>
+
+                                        <!-- Template JS File -->
+                                        <script src="/admin/js/scripts.js"></script>
+                                        <script src="/admin/js/custom.js"></script>
+                                        <script>
+                                                                        // JavaScript
+                                                                        function showLoading() {
+                                                                            const requiredFields = document.querySelectorAll('[required]');
+
+                                                                            // Kiểm tra xem có trường nào chưa được điền không
+                                                                            const isFormValid = Array.from(requiredFields).every(field => field.value.trim() !== '');
+
+                                                                            if (isFormValid) {
+                                                                                document.getElementById("loading-container").classList.add("visible");
+                                                                            }
+                                                                        }
+
+                                                                        function hideLoading() {
+                                                                            document.getElementById("loading-container").classList.remove("visible");
+                                                                        }
+
+                                                                        window.addEventListener("load", function () {
+                                                                            // Trang đã tải xong, ẩn hiệu ứng loading
+                                                                            hideLoading();
+                                                                        });
+
+                                                                        function showLoadingOnLink() {
+                                                                            showLoading();
+
+                                                                            // Đăng ký sự kiện pageshow khi trang được tải lại
+                                                                            window.addEventListener("pageshow", hideLoading);
+
+                                                                            // Đăng ký sự kiện popstate khi lịch sử trình duyệt thay đổi
+                                                                            window.addEventListener("popstate", hideLoading);
+                                                                        }
+
+                                                                        function handlePageShow(event) {
+                                                                            hideLoading();
+                                                                            // Hủy đăng ký sự kiện pageshow
+                                                                            window.removeEventListener("pageshow", handlePageShow);
+                                                                        }
+
+                                                                        function handlePopState(event) {
+                                                                            hideLoading();
+                                                                            // Hủy đăng ký sự kiện popstate
+                                                                            window.removeEventListener("popstate", handlePopState);
+                                                                        }
+                                        </script>
+                                    </body>
+
+                                    </html>

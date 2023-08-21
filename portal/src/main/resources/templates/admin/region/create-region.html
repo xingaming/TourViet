@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html  lang="en" 
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> 
+
+    <head>
+        <div layout:fragment="title">
+            <title>Create region</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css">
+            <style>
+                .text_area {
+                    border: 1px solid #E4E6FC; /* Định dạng border cùng một lúc */
+                    background-color: #FDFDFF;
+                    border-radius: 5px;
+                    padding: 10px 15px;
+                }
+
+                .text_area:focus {
+                    outline: none;
+                    border-color: #6777EF;
+                }
+
+            </style>
+        </div>
+
+    </head>
+
+    <body>
+
+        <div layout:fragment="content">
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>Create region</h1>
+                        <div class="section-header-breadcrumb">
+                            <div class="breadcrumb-item active"><a th:href="@{/admin/dashboard}">Dashboard</a></div>
+                            <div class="breadcrumb-item"><a th:href="@{/admin/regions}">View regions</a></div>
+                            <div class="breadcrumb-item">Create region</div>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Create new region</h4>
+                                    </div>
+                                    <form action="/admin/create-region" method="POST" enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Name area</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input name="nameArea" type="text" class="form-control" th:value="${region?.nameArea}">
+                                                </div><span style="color:red">*</span>
+                                            </div>
+                                            <div th:if="${not #strings.isEmpty(errorMessage) && region?.nameArea.isEmpty}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Name area </span><span th:text="${errorMessage}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>                                 
+
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <textarea name="description"  class="form-control-plaintext text_area" rows="10" th:text="${region?.description}"></textarea>
+                                                    <small style="color:red;" class="form-text">*Note: Each idea must add a dash "-"</small>
+                                                </div>
+                                            </div>
+<!--                                            <div th:if="${not #strings.isEmpty(errorMessage) && region.description.isEmpty}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Description </span><span th:text="${errorMessage}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Image</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div id="image-preview" class="image-preview">
+                                                        <label for="image-upload" id="image-label">Choose File</label>
+                                                        <img th:src="'data:image/png;base64,' + ${region?.image}" width="250" height="250px" alt="alt"/>
+                                                        <input type="file" name="images" id="image-upload" />
+                                                        <input type="hidden" name="image" th:value="${region?.image}" />
+                                                    </div>
+                                                </div><span style="color:red">*</span>
+                                            </div>
+                                            <div th:if="${not #strings.isEmpty(errorMessage) && (region?.image == null || region?.image.isEmpty)}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Image </span><span th:text="${errorMessage}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <button type="submit" class="btn btn-primary">Create region</button>
+                                                </div>
+                                            </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div layout:fragment="js">
+                <script th:src="@{/admin/lib/modules/datatables/datatables.min.js}"></script>
+                <script th:src="@{/admin/lib/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js}"></script>
+                <script th:src="@{/admin/lib/modules/datatables/Select-1.2.4/js/dataTables.select.min.js}"></script>
+                <script th:src="@{/admin/lib/modules/jquery-ui/jquery-ui.min.js}"></script>
+
+                <script>
+                    var schedule = document.getElementById('region');
+                    var schedule1 = document.getElementById('region-2');
+                    schedule.classList.add('active');
+                    schedule1.classList.add('active');
+                    
+                </script>
+
+                </body>
+
+                </html>

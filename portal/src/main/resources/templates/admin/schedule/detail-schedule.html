@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/admin/layout" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <div layout:fragment="title">
+            <title>Schedule Detail</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <div layout:fragment="css">
+            <!-- Add any CSS files needed for this page -->
+            <style>
+                /* CSS cho gạch phân cách mờ mờ (border-bottom) */
+                table {
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+
+                th, td {
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                    padding: 8px;
+                }
+            </style>
+        </div>
+
+    </head>
+
+    <body>
+
+        <div layout:fragment="content">
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>Schedule Detail</h1>
+                        <div class="section-header-breadcrumb">
+                            <div class="breadcrumb-item active"><a th:href="@{/admin/dashboard}">Dashboard</a></div>
+                            <div class="breadcrumb-item active"><a th:href="@{/admin/tour}">View Tour</a></div>
+                            <div class="breadcrumb-item">Schedule Detail</div>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Schedule Detail</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Display the details of the schedule here -->
+                                        <table class="table">
+                                            <tr>
+                                                <th>Start Date:</th>
+                                                <td><span th:text="${#dates.format(schedule.startDate, 'yyyy-MM-dd')}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>End Date:</th>
+                                                <td><span th:text="${#dates.format(schedule.endDate, 'yyyy-MM-dd')}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Price:</th>
+                                                <td><span th:text="${schedule.price}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Quantity Min:</th>
+                                                <td><span th:text="${schedule.quantityMin}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Quantity Max:</th>
+                                                <td><span th:text="${schedule.quantityMax}"></span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div layout:fragment="js">
+            <!-- Add any JavaScript files needed for this page -->
+        </div>
+
+    </body>
+
+</html>

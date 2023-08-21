@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<!--<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+<html lang="en" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/user/layout">
+    <head>
+
+        <title>Home</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+
+    <body>
+
+
+
+        <div layout:fragment="content">
+            <div class="hero">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="intro-wrap">
+                                <h1 class="mb-5"><span class="d-block">Let's Enjoy Your</span> Trip In <span class="typed-words"></span></h1>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form class="form" method="GET" th:action="@{/user/search}">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-7">
+                                                    <select name="region" id="" class="form-control custom-select">
+                                                        <option th:value="0">Choose destination</option>
+                                                        <option th:each="c: ${listRegion}" th:text="${c.nameArea}" th:value="${c.id}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-5">
+                                                    <input type="text" class="form-control" name="daterange">
+                                                </div>
+
+
+                                            </div>    
+                                            <div class="row align-items-center">
+                                                <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+                                                    <input type="submit" class="btn btn-primary btn-block no-hover" value="Search">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="slides">
+                                <div class="image-container">
+                                    <img src="/user/images/slider-1.jpg" alt="Image" class="img-fluid active">
+                                    <img src="/user/images/slider-2.jpg" alt="Image" class="img-fluid">
+                                    <img src="/user/images/slider-3.jpg" alt="Image" class="img-fluid">
+                                    <img src="/user/images/slider-4.jpg" alt="Image" class="img-fluid">
+                                    <img src="/user/images/slider-5.jpg" alt="Image" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="untree_co-section" style="padding-bottom: 0">
+                <div class="container">
+                    <div class="row mb-5 justify-content-center">
+                        <div class="col-lg-6 text-center">
+                            <h2 class="section-title text-center mb-3">Our Services</h2>
+                            <p>
+                                Uncover the beauty of Vietnam through our tourism services - An extraordinary journey immersed in marvels and wonders.
+                            </p>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+            <div class="untree_co-section">
+                <div class="container">
+                    <div class="row text-center justify-content-center mb-5">
+                        <div class="col-lg-7"><h2 class="section-title text-center">Popular Tour</h2></div>
+                    </div>
+
+                    <div class="owl-carousel owl-3-slider" >
+                        <th:block th:each="po : ${popularSechdule}"> 
+
+
+                            <div class="item">
+                                <!--th:href="'data:image/png;base64,' + ${po.tourId.image}" data-fancybox="gallery"-->
+                                <a class="media-thumb" th:href="@{/user/detail/{id}(id=${po.id})}" alt="" >
+                                    <div class="media-text">
+                                        <h3 th:text="${po.tourId.name}" class="tour-name"></h3>
+
+                                        <span th:text="${po.tourId.regionId.nameArea}" class="location"></span>
+                                    </div>
+                                    <img th:src="'data:image/png;base64,' + ${po.tourId.image}" alt="" class="img-fluid">
+                                </a> 
+                            </div>
+
+
+
+                        </th:block>
+
+                    </div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var maxLength = 60;
+                            var tourNameElements = document.getElementsByClassName("tour-name");
+
+                            for (var i = 0; i < tourNameElements.length; i++) {
+                                var tourName = tourNameElements[i].textContent;
+
+                                if (tourName.length > maxLength) {
+                                    tourNameElements[i].textContent = tourName.substring(0, maxLength) + "...";
+                                }
+                            }
+                        });
+                    </script>
+
+
+
+                </div>
+            </div>
+
+            <div class="untree_co-section" style="padding-bottom: 0">
+                <div class="container-fluid">
+
+
+                    <div class="row mb-5 justify-content-center flex-wrap">
+                        <div class="col-lg-12 text-center" style="padding-bottom: 50px">
+                            <h2 class="section-title text-center mb-3">We've got you covered</h2>
+
+                        </div>
+                        <div class="col-4 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <!--<div class="feature-1 d-md-inline-flex">-->
+                            <div class="align-self-center item-covered">
+                                <!--<span class="flaticon-house display-4 text-primary"></span>-->
+                                <img  src="/user/lib/icon/image 54.png" alt="Image" class="img-fluid">
+                                <h3>Explore top attractions</h3>
+                                <p class="">Experience the best of your destination, 
+                                    with attractions, tours, activities and more</p>
+
+
+                            </div>
+                            <!--</div>-->
+                        </div>
+                        <div class="col-4 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <!--<div class="feature-1 d-md-inline-flex">-->
+                            <div class="align-self-center item-covered">
+                                <img  src="/user/lib/icon/image 55.png" alt="Image" class="img-fluid">
+                                <h3>Fast and flexible</h3>
+                                <p class="">Book tickets online in minutes, with 
+                                    free cancellation on many attractions</p>
+                                <!--</div>-->
+                            </div>
+                        </div>
+                        <div class="col-4 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <!--<div class="feature-1 d-md-inline-flex">-->
+                            <div class="align-self-center item-covered">
+                                <img style="height: 111px" src="/user/lib/icon/image 56.png" alt="Image" class="img-fluid">
+                                <h3>Support when you need it</h3>
+                                <p class="">TourViet.com's global Customer Service 
+                                    team is here to help 24/7</p>
+                            </div>
+                            <!--</div>-->
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+            <div id="tourism" class="untree_co-section">
+                <div class="container">
+                    <div class="row justify-content-center text-center mb-5">
+                        <div class="col-lg-6">
+                            <h2 class="section-title text-center mb-3">Tourism</h2>
+
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="tab_box">
+
+                            <button class="tab_btn avtive">ALL</button>
+                            <button class="tab_btn">MOST POPULAR</button>
+                            <!--<button class="tab_btn">CENTRAL REGION</button>-->
+                            <div class="line"></div>
+                        </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const tabs = document.querySelectorAll('.tab_btn');
+                                const line = document.querySelector('.line');
+                                const all_content = document.querySelectorAll('.content_box_child');
+
+                                tabs.forEach((tab) => {
+                                    tab.addEventListener('click', function (e) {
+                                        tabs.forEach((tab) => {
+                                            tab.classList.remove('active');
+                                        });
+
+                                        const currentTab = e.target;
+                                        const currentIndex = Array.from(tabs).indexOf(currentTab);
+
+                                        currentTab.classList.add('active');
+
+                                        line.style.width = currentTab.offsetWidth + "px";
+                                        line.style.left = currentTab.offsetLeft + "px";
+
+                                        all_content.forEach((content) => {
+                                            content.classList.remove('active');
+                                        });
+
+                                        all_content[currentIndex].classList.add('active');
+                                    });
+                                });
+                            });
+                            $(document).ready(function () {
+                                $('.scroll-link').on('click', function (event) {
+                                    event.preventDefault();
+                                    var target = $(this).data('target');
+                                    $('html, body').animate({
+                                        scrollTop: $(target).offset().top
+                                    }, 1000);
+                                    //                         $(this).addClass('button-clicked'); 
+                                });
+                            });
+
+                        </script>
+
+                        <div class="content_box">
+                            <div class="content_box_child active">
+
+                                <div class="untree_co-section">
+                                    <div class="container">
+                                        <!-- Sử dụng một hàng (row) để chứa các item của vòng lặp -->
+                                        <th:block th:if="${#lists.size(listRegion) > 0}">
+                                            <div class="row">
+                                                <!-- Loop through the items -->
+                                                <th:block th:each="region, iter : ${listRegion}">
+                                                    <div class="col-6 col-md-3"> <!-- col-md-3 for small screens -->
+                                                        <div class="media-1">
+                                                            <a th:href="@{/user/destination/{id}(id=${region.id})}" class="d-block mb-3"><img style="width: 800px; height: 200px" th:src="'data:image/png;base64,' + ${region.image}" alt="Image" class="img-fluid"></a>
+                                                            <span class="d-flex align-items-center loc mb-2">
+                                                                <span class="icon-room mr-3"></span>
+                                                                <span><a class="destination_tourism" th:href="@{/user/destination/{id}(id=${region.id})}" th:text="${region.nameArea}"></a></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Close the row div and start a new row after every 4 items -->
+                                                    <th:block th:if="${(iter.index + 1) % 4 == 0}"></div><div class="row"></th:block>
+                                                </th:block>
+                                            </div>
+                                        </th:block>
+                                    </div>
+
+
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="content_box_child">
+                                <div class="untree_co-section">
+                                    <div class="container">
+
+                                         <th:block th:if="${#lists.size(popularRegion) > 0}">
+                                            <div class="row">
+                                                <!-- Loop through the items -->
+                                                <th:block th:each="region, iter : ${popularRegion}">
+                                                    <div class="col-6 col-md-3"> <!-- col-md-3 for small screens -->
+                                                        <div class="media-1">
+                                                            <a th:href="@{/user/destination/{id}(id=${region.id})}" class="d-block mb-3"><img style="width: 800px; height: 200px" th:src="'data:image/png;base64,' + ${region.image}" alt="Image" class="img-fluid"></a>
+                                                            <span class="d-flex align-items-center loc mb-2">
+                                                                <span class="icon-room mr-3"></span>
+                                                                <span><a class="destination_tourism" th:href="@{/user/destination/{id}(id=${region.id})}" th:text="${region.nameArea}"></a></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Close the row div and start a new row after every 4 items -->
+                                                    <th:block th:if="${(iter.index + 1) % 4 == 0}"></div><div class="row"></th:block>
+                                                </th:block>
+                                            </div>
+                                        </th:block>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="content_box_child">
+                                <div class="untree_co-section">
+                                    <div class="container">
+
+                                        <div class="row">
+                                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                                <div class="media-1">
+                                                    <a href="#" class="d-block mb-3"><img src="/user/images/img-tourism-phanthiet.jpg" alt="Image" class="img-fluid img-tourism"></a>
+                                                    <span class="d-flex align-items-center loc mb-2">
+                                                        <span class="icon-room mr-3"></span>
+                                                        <span><a class="destination_tourism" href="#">Phan Thiet</a></span>
+                                                    </span>
+                                                    <div class="d-flex align-items-center">
+                                                        <div>
+
+                                                            <div class="price ml-auto">
+                                                                <span>15 things to do</span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                                <div class="media-1">
+                                                    <a href="#" class="d-block mb-3"><img src="/user/images/img-tourism-nhatrang.jpg" alt="Image" class="img-fluid img-tourism"></a>
+                                                    <span class="d-flex align-items-center loc mb-2">
+                                                        <span class="icon-room mr-3"></span>
+                                                        <span><a class="destination_tourism" href="#">Nha Trang</a></span>
+                                                    </span>
+                                                    <div class="d-flex align-items-center">
+                                                        <div>
+
+                                                            <div class="price ml-auto">
+                                                                <span>15 things to do</span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                                <div class="media-1">
+                                                    <a href="#" class="d-block mb-3"><img src="/user/images/img-tourism-danang.jpg" alt="Image" class="img-fluid img-tourism"></a>
+                                                    <span class="d-flex align-items-center loc mb-2">
+                                                        <span class="icon-room mr-3"></span>
+                                                        <span><a class="destination_tourism" href="#">Da Nang</a></span>
+                                                    </span>
+                                                    <div class="d-flex align-items-center">
+                                                        <div>
+
+                                                            <div class="price ml-auto">
+                                                                <span>15 things to do</span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                                <div class="media-1">
+                                                    <a href="#" class="d-block mb-3"><img src="/user/images/img-tourism-dalat.jpg" alt="Image" class="img-fluid img-tourism"></a>
+
+                                                    <span class="d-flex align-items-center loc mb-2">
+                                                        <span class="icon-room mr-3"></span>
+                                                        <span><a class="destination_tourism" href="#">Da Lat</a></span>
+                                                    </span>
+
+                                                    <div class="d-flex align-items-center">
+                                                        <div>
+
+                                                            <div class="price ml-auto">
+                                                                <span>15 things to do</span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="untree_co-section untree_co-section_video" >
+                <div class="container">
+                    <div class="row justify-content-between align-items-center">
+
+                        <div class="col-lg-6">
+                            <figure class="img-play-video">
+                                <a id="play-video" class="video-play-button" href="https://www.youtube.com/watch?v=mwtbEGNABWU" data-fancybox>
+                                    <span></span>
+                                </a>
+                                <img src="images/hero-slider-2.jpg" alt="Image" class="img-fluid rounded-20">
+                            </figure>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <h2 class="section-title text-left mb-4">Take a look at Tour Video</h2>
+                            <p>
+                                Explore the enchanting Monkey Island in Nha Trang - a tropical paradise where nature and wildlife thrive. Located off the coast of Nha Trang, Vietnam, Monkey Island, also known as Hon Lao, captivates visitors with its stunning beauty and a unique population of wild monkeys.
+                            </p>
+
+
+                            <ul class="list-unstyled two-col clearfix">
+                                <li>Outdoor recreation activities</li>
+                                <li>Package Tours   </li>
+                                <li>Visit the zoo</li>
+                                <li>Animal circus</li>
+                                <li>Hotels</li>
+
+                            </ul>
+
+                            <p><a href="#" class="btn btn-primary">Get Started</a></p>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="py-5 cta-section">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <h2 class="mb-2 text-white text-ctasection-title" style="color: #C1AC67 !important  ">Lets you Explore the Best</h2>
+                            <p class="mb-4 lead text-white text-white-opacity">Discover the hidden gems of Vietnam, where ancient traditions meet breathtaking landscapes   </p>
+                            <p class="mb-0"><a href="booking.html" class="btn text-white btn-md font-weight-bold" style="color: #C1AC67 !important; background-color: #233A3A; border: 2px solid #C1AC67  ">LET’S EXPLORE</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--                                                                                                                                                                <div class="site-footer">
+                                                                                        
+                                                                                        <div class="inner first">
+                                                                                        <div class="container">
+                                                                                        <div class="row " >
+                                                                                        <div class="col">
+                                                                                        <div class="widget">
+                                                                                        <h3 class="heading">About Tour</h3>
+                                                                                        <p class="content-footer">
+                                                                                        Established since 2012, we are a reputable and professional tour operator based in Nha Trang, Vietnam. As a member of the Khanh Hoa Tourism Association, we are committed to providing the best prices and highest quality service. Our aim is to ensure customer satisfaction on every journey. With direct and reliable operations, we offer trustworthy and memorable travel experiences.
+                                                                                        </p>
+                                                                                        <p class="content-footer" style=" font-size: 30px !important">
+                                                                                        Hotline:  1900 6568
+                                                                                        </p>
+                                                                                        </div>
+        
+                                                                                        </div>
+                                                                                        <div class="col-md-auto" >
+                                                                                        <div class="widget">
+                                                                                        <h3 class="heading">Information</h3>
+                                                                                        <ul  class="links list-unstyled ">
+                                                                                        <li><a class="content-footer" href="#">About Us</a></li>
+                                                                                        <li><a class="content-footer" href="#">Contact Us</a></li>
+                                                                                        <li><a class="content-footer" href="#">Tour cancellation policy</a></li>                                                                                                                                                                                            <li><a class="content-footer" href="#">Tour cancellation policy</a></li>
+                                                                                        <li><a class="content-footer" href="#">Tour Booking & Payment</a></li>
+                                                                                        <li><a class="content-footer" href="#">Terms of use</a></li>
+                                                                                        <li><a class="content-footer" href="#">Privacy Policy</a></li>
+        
+                                                                                        </ul>
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        <div class="col col-lg-4" >
+                                                                                        <div class="widget">
+                                                                                        <h3 class="heading">Affiliate Partner</h3>
+                                                                                        <ul class="links list-unstyled ">
+                                                                                        <li><a class="content-footer" href="#">Travel to Nha Trang</a></li>
+                                                                                        <li><a class="content-footer" href="#">Travel to Da Nang</a></li>
+                                                                                        <li><a class="content-footer" href="#">Travel to Da Lat</a></li>
+                                                                                        <li><a class="content-footer" href="#">Travel to Hue</a></li>
+                                                                                        <li><a class="content-footer" href="#">Travel to Ha Noi</a></li>
+                                                                                        <li><a class="content-footer" href="#">...</a></li>
+                                                                                        </ul>
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        
+                                                                                        </div>
+                                                                                        <div class="row flex-wrap">
+                                                                                        <div class="col-5">
+                                                                                        <div class="widget">
+                                                                                        <ul class="list-unstyled social">
+                                                                                        
+                                                                                        <li><a href="#"><span class="icon-instagram"></span></a></li>
+                                                                                        <li><a href="#"><span class="icon-facebook"></span></a></li>
+                                                                                        
+                                                                                        <li><a href="#"><span class="icon-google"></span></a></li>
+                                                                                        </ul>
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        <div class="col-7 custom-col">
+                                                                                        <div class="widget">
+                                                                                        <div class="row">
+                                                                                        <div class="col-4 ">
+                                                                                        <div class="widget">
+                                                                                        <div class="thumbnail">
+                                                                                        <h3 class="heading">Certificate</h3>
+                                                                                        </div>
+        
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        <div class="col-8 ">
+                                                                                        <div class="row">
+                                                                                        <div class="col-4">
+                                                                                        <div class="widget">
+                                                                                        <div class="thumbnail">
+                                                                                        <img style="width: 135px;
+                                                                                        height: auto;
+                                                                                        flex-shrink: 0;" class="nav-item-icon" src="../user/lib/icon/image 58.png" alt="alt"/>
+        
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        <div class="col-8 ">
+                                                                                        <div class="widget">
+                                                                                        <div class="thumbnail">
+                                                                                        <img style="width: 135px;
+                                                                                        height: auto;
+                                                                                        flex-shrink: 0;" class="nav-item-icon" src="../user/lib/icon/image 59.png" alt="alt"/>
+        
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        </div>
+        
+        
+                                                                                        </div>
+        
+                                                                                        </div>
+        
+        
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        </div>
+        
+        
+        
+                                                                                        <div class="inner dark">
+                                                                                        <div class="container">
+                                                                                        <div class="row text-center">
+                                                                                        <div class="col-md-8 mb-3 mb-md-0 mx-auto">
+                                                                                        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed by <a href="https://untree.co" class="link-highlight">Group 6</a>  License information: https://untree.co/license/ Distributed By <a href="https://themewagon.com" target="_blank" >FPT Apetch</a>
+                                                                                        </p>
+                                                                                        </div>
+        
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        </div>-->
+
+        <!--<div id="overlayer"></div>-->
+
+        <div class="loader">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+        <script src="/user/js/jquery-3.4.1.min.js"></script>
+        <script src="/user/js/popper.min.js"></script>
+        <script src="/user/js/bootstrap.min.js"></script>
+        <script src="/user/js/owl.carousel.min.js"></script>
+        <script src="/user/js/jquery.animateNumber.min.js"></script>
+        <script src="/user/js/jquery.waypoints.min.js"></script>
+        <script src="/user/js/jquery.fancybox.min.js"></script>
+        <script src="/user/js/aos.js"></script>
+        <script src="/user/js/moment.min.js"></script>
+        <script src="/user/js/daterangepicker.js"></script>
+        <script src="/user/js/index.js"></script>
+
+        <script src="/user/js/typed.js"></script>
+
+        <!--        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+
+        <script type="text/javascript">
+                            $(function () {
+                                var slides = $('.slides'),
+                                        images = slides.find('img');
+
+                                images.each(function (i) {
+                                    $(this).attr('data-id', i + 1);
+                                })
+
+                                var typed = new Typed('.typed-words', {
+                                    strings: ["Nha Trang.", " Da Nang.", " Da Lat.", " Ha Noi.", " Hue."],
+                                    typeSpeed: 80,
+                                    backSpeed: 80,
+                                    backDelay: 4000,
+                                    startDelay: 1000,
+                                    loop: true,
+                                    showCursor: true,
+                                    preStringTyped: (arrayPos, self) => {
+                                        arrayPos++;
+                                        console.log(arrayPos);
+                                        $('.slides img').removeClass('active');
+                                        $('.slides img[data-id="' + arrayPos + '"]').addClass('active');
+                                    }
+
+                                });
+                            });
+
+                            //            $(document).ready(function () {
+                            //                const tabs = document.querySelectorAll('.tab_btn');
+                            //                const all_content = document.querySelectorAll('.content');
+                            //
+                            //                tabs.forEach((tab, index) => {
+                            //                    tab.addEventListener('click', () => {
+                            //                        // Xóa lớp 'active' khỏi tất cả các phần tử 'tab_btn'
+                            //                        tabs.forEach((tab) => {
+                            //                            tab.classList.remove('active');
+                            //                        });
+                            //
+                            //                        // Thêm lớp 'active' vào phần tử được nhấp vào
+                            //                        tab.classList.add('active');
+                            //                    });
+                            //                });
+                            //            });
+                            //            document.addEventListener('DOMContentLoaded', function () {
+                            //                const tabs = document.querySelectorAll('.tab_btn');
+                            //                tabs.forEach((tab) => {
+                            //                    tab.addEventListener('click', function () {
+                            //                        // Xóa lớp "active" khỏi tất cả các button
+                            //                        tabs.forEach((tab) => {
+                            //                            tab.classList.remove('active');
+                            //                        });
+                            //
+                            //                        // Thêm lớp "active" vào button được nhấp vào
+                            //                        tab.classList.add('active');
+                            //                    });
+                            //                });
+                            //            });
+
+
+
+        </script>
+
+
+
+
+        <script src="/user/js/custom.js"></script>
+
+    </body>
+
+</html>

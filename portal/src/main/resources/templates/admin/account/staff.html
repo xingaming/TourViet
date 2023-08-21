@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<html  lang="en" 
+       xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" > 
+
+    <head>
+        <div layout:fragment="title">
+            <title>Staff</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css">
+            <link rel="stylesheet" href="/admin/lib/modules/datatables/datatables.min.css">
+                <link rel="stylesheet" href="/admin/lib/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+                    <link rel="stylesheet" href="/admin/lib/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+                        </div>
+
+                        </head>
+
+                        <body>
+                            <div layout:fragment="content">
+                                <div class="main-content">
+                                    <section class="section">
+                                        <div class="section-header">
+                                            <h1>Management Staff Page</h1>
+                                            <div class="section-header-breadcrumb">
+                                                <div class="breadcrumb-item active"><a href="#">Manage</a></div>
+                                                <div class="breadcrumb-item">Staff</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="section-body">
+                                            <span th:if="${message != null}">
+                                                <div id="messageElement" style="display: none;">[[${message}]]</div>
+                                                <script>
+                                                    document.addEventListener('DOMContentLoaded', function () {
+                                                        var messageElement = document.getElementById("messageElement");
+                                                        var message = messageElement.textContent.trim(); // Lấy nội dung của thẻ div
+
+                                                        Swal.fire({
+                                                            title: 'Success',
+                                                            text: message,
+                                                            icon: 'success',
+                                                            confirmButtonText: 'OK'
+                                                        });
+                                                    });
+                                                </script>
+                                            </span>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4>All available account</h4>
+                                                            <div class="card-header-action">
+                                                                <a th:href="@{/admin/account/create-account}" class="btn btn-icon btn-info">Create Account <i class="fas fa-plus"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-striped" id="table-1">
+                                                                    <thead>                                 
+                                                                        <tr>
+                                                                            <th class="text-center">
+                                                                                Avatar
+                                                                            </th>
+                                                                            <th>Name</th>
+                                                                            <th>Email</th>
+                                                                            <!--                                                                            <th>Phone</th>-->
+                                                                            <!--                                                                            <th>Role</th>-->
+                                                                            <th>Status</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>    
+                                                                        <div th:if="${user.getRoleId().getId()}==1">
+                                                                            <tr th:each="u: ${list}" th:if="${u.roleId.id}!=5">
+                                                                                <td class="text-center">
+                                                                                    <img th:if="${u.avatar}!=null" alt="image" th:src="'data:image/png;base64,' + ${u.avatar}" class="rounded-circle" width="35" height="35" data-toggle="tooltip" th:title="${u.firstName}">
+                                                                                        <img th:if="${u.avatar}==null" alt="image" th:src="@{/admin/images/avatar/avatar.png}" class="rounded-circle" width="35" height="35" data-toggle="tooltip" th:title="${u.firstName}">    
+                                                                                            </td>
+                                                                                            <td th:text="${u.firstName}"></td>
+                                                                                            <td th:text="${u.email}"></td>
+                                                                                            <!--                                                                                <td th:text="${u.phone}">0</td>-->
+                                                                                            <!--                                                                                <td th:text="${u.roleId.name}"></td>-->
+                                                                                            <td>
+                                                                                                <div class="badge badge-success" th:if="${u.status}==1">Activity</div>
+                                                                                                <div class="badge badge-danger" th:if="${u.status}==2">Block</div>
+                                                                                            </td>
+
+                                                                                            <td>
+                                                                                                <div class="dropdown">
+                                                                                                    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Options</a>
+                                                                                                    <div class="dropdown-menu">
+                                                                                                        <a th:href="@{/admin/account/staff/block/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-danger" th:if="${u.status}==1" onclick="return confirm('Are you sure want to Block?');"><i class="fas fa-lock"></i>Block</a>
+                                                                                                        <a th:href="@{/admin/account/staff/unblock/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-success" th:if="${u.status}==2" onclick="return confirm('Are you sure want to Unblock?');"><i class="fas fa-unlock-alt"></i>Unlock</a>
+                                                                                                        <div class="dropdown-divider"></div>
+                                                                                                        <a th:href="@{/admin/account/detail/staff/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-info"><i class="far fa-user"></i> Detail</a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            </tr>
+                                                                                            </div>
+
+                                                                                            <div th:if="${user.getRoleId().getId()}==2">
+                                                                                                <tr th:each="u: ${list}">
+                                                                                                    <td class="text-center">
+                                                                                                        <img th:if="${u.avatar}!=null" alt="image" th:src="'data:image/png;base64,' + ${u.avatar}" class="rounded-circle" width="35" height="35" data-toggle="tooltip" th:title="${u.firstName}">
+                                                                                                            <img th:if="${u.avatar}==null" alt="image" th:src="@{/admin/images/avatar/avatar.png}" class="rounded-circle" width="35" height="35" data-toggle="tooltip" th:title="${u.firstName}">    
+                                                                                                                </td>
+                                                                                                                <td th:text="${u.firstName}"></td>
+                                                                                                                <td th:text="${u.email}"></td>
+                                                                                                                <!--                                                                                <td th:text="${u.phone}">0</td>
+                                                                                                                                                                                                <td th:text="${u.roleId.name}"></td>-->
+                                                                                                                <td>
+                                                                                                                    <div class="badge badge-success" th:if="${u.status}==1">Activity</div>
+                                                                                                                    <div class="badge badge-danger"th:if="${u.status}==2">Block</div>
+                                                                                                                </td>
+
+                                                                                                                <td>
+                                                                                                                    <div class="dropdown">
+                                                                                                                        <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Options</a>
+                                                                                                                        <div class="dropdown-menu">
+                                                                                                                            <a th:href="@{/admin/account/staff/block/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-danger" th:if="${u.status == 1}" onclick="return confirm('Are you sure want to Block?');"><i class="fas fa-lock"></i>Block</a>
+                                                                                                                            <a th:href="@{/admin/account/staff/unblock/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-success" th:if="${u.status == 2}" onclick="return confirm('Are you sure want to Block?');"><i class="fas fa-unlock-alt"></i>Unlock</a>
+                                                                                                                            <div class="dropdown-divider"></div>
+                                                                                                                            <a th:href="@{/admin/account/detail/staff/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-info"><i class="far fa-user"></i> Detail</a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                </tr>
+                                                                                                                </div>
+                                                                                                                <div th:if="${user.getRoleId().getId()}==3">
+                                                                                                                    <tr th:each="u: ${list}">
+                                                                                                                        <td class="text-center">
+                                                                                                                            <img th:if="${u.avatar}!=null" alt="image" th:src="'data:image/png;base64,' + ${u.avatar}" class="rounded-circle" width="35" height="35" data-toggle="tooltip" th:title="${u.firstName}">
+                                                                                                                                <img th:if="${u.avatar}==null" alt="image" th:src="@{/admin/images/avatar/avatar.png}" class="rounded-circle" width="35" height="35" data-toggle="tooltip" th:title="${u.firstName}">    
+                                                                                                                                    </td>
+                                                                                                                                    <td th:text="${u.firstName}"></td>
+                                                                                                                                    <td th:text="${u.email}"></td>
+                                                                                                                                    <!--                                                                                <td th:text="${u.phone}">0</td>
+                                                                                                                                                                                                        <td th:text="${u.roleId.name}"></td>-->
+                                                                                                                                    <td>
+                                                                                                                                        <div class="badge badge-success" th:if="${u.status}==1">Activity</div>
+                                                                                                                                        <div class="badge badge-danger"th:if="${u.status}==2">Block</div>
+                                                                                                                                    </td>
+
+                                                                                                                                    <td>
+                                                                                                                                        <div class="dropdown">
+                                                                                                                                            <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Options</a>
+                                                                                                                                            <div class="dropdown-menu">
+                                                                                                                                                <a th:href="@{/admin/account/staff/block/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-danger" th:if="${u.status}==1" onclick="return confirm('Are you sure want to Block?');"><i class="fas fa-lock"></i>Block</a>
+                                                                                                                                                <a th:href="@{/admin/account/staff/unblock/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-success" th:if="${u.status}==2" onclick="return confirm('Are you sure want to Block?');"><i class="fas fa-unlock-alt"></i>Unlock</a>
+                                                                                                                                                <div class="dropdown-divider"></div>
+                                                                                                                                                <a th:href="@{/admin/account/detail/staff/{userId}(userId=${u.id})}" class="dropdown-item has-icon text-info"><i class="far fa-user"></i> Detail</a>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                    </td>
+                                                                                                                                    </tr>
+                                                                                                                                    </div>
+                                                                                                                                    </tbody>
+                                                                                                                                    </table>
+                                                                                                                                    </div>
+                                                                                                                                    </div>
+                                                                                                                                    </div>
+                                                                                                                                    </div>
+                                                                                                                                    </div>
+
+                                                                                                                                    </div>
+                                                                                                                                    </section>
+                                                                                                                                    </div>
+                                                                                                                                    </div>
+
+                                                                                                                                    <div layout:fragment="js">
+                                                                                                                                        <script src="/admin/lib/modules/datatables/datatables.min.js"></script>
+                                                                                                                                        <script src="/admin/lib/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+                                                                                                                                        <script src="/admin/lib/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+                                                                                                                                        <script src="/admin/lib/modules/jquery-ui/jquery-ui.min.js"></script>
+
+                                                                                                                                        <script>
+                                                                                                                                                    "use strict";
+
+                                                                                                                                                    $("#table-1").dataTable({
+                                                                                                                                                        "columnDefs": [
+                                                                                                                                                            {"sortable": false, "targets": [2, 3]}
+                                                                                                                                                        ]
+                                                                                                                                                    });
+                                                                                                                                                    $("#table-2").dataTable({
+                                                                                                                                                        "columnDefs": [
+                                                                                                                                                            {"sortable": false, "targets": [0, 2, 3]}
+                                                                                                                                                        ]
+                                                                                                                                                    });
+
+                                                                                                                                                    var account = document.getElementById('account');
+                                                                                                                                                    var account2 = document.getElementById('account-2');
+                                                                                                                                                    account.classList.add('active');
+                                                                                                                                                    account2.classList.add('active');
+                                                                                                                                        </script>
+                                                                                                                                    </div>
+
+                                                                                                                                    </body>
+
+                                                                                                                                    </html>

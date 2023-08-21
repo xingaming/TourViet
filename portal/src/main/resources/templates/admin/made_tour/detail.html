@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/admin/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <div layout:fragment="title">
+            <title>View Tour Detail</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css">
+            <style>
+                /* CSS cho gạch phân cách mờ mờ (border-bottom) */
+                table {
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+
+                th, td {
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                    padding: 8px;
+                }
+            </style>
+        </div>
+    </head>
+
+    <body>
+
+        <div layout:fragment="content">
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>View Tour Detail</h1>
+                        <div class="section-header-breadcrumb">
+                            <div class="breadcrumb-item active"><a th:href="@{/admin/dashboard}">Dashboard</a></div>
+                            <div class="breadcrumb-item"><a th:href="@{/admin/tour_create}">View tour</a></div>
+                            <div class="breadcrumb-item">View Detail</div>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Tour Information</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-success">
+                                            <tbody>
+                                                <th:block th:if="${resultTour != null}">
+
+                                                    <tr th:if="${resultTour.id != null}">
+                                                        <th>Tour code: </th>
+                                                        <td th:text="${resultTour.id}"></td>
+                                                        <input type="hidden" name="phone" th:value="${resultTour.id}">
+
+                                                    </tr>
+
+                                                    <tr th:if="${resultTour.destination != null}">
+                                                        <th>Tour name</th>
+                                                        <td th:text="${resultTour.destination}"></td>
+                                                        <input type="hidden" name="destination" th:value="${resultTour.destination}">
+
+                                                    </tr>
+                                                    <tr th:if="${resultTour.description != null}">
+                                                        <th>Description</th>
+                                                        <td>
+                                                            <ul>
+                                                                <li th:each="descriptionItem : ${#strings.arraySplit(resultTour.description, '-')}">
+                                                                    <span th:text="${descriptionItem}"></span>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr th:if="${resultTour.region != null}">
+                                                        <th>Region:</th>
+                                                        <td th:text="${resultTour.region}"></td>
+                                                        <input type="hidden" name="region" th:value="${resultTour.region}">
+                                                    </tr>
+
+                                                    <tr th:if="${resultTour.accommodation != null}">
+                                                        <th>Accommodation</th>
+                                                        <td th:utext="${resultTour.accommodation}"></td>
+                                                        <input type="hidden" name="accommodation" th:value="${resultTour.accommodation}">
+
+                                                    </tr>
+
+
+
+                                                    <tr th:if="${resultTour.transport != null}">
+                                                        <th>Transport:</th>
+                                                        <td th:text="${resultTour.transport}"></td>
+                                                        <input type="hidden" name="transport" th:value="${resultTour.transport}">
+
+                                                    </tr>
+
+
+                                                    <tr th:if="${resultTour.adult != null}">
+                                                        <th>Adult</th>
+                                                        <td th:text="${resultTour.adult}"></td>
+                                                        <input type="hidden" name="adult" th:value="${resultTour.adult}">
+
+                                                    </tr>
+                                                    <tr class="text-danger" th:if="${resultTour.price != null}">
+                                                        <th>Price adult:</th>
+                                                        <td th:text="${resultTour.price} + ' USD'"></td>
+                                                    </tr>
+
+                                                    <tr th:if="${resultTour.children != null}">
+                                                        <th>Children</th>
+                                                        <td th:text="${resultTour.children}"></td>
+                                                        <input type="hidden" name="children" th:value="${resultTour.children}">
+
+                                                    </tr>
+                                                    <tr class="text-danger" th:if="${resultTour.price != null}">
+                                                        <th>Price adult:</th>
+                                                        <td th:text="${resultTour.price / 2} + ' USD'"></td>
+                                                    </tr>
+
+                                                    <tr th:if="${resultTour.baby != null}">
+                                                        <th>Baby</th>
+                                                        <td th:text="${resultTour.baby}"></td>
+                                                        <input type="hidden" name="baby" th:value="${resultTour.baby}">
+                                                    </tr>
+                                                    <tr class="text-danger" th:if="${resultTour.price != null}">
+                                                        <th>Total:</th>
+                                                        <td th:text="${(resultTour.price * resultTour.adult) + (resultTour.price / 2 * resultTour.children)} + ' USD'"></td>
+                                                    </tr>
+
+
+                                                    <tr th:if="${resultTour.startdate != null}">
+                                                        <th>Start date</th>
+                                                        <td th:text="${#dates.format(resultTour.startdate, 'dd-MMM-yyyy')}"></td>
+                                                        <input type="hidden" name="startdate" th:value="${resultTour.startdate}">
+                                                    </tr>
+
+                                                    <tr th:if="${resultTour.enddate != null}">
+                                                        <th>End date</th>
+                                                        <td th:text="${#dates.format(resultTour.enddate, 'dd-MMM-yyyy')}"></td>
+                                                        <input type="hidden" name="enddate" th:value="${resultTour.enddate}">
+                                                    </tr>
+                                                    <tr th:if="${resultTour.tourguide != null}">
+                                                        <th>Tourguide</th>
+                                                        <td>
+                                                            <span th:if="${resultTour.tourguide == true}">Tourguide</span>
+                                                            <span th:if="${resultTour.tourguide == false}">No tourguide</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr th:if="${resultTour.note != null}">
+                                                        <th>Note</th>
+                                                        <td th:text="${resultTour.note}"></td>
+                                                        <input type="hidden" name="note" th:value="${resultTour.note}">
+                                                    </tr>
+                                                    <!-- Thêm các thông tin khác của tour ở đây -->
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+                                        <!-- Add more tour details here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Contact Information</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-success">
+                                            <tbody>
+                                                <th:block th:if="${resultTour != null}">
+                                                    <tr th:if="${resultTour.fullname != null}">
+                                                        <th>Name</th>
+                                                        <td th:text="${resultTour.fullname}" ></td>
+                                                        <input type="hidden" name="fullname" th:value="${resultTour.fullname}">
+                                                    </tr>
+
+                                                    <tr th:if="${resultTour.email != null}">
+                                                        <th>Email</th>
+                                                        <td th:text="${resultTour.email}"></td>
+                                                        <input type="hidden" name="email" th:value="${resultTour.email}">
+                                                    </tr>
+
+                                                    <tr th:if="${resultTour.address != null}">
+                                                        <th>Address</th>
+                                                        <td th:utext="${resultTour.address}"></td>
+                                                        <input type="hidden" name="address" th:value="${resultTour.address}">
+                                                    </tr>
+
+                                                    <tr th:if="${resultTour.phone != null}">
+                                                        <th>Phone:</th>
+                                                        <td th:text="${resultTour.phone}"></td>
+                                                        <input type="hidden" name="phone" th:value="${resultTour.phone}">
+
+                                                    </tr>
+
+
+                                                    <!-- Thêm các thông tin khác của tour ở đây -->
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+                                        <!-- Add more tour details here -->
+                                    </div>
+                                    <div class="card-footer text-right">
+                                        <!--<button th:if="${payment?.status != 1}" onclick="return confirm('Are you sure want to approve?');" class="btn btn-success"><i class="fas fa-check"></i> Approve</button>-->
+                                        <a th:href="@{/admin/tour_create/{bookingId}/{email}/cancelBooking(bookingId=${resultTour.id}, email=${resultTour.email})}" class="btn btn-danger" ><i class="fas fa-sad-tear"></i> Cancellation of tour booking</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div layout:fragment="js">
+
+            </div>
+
+    </body>
+
+</html>

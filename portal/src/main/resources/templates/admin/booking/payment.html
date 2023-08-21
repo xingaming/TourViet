@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html  lang="en" 
+       xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" > 
+
+    <head>
+        <div layout:fragment="title">
+            <title>Payment</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css">
+            <link rel="stylesheet" href="/admin/lib/modules/datatables/datatables.min.css">
+                <link rel="stylesheet" href="/admin/lib/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+                    <link rel="stylesheet" href="/admin/lib/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+                        <style>
+                            /* CSS của modal */
+                            .modal {
+                                display: none;
+                                position: fixed;
+                                z-index: 1;
+                                right: 0; /* Di chuyển modal sang bên phải */
+                                top: 0;
+                                width: 100%;
+                                height: 100%;
+                                overflow: auto;
+                                background-color: rgba(0, 0, 0, 0.5);
+                            }
+
+                            .modal-content {
+                                background-color: #fefefe;
+                                margin: 15% 20%; /* Thay đổi khoảng cách trên và cách mép phải */
+                                padding: 20px;
+                                border: 1px solid #888;
+                                width: 60%; /* Thay đổi chiều rộng của modal */
+                            }
+
+                            .close {
+                                color: #aaa;
+                                position: absolute;
+                                top: 10px;
+                                right: 30px;
+                                font-size: 28px;
+                                font-weight: bold;
+                                cursor: pointer;
+                            }
+
+                            .close:hover,
+                            .close:focus {
+                                color: black;
+                                text-decoration: none;
+                                cursor: pointer;
+                            }
+
+                            .user{
+                                color: #007fff;
+                            }
+                            .user:hover{
+                                color: #0069d9;
+                            }
+                        </style>
+                        </div>
+
+                        </head>
+
+                        <body>
+                            <div layout:fragment="content">
+                                <div class="main-content">
+                                    <section class="section">
+                                        <div class="section-header">
+                                            <div class="section-header-back">
+                                                <a th:href="@{/admin/booking}" class="btn btn-icon"
+                                                   ><i class="fas fa-arrow-left"></i
+                                                    ></a>
+                                            </div>
+                                            <h1>Payment for booking: </h1>
+                                            <div class="section-header-breadcrumb">
+                                                <div class="breadcrumb-item active">
+                                                    <a th:href="@{/admin/dashboard}">Dashboard</a>
+                                                </div>
+                                                <div class="breadcrumb-item"><a th:href="@{/admin/booking}">Booking</a></div>
+                                                <div class="breadcrumb-item">Payment</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="section-body">
+                                            <div class="col-12 col-md-12 col-lg-12">
+                                                <form action="/admin/booking/payment" method="POST">
+                                                    <input type="hidden" name="booking_id" th:value="${booking.id}" />
+                                                    <input type="hidden" name="price" th:value="${payment?.price}" />
+                                                    <input type="hidden" name="id" th:value="${payment?.id}" />
+                                                    <input type="hidden" name="user_id" th:value="${payment?.userId.id}" />
+                                                    <input type="hidden" name="paymentMethod" th:value="${payment?.paymentMethod}" />
+                                                    <input type="hidden" name="userEmail" th:value="${payment?.bookingId.UserId.email}" />
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4>Payment Information</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div th:if="${not #strings.isEmpty(errorMessage)}" style="display: block; margin-left: auto; margin-right: auto;" class="form-group row mb-4">
+                                                                <div class="alert alert-danger">
+                                                                    <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                    <span th:text="${errorMessage}"></span>
+                                                                </div>
+                                                            </div>
+                                                            <table class="table">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th>Price </th>
+                                                                        <td class="text-danger" th:text="${'$'+payment?.price}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Date</th>
+                                                                        <td><span th:text="${#dates.format(payment?.date, 'dd-MM-yyyy')}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>status</th>
+                                                                        <td th:if="${payment?.status == 0}">
+                                                                            <a data-collapse="#mycard-collapse" class="badge badge-warning" style="color:white">Pending</a>
+                                                                        </td>
+                                                                        <td th:if="${payment?.status == 1}">
+                                                                            <a data-collapse="#mycard-collapse" class="badge badge-success" style="color:white">Solved</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <!--                                        <tr>
+                                                                                                                <th>Price:</th>
+                                                                                                                <td th:text="${tour.price} + ' VND'"></td>
+                                                                                                            </tr>-->
+                                                                    <tr>
+                                                                        <th>Description</th>
+                                                                        <td th:text="${payment?.description}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Payment method</th>
+                                                                        <td th:text="${payment?.paymentMethod == 0 ? 'Cash' : 'MOMO'}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>User booking</th>
+                                                                        <!-- Đoạn mã trong file HTML -->
+                                                                        <td onclick="openModal('')">
+                                                                            <span class="user" th:text="${payment?.userId.lastName + ' ' + payment?.userId.firstName}"></span>
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <!-- Thêm các thông tin khác của tour ở đây -->
+                                                                </tbody>
+                                                            </table>
+
+                                                            <!-- Add more tour details here -->
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button th:if="${payment?.status != 1}" onclick="return confirm('Are you sure want to approve?');" class="btn btn-success"><i class="fas fa-check"></i> Approve</button>
+                                                            <a th:href="@{/admin/booking/{bookingId}/cancelBooking(bookingId=${booking.id})}" class="btn btn-danger" onclick="return confirm('Are you sure want to Cancellation of tour booking?');"><i class="fas fa-sad-tear"></i> Cancellation of tour booking</a>
+                                                        </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal -->
+                                        <div id="myModal" class="modal">
+                                            <div class="modal-content">
+                                                <!-- Nội dung của modal -->
+                                                <span class="close" onclick="closeModal()">&times;</span>
+                                                <p id="modalContent"></p>
+                                                <table class="table">
+                                                    <tr>
+                                                        <th>Full name</th>
+                                                        <td><span th:text="${payment?.userId.lastName + ' ' + payment?.userId.firstName}"></span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Email</th>
+                                                        <td><span th:text="${payment?.userId.email}"></span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Address</th>
+                                                        <td><span th:text="${payment?.userId.address}"></span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Phone</th>
+                                                        <td><span th:text="${payment?.userId.phone}"></span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+
+
+                                        <!--BOOKING DETAIL-->
+
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h4>Booking detail</h4>
+                                                    </div>
+<!--                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped" id="table">
+                                                                <thead>                                 
+                                                                    <tr>
+                                                                        <th class="text-center">
+                                                                            #
+                                                                        </th>
+                                                                        <th>Booking date</th>
+                                                                        <th>region</th>
+                                                                        <th>Adult</th>
+                                                                        <th>Baby</th>
+                                                                        <th>Senior</th>
+                                                                        <th>Children</th>
+                                                                        <th>Total tourist</th>      
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>                                 
+                                                                    <tr>
+                                                                        <td>
+
+                                                                        </td>
+                                                                        <td th:text="${#dates.format(booking.bookingDate, 'dd/MM/yyyy')}"></td>
+                                                                        <td th:text="${booking?.regionId.nameArea}"></td>
+                                                                        <td th:text="${booking?.adult}"></td>
+                                                                        <td th:text="${booking?.baby}"></td>
+                                                                        <td th:text="${booking?.senior}"></td>
+                                                                        <td th:text="${booking?.children}"></td>
+                                                                        <td th:text="${totalBooking}"></td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>-->
+                                                    <div class="card-body">    
+                                                            <table class="table">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th>Booking date </th>
+                                                                        <td><span th:text="${#dates.format(booking.bookingDate, 'dd/MM/yyyy')}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>region</th>
+                                                                        <td><span th:text="${booking?.regionId.nameArea}"></td>
+                                                                    </tr>
+                                                                    <tr style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
+                                                                        <th>Adult</th>
+                                                                        <td th:text="${booking?.adult}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Baby</th>
+                                                                        <td th:text="${booking?.baby}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Senior</th>
+                                                                        <td th:text="${booking?.senior}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Children</th>                                                                       
+                                                                        <td th:text="${booking?.children}"></td>
+                                                                    </tr>
+                                                                    <tr style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
+                                                                        <th>Total tourist</th>
+                                                                        <td class="text-danger" th:text="${totalBooking}"></td>
+                                                                    </tr>
+                                                                    <!-- Thêm các thông tin khác của tour ở đây -->
+                                                                </tbody>
+                                                            </table>
+
+                                                            <!-- Add more tour details here -->
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <!--INFORMATION BOOKING-->
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h4>Information tourist</h4>
+                                                        <!--                                    <div class="card-header-action">
+                                                                                                <a data-collapse="#mycard-collapse" class="badge badge-warning" href="#">Pending</a>
+                                                                                            </div>-->
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped" id="table-2">
+                                                                <thead>                                 
+                                                                    <tr>
+                                                                        <th class="text-center">
+                                                                            #
+                                                                        </th>
+                                                                        <th>Name</th>
+                                                                        <th>Phone</th>
+                                                                        <th>Email</th>
+                                                                        <th>Address</th>
+                                                                        <th>Gender</th>
+                                                                        <th>CCCD</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>                                 
+                                                                    <tr th:each="informationBooking : ${informationBookings}">
+                                                                        <td>
+
+                                                                        </td>
+                                                                        <td th:text="${informationBooking?.name}"></td>
+                                                                        <td th:text="${informationBooking?.phone}"></td>
+                                                                        <td th:text="${informationBooking?.email}"></td>
+                                                                        <td th:text="${informationBooking?.address}"></td>
+                                                                        <td th:text="${informationBooking?.gender == true ? 'Male' : 'Female'}"></td>
+                                                                        <td th:text="${informationBooking?.cccd}"></td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+
+
+                            </section>
+                            </div>
+                            </div>
+                            <div layout:fragment="js">
+                                <script src="/admin/lib/modules/datatables/datatables.min.js"></script>
+                                <script src="/admin/lib/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+                                <script src="/admin/lib/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+                                <script src="/admin/lib/modules/jquery-ui/jquery-ui.min.js"></script>
+
+                                <script>
+                                                    // JavaScript
+                                                    function openModal(content) {
+                                                        // Lấy thẻ modal và thẻ nội dung của modal
+                                                        var modal = document.getElementById("myModal");
+                                                        var modalContent = document.getElementById("modalContent");
+
+                                                        // Hiển thị modal
+                                                        modal.style.display = "block";
+
+                                                        // Đặt nội dung của modal bằng dữ liệu từ phần tử được click
+                                                        modalContent.innerText = content;
+                                                    }
+
+                                                    function closeModal() {
+                                                        // Lấy thẻ modal và ẩn nó khi click vào nút close
+                                                        var modal = document.getElementById("myModal");
+                                                        modal.style.display = "none";
+                                                    }
+
+                                                    "use strict";
+
+                                                    $("#table-1").dataTable({
+                                                        "columnDefs": [
+                                                            {"sortable": false, "targets": [2, 3]}
+                                                        ]
+                                                    });
+                                                    $("#table-2").dataTable({
+                                                        "columnDefs": [
+                                                            {"sortable": false, "targets": [0, 2, 3]}
+                                                        ]
+                                                    });
+
+                                                    var booking = document.getElementById('booking');
+                                                    var booking2 = document.getElementById('booking-2');
+                                                    booking.classList.add('active');
+                                                    booking2.classList.add('active');
+
+                                </script>
+                            </div>
+                        </body>
+
+                        </html>
+
+
+
+

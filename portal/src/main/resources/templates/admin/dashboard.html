@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html  lang="en" 
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" > 
+
+    <head>
+    <div layout:fragment="title">
+        <title>Dashboard</title>
+    </div>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <div layout:fragment="css">
+        <link rel="stylesheet" href="/admin/lib/modules/summernote/summernote-bs4.css">
+        <link rel="stylesheet" href="/admin/lib/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="/admin/lib/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+    </div>
+
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+        <div class="main-content">
+            <section class="section">
+                <div class="row" th:if="${session.user.roleId.id == 2 || session.user.roleId.id == 3}">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-stats">
+                                <div class="card-stats-title">
+                                    <div class="dropdown d-inline">
+                                        <a class="font-weight-600 dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">Option</a>
+                                        <ul class="dropdown-menu dropdown-menu-sm">
+                                            <li><a th:href="@{/admin/revenue}" class="dropdown-item">view detail</a></li>
+                                            <!-- Add other months here -->
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div class="card-stats-items">
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count" th:text="${'$'+totalRevenueByQuarter}"></div>
+                                        <div class="card-stats-item-label">Quarter</div>
+                                    </div>
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count" th:text="${'$'+totalRevenueByMonth}"></div>
+                                        <div class="card-stats-item-label">Month</div>
+                                    </div>
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count" th:text="${'$'+totalRevenueByYear}"></div>
+                                        <div class="card-stats-item-label">Year</div>
+                                    </div><!--
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count" th:text="${totalRevenueByDate}"></div>
+                                        <div class="card-stats-item-label">Date</div>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <div class="card-icon shadow-primary bg-primary">
+                                <!--<i class="fas fa-archive"></i>-->
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4 class="text-info">Revenue of the day</h4>
+                                </div>
+                                <div class="card-body text-info">
+                                    $<span th:text="${totalRevenueByDate}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-stats">
+                                <div class="card-stats-title" style="display:flex;justify-content: space-between;">Book tour
+                                    <a th:href="@{/admin/booking}" class="font-weight-600">Solve</a>
+                                </div>
+                                <div class="card-stats-items">
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count text-warning"><span th:text="${pendingBookingCount}"></span></div>
+                                        <div class="card-stats-item-label text-warning">Pending</div>
+                                    </div>
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count text-success"><span th:text="${solvedBookingCount}"></span></div>
+                                        <div class="card-stats-item-label text-success">Solved</div>
+                                    </div>
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count text-info"><span th:text="${tourCount}"></span></div>
+                                        <div class="card-stats-item-label text-info">Tour</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-icon shadow-primary bg-primary">
+                                <!--<i class="far fa-user"></i>-->
+                                <i class="far fa-calendar"></i>
+                                
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4 class="text-warning">Bookings of the day</h4>
+                                </div>
+                                <div class="card-body text-warning">
+                                    <span th:text="${todayBookingCount}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-chart">
+                                <canvas id="balance-chart" height="80"></canvas>
+                            </div>
+                            <div class="card-icon shadow-primary bg-primary">
+                                <i class="fas fa-dollar-sign"></i>
+                                
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4 class="text-danger">Total net revenue of the company</h4>
+                                    
+                                </div>
+                                <div class="card-body text-danger">
+                                    $<span th:text="${totalCompanyRevenue}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                <!--SUPER ADMIN-->
+                <div class="row" th:if="${session.user.roleId.id == 1}">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-stats">
+                                <div class="card-stats-title">
+                                    <div class="dropdown d-inline">
+                                        <!--<a class="font-weight-600 dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">Option</a>-->
+                                        <div>Revenue</div>
+                                        <ul class="dropdown-menu dropdown-menu-sm">
+                                            <li><a th:href="@{/admin/revenue}" class="dropdown-item">view detail</a></li>
+                                            <!-- Add other months here -->
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div class="card-stats-items">
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count" th:text="${'$'+totalRevenueByQuarter}"></div>
+                                        <div class="card-stats-item-label">Quarter</div>
+                                    </div>
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count" th:text="${'$'+totalRevenueByMonth}"></div>
+                                        <div class="card-stats-item-label">Month</div>
+                                    </div>
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count" th:text="${'$'+totalRevenueByYear}"></div>
+                                        <div class="card-stats-item-label">Year</div>
+                                    </div><!--
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count" th:text="${totalRevenueByDate}"></div>
+                                        <div class="card-stats-item-label">Date</div>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <div class="card-icon shadow-primary bg-primary">
+                                <!--<i class="fas fa-archive"></i>-->
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4 class="text-info">Revenue of the day</h4>
+                                </div>
+                                <div class="card-body text-info">
+                                    $<span th:text="${totalRevenueByDate}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-stats">
+                                <div class="card-stats-title" style="display:flex;justify-content: space-between;">User
+                                    <!--<a th:href="@{/admin/booking}" class="font-weight-600">Solve</a>-->
+                                </div>
+                                <div class="card-stats-items">
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count text-warning"><span th:text="${countRequest}"></span></div>
+                                        <div class="card-stats-item-label text-warning">Request</div>
+                                    </div>
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count text-info"><span th:text="${countCompany}"></span></div>
+                                        <div class="card-stats-item-label text-info">Company</div>
+                                    </div>
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count text-success"><span th:text="${countTour}"></span></div>
+                                        <div class="card-stats-item-label text-success">Tour</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-icon shadow-primary bg-primary">
+                                <!--<i class="far fa-user"></i>-->
+                                <i class="far fa-user"></i>
+                                
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4 class="text-info">User</h4>
+                                </div>
+                                <div class="card-body text-info">
+                                    <span th:text="${userCount}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-chart">
+                                <canvas id="balance-chart" height="80"></canvas>
+                            </div>
+                            <div class="card-icon shadow-primary bg-primary">
+                                <i class="fas fa-dollar-sign"></i>
+                                
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4 class="text-danger">Total net revenue of the company</h4>
+                                    
+                                </div>
+                                <div class="card-body text-danger">
+                                    $<span th:text="${totalRevenue}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--END SUPER ADMIN-->
+                
+                
+                
+                
+                
+                
+                <div class="row" th:if="${session.user.roleId.id == 2 || session.user.roleId.id == 3}">
+                    <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>New Booking</h4>
+                                <div class="card-header-action">
+                                    <a th:href="@{/admin/booking}" class="btn btn-danger">View More <i class="fas fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive table-invoice">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>phone</th>
+                                            <th>Tourist</th>
+                                            <th>Status</th>
+                                            <th>Booking date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <th:block th:each="index : ${#numbers.sequence(0, 4)}">
+                                            <th:block th:if="${listBooking[index].status == 0}">
+                                                <tr>
+                                                    <td><p class="text-danger" th:text="${listBooking[index].userId.phone}"></p></td>
+                                                    <td class="font-weight-600" th:text="${listBooking[index].userId.firstName}"></td>
+                                                    <td>
+                                                        <div class="badge badge-warning">Pending</div>
+                                                    </td>
+                                                    <td th:text="${#dates.format(listBooking[index].bookingDate, 'dd/MM/yyyy')}"></td>
+                                                    <td>
+                                                        <a th:href="@{/admin/booking/{bookingId}/payment(bookingId=${listBooking[index].id})}" class="btn btn-primary">Detail</a>
+                                                    </td>
+                                                </tr>
+                                            </th:block>
+                                        </th:block>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card card-hero">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="far fa-question-circle"></i>
+                                </div>
+                                <h4>14</h4>
+                                <div class="card-description">Customers need help</div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="tickets-list">
+                                    <a href="#" class="ticket-item">
+                                        <div class="ticket-title">
+                                            <h4>My order hasn't arrived yet</h4>
+                                        </div>
+                                        <div class="ticket-info">
+                                            <div>Laila Tazkiah</div>
+                                            <div class="bullet"></div>
+                                            <div>15:23 17-7</div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="ticket-item">
+                                        <div class="ticket-title">
+                                            <h4>Please cancel my order</h4>
+                                        </div>
+                                        <div class="ticket-info">
+                                            <div>Rizal Fakhri</div>
+                                            <div class="bullet"></div>
+                                            <div>15:23 17-7</div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="ticket-item">
+                                        <div class="ticket-title">
+                                            <h4>Do you see my mother?</h4>
+                                        </div>
+                                        <div class="ticket-info">
+                                            <div>Syahdan Ubaidillah</div>
+                                            <div class="bullet"></div>
+                                            <div>15:23 17-7</div>
+                                        </div>
+                                    </a>
+                                    <a href="features-tickets.html" class="ticket-item ticket-more">
+                                        View All <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!--                    <div class="col-md-8">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h4>Best Products</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="owl-carousel owl-theme" id="products-carousel">
+                                                        <div>
+                                                            <div class="product-item pb-3">
+                                                                <div class="product-image">
+                                                                    <img alt="image" src="/admin/images/avatar/avatar-3.png" class="img-fluid">
+                                                                </div>
+                                                                <div class="product-details">
+                                                                    <div class="product-review">
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                    </div>
+                                                                    <div class="text-muted text-small">27 Sales</div>
+                                                                    <a href="#" class="product-name">Siêu Sale🔥| Phan Thiết - Mũi Né - Hòn Rơm - Đồi Cát Bay - Trải nghiệm cung đường cao tốc mới Dầu Giây Phan Thiết</a>
+                                                                </div>  
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="product-item pb-3">
+                                                                <div class="product-image">
+                                                                    <img alt="image" src="/admin/images/avatar/avatar-2.png" class="img-fluid">
+                                                                </div>
+                                                                <div class="product-details">
+                                                                    <div class="product-review">
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                    </div>
+                                                                    <div class="text-muted text-small">18 Sales</div>
+                                                                    <a href="#" class="product-name">Phú Quốc: VinWonders - Vinpearl Safari - Hòn Thơm Nature Park - Cáp Treo Vượt Biển - Công Viên Nước Aquatopia</a>
+                                                                </div>  
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="product-item pb-3">
+                                                                <div class="product-image">
+                                                                    <img alt="image" src="/admin/images/avatar/avatar-1.png" class="img-fluid">
+                                                                </div>
+                                                                <div class="product-details">
+                                                                    <div class="product-review">
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star-half"></i>
+                                                                    </div>
+                                                                    <div class="text-muted text-small">8 Sales</div>
+                                                                    <a href="#" class="product-name">Siêu Sale🔥| Phan Thiết - Mũi Né - Hòn Rơm - Đồi Cát Bay - Trải nghiệm cung đường cao tốc mới Dầu Giây Phan Thiết</a>
+                                                                </div>  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Recent Feedback</h4>
+                                <div class="card-header-action">
+                                    <a href="#" class="btn btn-danger">View More <i class="fas fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled list-unstyled-border">
+                                    <li class="media">
+                                        <img class="mr-3 rounded-circle" width="50" src="/admin/images/avatar/avatar-1.png" alt="avatar">
+                                        <div class="media-body">
+                                            <div class="float-right">15:23 17-7</div>
+                                            <div class="media-title">Farhan A Mujib</div>
+                                            <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+                                                scelerisque ante sollicitudin.</span>
+                                        </div>
+                                    </li>
+                                    <li class="media">
+                                        <img class="mr-3 rounded-circle" width="50" src="/admin/images/avatar/avatar-2.png" alt="avatar">
+                                        <div class="media-body">
+                                            <div class="float-right">15:23 17-7</div>
+                                            <div class="media-title">Ujang Maman</div>
+                                            <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+                                                scelerisque ante sollicitudin.</span>
+                                        </div>
+                                    </li>
+                                    <li class="media">
+                                        <img class="mr-3 rounded-circle" width="50" src="/admin/images/avatar/avatar-3.png" alt="avatar">
+                                        <div class="media-body">
+                                            <div class="float-right">15:23 17-7</div>
+                                            <div class="media-title">Rizal Fakhri</div>
+                                            <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+                                                scelerisque ante sollicitudin.</span>
+                                        </div>
+                                    </li>
+                                    <li class="media">
+                                        <img class="mr-3 rounded-circle" width="50" src="/admin/images/avatar/avatar-4.png" alt="avatar">
+                                        <div class="media-body">
+                                            <div class="float-right">15:23 17-7</div>
+                                            <div class="media-title">Alfa Zulkarnain</div>
+                                            <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+                                                scelerisque ante sollicitudin.</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div layout:fragment="js">
+        <script src="/admin/lib/modules/jquery.sparkline.min.js"></script>
+        <script src="/admin/lib/modules/chart.min.js"></script>
+        <script src="/admin/lib/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
+        <script src="/admin/lib/modules/summernote/summernote-bs4.js"></script>
+        <script src="/admin/lib/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+        <script src="/admin/js/page/dashboard.js"></script>
+
+        
+
+
+
+    </div>
+
+</body>
+
+</html>

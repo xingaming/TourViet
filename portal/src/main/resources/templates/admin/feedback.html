@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<html  lang="en" 
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" > 
+
+    <head>
+    <div layout:fragment="title">
+        <title>Feedback</title>
+    </div>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <div layout:fragment="css">
+        <link rel="stylesheet" href="/admin/lib/modules/datatables/datatables.min.css">
+        <link rel="stylesheet" href="/admin/lib/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="/admin/lib/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+    </div>
+
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+        <div class="main-content">
+            <section class="section">
+                <div class="section-header">
+                    <h1>Tour View Page</h1>
+                    <div class="section-header-breadcrumb">
+                        <div class="breadcrumb-item active"><a href="#">Manage</a></div>
+                        <div class="breadcrumb-item active"><a href="#">Tour</a></div>
+                        <div class="breadcrumb-item">View Tour</div>
+                    </div>
+                </div>
+
+                <div class="section-body">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>All available tour</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" id="table-1">
+                                            <thead>                                 
+                                                <tr>
+                                                    <th class="text-center">
+                                                        #
+                                                    </th>
+                                                    <th>Tour</th>
+                                                    <th>User</th>
+                                                    <th>Date</th>
+                                                    <th>Content</th>
+                                                    <th>Reply status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>                                 
+                                                <tr>
+                                                    <td>
+                                                        1
+                                                    </td>
+                                                    <td>Siêu Sale🔥| Phan Thiết - Mũi Né - Hòn Rơm - Đồi Cát Bay - Trải nghiệm cung đường cao tốc mới Dầu Giây Phan Thiết</td>
+                                                    <td>phu kho tinh</td>
+                                                    <td>22/7/2023</td>
+                                                    <td>tour vip vcl, ok la day</td>
+                                                    <td><div class="badge badge-light">Not yet</div></td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Options</a>
+                                                            <div class="dropdown-menu">
+                                                                <a href="#" class="dropdown-item has-icon"><i class="fas fa-reply"></i> Reply</a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a href="#" class="dropdown-item has-icon text-danger"><i class="far fa-trash-alt"></i> Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        2
+                                                    </td>
+                                                    <td>Siêu Sale🔥| Phan Thiết - Mũi Né - Hòn Rơm - Đồi Cát Bay - Trải nghiệm cung đường cao tốc mới Dầu Giây Phan Thiết</td>
+                                                    <td>phu kho tinh</td>
+                                                    <td>22/7/2023</td>
+                                                    <td>i never ever have a amazing experience like this, this tour
+                                                        is the best of the world i swear to god, the guide team are very
+                                                        enthusiam and the food is pretty good !!! 
+                                                    </td>
+                                                    <td><div class="badge badge-success">Done</div></td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Options</a>
+                                                            <div class="dropdown-menu">
+                                                                <a href="#" class="dropdown-item has-icon"><i class="fas fa-reply"></i></i> Reply</a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a href="#" class="dropdown-item has-icon text-danger"><i class="far fa-trash-alt"></i> Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div layout:fragment="js">
+        <script src="/admin/lib/modules/datatables/datatables.min.js"></script>
+        <script src="/admin/lib/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+        <script src="/admin/lib/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+        <script src="/admin/lib/modules/jquery-ui/jquery-ui.min.js"></script>
+
+        <script>
+            "use strict";
+
+            $("#table-1").dataTable({
+                "columnDefs": [
+                    {"sortable": false, "targets": [2, 3]}
+                ]
+            });
+            $("#table-2").dataTable({
+                "columnDefs": [
+                    {"sortable": false, "targets": [0, 2, 3]}
+                ]
+            });
+
+            var feedback = document.getElementById('feedback');
+            var feedback1 = document.getElementById('feedback-1');
+            feedback.classList.add('active');
+            feedback1.classList.add('active');
+        </script>
+    </div>
+
+</body>
+
+</html>

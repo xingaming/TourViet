@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/admin/layout" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Tour</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <div layout:fragment="css">
+            <link rel="stylesheet" th:href="@{/admin/lib/modules/datatables/datatables.min.css}">
+                <link rel="stylesheet" th:href="@{/admin/lib/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css}">
+                    <link rel="stylesheet" th:href="@{/admin/lib/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css}">
+                        </div>
+                        </head>
+
+                        <body>
+
+                            <div layout:fragment="content">
+                                <div class="main-content">
+                                    <section class="section">
+                                        <div class="section-header">
+                                            <h1>Management self-designed tour</h1>
+                                            <div class="section-header-breadcrumb">
+                                                <div class="breadcrumb-item active"><a th:href="@{/admin/dashboard}">Dashboard</a></div>
+                                                <div class="breadcrumb-item">Self-designed tour</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="section-body">
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4>All tour</h4><!--
+                                                                                                                        <div class="card-header-action" th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}">
+                                                                                                                            <a class="btn btn-icon btn-info" th:href="@{/admin/create-tour}">Create <i class="fas fa-plus"></i></a>
+                                                                                                                        </div>-->
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div th:if="${not #strings.isEmpty(message)}" style="display: block; margin-left: auto; margin-right: auto;" class="form-group row mb-4">
+                                                                <div class="alert alert-success">
+                                                                    <i class="fa fa-check-circle"></i>&nbsp;&nbsp;
+                                                                    <span th:text="${message}"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-striped" id="table-1">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="text-center">#</th>
+                                                                            <!--<th>Guide</th>-->
+                                                                            <th>Region</th>
+                                                                            <th>Destination</th>
+                                                                            <th>Accommodation</th>
+                                                                            <th>Transport</th>
+                                                                            <th>Action</th>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr th:each="tour : ${resultTourCreate}">
+                                                                            <th:block th:if="${tour.companyId == null}">
+
+
+                                                                                <td></td>
+                                                                                <!--                                                                            <td>
+                                                                                                                                                                <img alt="image" th:src="@{/admin/images/avatar/avatar-5.png}" class="rounded-circle" width="35" data-toggle="tooltip" th:title="${tour.guideId.firstName}">
+                                                                                                                                                            </td>-->
+                                                                                <td th:text="${tour.region}"></td>
+                                                                                <td th:text="${tour.destination}"></td>
+                                                                                <td th:text="${tour.accommodation}"></td>
+                                                                                <td th:text="${tour.transport}"></td>
+
+                                                                                <td>
+                                                                                    <!--th:href="@{/admin/schedule/{tour}(tour=${tour.id})}"-->
+                                                                                    <div class="dropdown">
+                                                                                        <a th:href="@{/admin/tour_create/create/{tourId}(tourId=${tour.id})}" class="btn btn-primary ">Apply</a>
+
+                                                                                    </div>
+                                                                                </td>
+                                                                            </th:block>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4>Tour processed</h4><!--
+                                                                                                                        <div class="card-header-action" th:if="${session.user.roleId.id == 2 or session.user.roleId.id == 3}">
+                                                                                                                            <a class="btn btn-icon btn-info" th:href="@{/admin/create-tour}">Create <i class="fas fa-plus"></i></a>
+                                                                                                                        </div>-->
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div th:if="${not #strings.isEmpty(message)}" style="display: block; margin-left: auto; margin-right: auto;" class="form-group row mb-4">
+                                                                <div class="alert alert-success">
+                                                                    <i class="fa fa-check-circle"></i>&nbsp;&nbsp;
+                                                                    <span th:text="${message}"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-success" id="table-1">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="text-center">#</th>
+                                                                            <!--<th>Guide</th>-->
+                                                                            <th>Tour name</th>
+                                                                            <th>Schedule</th>
+                                                                            <th>Checkin</th>
+                                                                            <th>Checkout</th>
+                                                                            <th>Action</th>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr th:each="tour : ${resultTourCreate}">
+                                                                            <th:block th:if="${tour.companyId != null && tour.companyId == comId}">
+
+
+                                                                                <td></td>
+                                                                                <!--                                                                            <td>
+                                                                                                                                                                <img alt="image" th:src="@{/admin/images/avatar/avatar-5.png}" class="rounded-circle" width="35" data-toggle="tooltip" th:title="${tour.guideId.firstName}">
+                                                                                                                                                            </td>-->
+                                                                                <td th:text="${tour.destination}"></td>
+                                                                                <td th:text="${tour.description}"></td>
+                                                                                <td th:text="${#dates.format(tour.startdate, 'dd-MMM-yyyy')}"></td>
+                                                                                <td th:text="${#dates.format(tour.enddate, 'dd-MMM-yyyy')}"></td>
+
+                                                                                <td>
+                                                                                    <!--th:href="@{/admin/schedule/{tour}(tour=${tour.id})}"-->
+                                                                                    <div class="dropdown">
+                                                                                        <a th:href="@{/admin/tour_create/detail/{tourId}(tourId=${tour.id})}" class="btn btn-success ">View detail</a>
+
+                                                                                    </div>
+                                                                                </td>
+                                                                            </th:block>
+                                                                        </tr>
+                                                                       
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+
+                            <div layout:fragment="js">
+                                <script th:src="@{/admin/lib/modules/datatables/datatables.min.js}"></script>
+                                <script th:src="@{/admin/lib/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js}"></script>
+                                <script th:src="@{/admin/lib/modules/datatables/Select-1.2.4/js/dataTables.select.min.js}"></script>
+                                <script th:src="@{/admin/lib/modules/jquery-ui/jquery-ui.min.js}"></script>
+
+                                <script>
+                                    "use strict";
+
+                                    $("#table-1").dataTable({
+                                        "columnDefs": [
+                                            {"sortable": false, "targets": [2, 3]}
+                                        ]
+                                    });
+                                    $("#table-2").dataTable({
+                                        "columnDefs": [
+                                            {"sortable": false, "targets": [0, 2, 3]}
+                                        ]
+                                    });
+
+                                    var schedule = document.getElementById('tour');
+                                    var schedule1 = document.getElementById('tour-3');
+                                    schedule.classList.add('active');
+                                    schedule1.classList.add('active');
+                                </script>
+                            </div>
+
+                        </body>
+
+                        </html>

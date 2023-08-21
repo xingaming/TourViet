@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <html xmlns:th="http://www.thymeleaf.org">
+
+
+        <head>
+            <title></title>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <link rel="stylesheet" href="/user/css/login.css" type="text/css"/>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+        </head>
+        <style>
+            .btn{
+                position: absolute;
+                top: 30px;
+                left: 30px;
+                outline: none;
+                background-color: #344A43;
+                color: white;
+                padding: 10px;
+                border: 1px solid #344A43;
+                font-weight: 700;
+                font-size: 17px;
+                letter-spacing: 1.15px;
+                border-radius: 5px;
+            }
+
+            /* CSS cho hiệu ứng loading */
+            .loading-container {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+
+            .loading {
+                border: 4px solid rgba(255, 255, 255, 0.3);
+                border-top: 4px solid white;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 2s linear infinite;
+            }
+
+            /* Hiển thị loading khi có lớp "visible" */
+            .loading-container.visible {
+                display: flex;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+
+
+        <body>
+            <!--Loading-->
+            <div id="loading-container" class="loading-container">
+                <div class="loading"></div>
+            </div>
+            <!--End loading-->
+            <button class="btn" ><a style="text-decoration: none; color: white" th:href="@{/user/home}">GO HOME</a></button>
+            <span th:if="${message != null}">
+
+                <div id="messageElement" style="display: none;">[[${message}]]</div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var messageElement = document.getElementById("messageElement");
+                        var message = messageElement.textContent.trim(); // Lấy nội dung của thẻ div
+
+                        Swal.fire({
+                            title: 'Oh!!!',
+                            text: message,
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                    });
+                </script>
+            </span>
+
+
+
+
+            <div class="main">  
+
+                <div class="container a-container" id="a-container">
+                    <form class="form" id="b-form myForm"  method="post" th:action="@{/user/login}" onsubmit="showLoading()">
+                        <h2 class="form_title title">Sign in</h2>
+                        <div class="login-with-google-btn">
+                            <img class="google_icon" src="/user/images/google_icon.png" alt="">
+                                Continue with Google
+                        </div>
+                        <span class="form__span">or use your email account</span>
+                        <input class="form__input" name="email" type="text" placeholder="Email">
+                            <input class="form__input" name="password" type="password" placeholder="Password">
+                                <a class="form__link">Forgot your password?</a>
+                                <!--<button class="form__button button submit">SIGN UP</button>-->
+                                <button class="form__button button" onclick="signIn()">SIGN IN</button>
+
+                                <br/>
+                                <div th:if="${error}" class="error-message">
+                                    <div style="color:red" th:if="${error}" th:text="${error}" class="error-message"></div>
+                                </div>
+
+                                </form>
+                                </div>
+                                <div class="switch" id="switch-cnt">
+                                    <div class="switch__circle"></div>
+                                    <div class="switch__circle switch__circle--t"></div>
+                                    <div class="switch__container" id="switch-c1">
+                                        <h2 class="switch__title title">Welcome Back !</h2>
+                                        <p class="switch__description description">To keep connected with us please login with your personal info</p><button onclick="redirectToLoginPage()" class="switch__button button switch-btn">SIGN UP</button>
+                                    </div>
+
+                                </div>
+                                </div>
+                                <script>
+                                    function signIn() {
+                                        // Lấy form bằng cách sử dụng id
+                                        var form = document.getElementById('myForm');
+                                        // Gửi form
+                                        form.submit();
+                                    }
+                                </script>
+
+                                <script>
+                                    function redirectToLoginPage() {
+                                        window.location.href = "/user/register";
+                                    }
+                                    // JavaScript
+                                    function showLoading() {
+                                        const requiredFields = document.querySelectorAll('[required]');
+
+                                        // Kiểm tra xem có trường nào chưa được điền không
+                                        const isFormValid = Array.from(requiredFields).every(field => field.value.trim() !== '');
+
+                                        if (isFormValid) {
+                                            document.getElementById("loading-container").classList.add("visible");
+                                        }
+                                    }
+
+                                    function hideLoading() {
+                                        document.getElementById("loading-container").classList.remove("visible");
+                                    }
+
+
+                                    window.addEventListener("load", function () {
+                                        // Trang đã tải xong, ẩn hiệu ứng loading
+                                        hideLoading();
+                                    });
+                                </script>
+
+
+
+
+                                <!--                                                                <script>
+                                
+                                                                                                    let switchCtn = document.querySelector("#switch-cnt");
+                                                                                                    let switchC1 = document.querySelector("#switch-c1");
+                                                                                                    let switchC2 = document.querySelector("#switch-c2");
+                                                                                                    let switchCircle = document.querySelectorAll(".switch__circle");
+                                                                                                    let switchBtn = document.querySelectorAll(".switch-btn");
+                                                                                                    let aContainer = document.querySelector("#a-container");
+                                                                                                    let bContainer = document.querySelector("#b-container");
+                                                                                                    let allButtons = document.querySelectorAll(".submit");
+                                                                                                    let getButtons = (e) => e.preventDefault()
+                                
+                                                                                                    let changeForm = (e) => {
+                                
+                                                                                                        switchCtn.classList.add("is-gx");
+                                                                                                        setTimeout(function () {
+                                                                                                            switchCtn.classList.remove("is-gx");
+                                                                                                        }, 1500)
+                                
+                                                                                                        switchCtn.classList.toggle("is-txr");
+                                                                                                        switchCircle[0].classList.toggle("is-txr");
+                                                                                                        switchCircle[1].classList.toggle("is-txr");
+                                                                                                        switchC1.classList.toggle("is-hidden");
+                                                                                                        switchC2.classList.toggle("is-hidden");
+                                                                                                        aContainer.classList.toggle("is-txl");
+                                                                                                        bContainer.classList.toggle("is-txl");
+                                                                                                        bContainer.classList.toggle("is-z200");
+                                                                                                    }
+                                
+                                                                                                    let mainF = (e) => {
+                                                                                                        for (var i = 0; i < allButtons.length; i++)
+                                                                                                            allButtons[i].addEventListener("click", getButtons);
+                                                                                                        for (var i = 0; i < switchBtn.length; i++)
+                                                                                                            switchBtn[i].addEventListener("click", changeForm)
+                                                                                                    }
+                                
+                                                                                                    window.addEventListener("load", mainF);
+                                
+                                                                                                </script>-->
+
+
+                                </body>
+
+                                </html>

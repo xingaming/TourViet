@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html  lang="en" 
+       xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" > 
+
+    <head>
+        <div layout:fragment="title">
+            <title>Company</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css">
+            <link rel="stylesheet" href="/admin/lib/modules/datatables/datatables.min.css">
+                <link rel="stylesheet" href="/admin/lib/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+                    <link rel="stylesheet" href="/admin/lib/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+                        <style>
+                            /* CSS của modal */
+                            .modal {
+                                display: none;
+                                position: fixed;
+                                z-index: 1;
+                                right: 0; /* Di chuyển modal sang bên phải */
+                                top: 0;
+                                width: 100%;
+                                height: 100%;
+                                overflow: auto;
+                                background-color: rgba(0, 0, 0, 0.5);
+                            }
+
+                            .modal-content {
+                                background-color: #fefefe;
+                                margin: 15% 20%; /* Thay đổi khoảng cách trên và cách mép phải */
+                                padding: 20px;
+                                border: 1px solid #888;
+                                width: 60%; /* Thay đổi chiều rộng của modal */
+                            }
+
+                            .close {
+                                color: #aaa;
+                                position: absolute;
+                                top: 10px;
+                                right: 30px;
+                                font-size: 28px;
+                                font-weight: bold;
+                                cursor: pointer;
+                            }
+
+                            .close:hover,
+                            .close:focus {
+                                color: black;
+                                text-decoration: none;
+                                cursor: pointer;
+                            }
+
+                            .user{
+                                color: #007fff;
+                            }
+                            .user:hover{
+                                color: #0069d9;
+                            }
+                        </style>
+                        </div>
+
+                        </head>
+
+                        <body>
+                            <div layout:fragment="content">
+                                <div class="main-content">
+                                    <section class="section">
+                                        <div class="section-header">
+                                            <div class="section-header-back">
+                                                <a th:href="@{/admin/registration-companies}" class="btn btn-icon"
+                                                   ><i class="fas fa-arrow-left"></i
+                                                    ></a>
+                                            </div>
+                                            <h1>Solve registration company </h1>
+                                            <div class="section-header-breadcrumb">
+                                                <div class="breadcrumb-item active">
+                                                    <a th:href="@{/admin/dashboard}">Dashboard</a>
+                                                </div>
+                                                <div class="breadcrumb-item"><a th:href="@{/admin/registration-companies}">registration company</a></div>
+                                                <div class="breadcrumb-item">solve</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="section-body">
+                                            <div class="col-12 col-md-12 col-lg-12">
+                                                <form action="/admin/registration-required" method="POST">
+                                                    <input type="hidden" name="id" th:value="${company?.id}" />
+                                                    <input type="hidden" name="idUser" th:value="${user?.id}" />
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4>Handling the request for company registration</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div th:if="${not #strings.isEmpty(errorMessage)}" style="display: block; margin-left: auto; margin-right: auto;" class="form-group row mb-4">
+                                                                <div class="alert alert-danger">
+                                                                    <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                                    <span th:text="${errorMessage}"></span>
+                                                                </div>
+                                                            </div>
+                                                            <table class="table">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th>Name </th>
+                                                                        <td class="text-danger" th:text="${company?.name}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Logo</th>
+                                                                        <td><img th:src="'data:image/png;base64,' + ${company?.logo}" width="150px" height="100px" alt="alt" style="margin-top: 25px" /><br/><br/></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>status</th>
+                                                                        <td th:if="${company?.status == null}">
+                                                                            <a data-collapse="#mycard-collapse" class="badge badge-warning" style="color:white">Pending</a>
+                                                                        </td>
+                                                                        <td th:if="${company?.status == true}">
+                                                                            <a data-collapse="#mycard-collapse" class="badge badge-success" style="color:white">Solved</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Address</th>
+                                                                        <td th:text="${company?.address}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Total revenue</th>
+                                                                        <td class="text-danger" th:text="${company?.totalRevenue}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Hotline</th>
+                                                                        <td th:text="${company?.hotline}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Email</th>
+                                                                        <td th:text="${company?.email}"></td>
+                                                                    </tr>
+                                                                    
+                                                                    <tr style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
+                                                                        <th>Fullname</th>
+                                                                        <td th:text="${user?.firstName + ' ' + user?.lastName}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Email</th>
+                                                                        <td th:text="${user?.email}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Phone</th>
+                                                                        <td th:text="${user?.phone}"></td>
+                                                                    </tr>
+                                                                    
+                                                                </tbody>
+                                                            </table>
+
+                                                            <!-- Add more tour details here -->
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button th:if="${company?.status == null}" onclick="return confirm('Are you sure want to approve?');" class="btn btn-success"><i class="fas fa-check"></i> Approve</button>
+                                                            <a th:if="${company?.status == null}" th:href="@{/admin/company/{companyId}/cancelCompany(companyId=${company.id})}" class="btn btn-danger" onclick="return confirm('Are you sure you want to refuse the company?');"><i class="fas fa-sad-tear"></i> Refusing to create an account for a business</a>
+                                                        </div>
+                                                </form>
+                                            </div>
+                                        </div>
+ 
+                                </div>
+                            </div>
+
+
+                            </section>
+                            </div>
+                            </div>
+                            <div layout:fragment="js">
+                                <script src="/admin/lib/modules/datatables/datatables.min.js"></script>
+                                <script src="/admin/lib/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+                                <script src="/admin/lib/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+                                <script src="/admin/lib/modules/jquery-ui/jquery-ui.min.js"></script>
+
+                                <script>
+                                                    // JavaScript
+                                                    function openModal(content) {
+                                                        // Lấy thẻ modal và thẻ nội dung của modal
+                                                        var modal = document.getElementById("myModal");
+                                                        var modalContent = document.getElementById("modalContent");
+
+                                                        // Hiển thị modal
+                                                        modal.style.display = "block";
+
+                                                        // Đặt nội dung của modal bằng dữ liệu từ phần tử được click
+                                                        modalContent.innerText = content;
+                                                    }
+
+                                                    function closeModal() {
+                                                        // Lấy thẻ modal và ẩn nó khi click vào nút close
+                                                        var modal = document.getElementById("myModal");
+                                                        modal.style.display = "none";
+                                                    }
+
+                                                    "use strict";
+
+                                                    $("#table-1").dataTable({
+                                                        "columnDefs": [
+                                                            {"sortable": false, "targets": [2, 3]}
+                                                        ]
+                                                    });
+                                                    $("#table-2").dataTable({
+                                                        "columnDefs": [
+                                                            {"sortable": false, "targets": [0, 2, 3]}
+                                                        ]
+                                                    });
+
+                                                    var booking = document.getElementById('comany');
+                                                    var booking2 = document.getElementById('company-3');
+                                                    booking.classList.add('active');
+                                                    booking2.classList.add('active');
+
+                                </script>
+                            </div>
+                        </body>
+
+                        </html>
+
+
+
+

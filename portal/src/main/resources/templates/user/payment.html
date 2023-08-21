@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+
+<!--<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+
+<html lang="en" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/user/layout">
+
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="/user/css/detail.css">
+        <link rel="stylesheet" href="/user/css/booktour.css">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@100;400;500&display=swap');
+            .button-book {
+                width: 80px;
+                height: 20px;
+                flex-shrink: 0;
+                background-color: #1D3133;
+                border: solid 2px #C1AC67;
+            }
+
+            .button-book input[type="submit"] {
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                border: none;
+                color: #C1AC67;
+                font-size: 12px;
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 24px;
+                letter-spacing: 1px;
+            }
+            .payment.selected {
+                background-color: #1E4F2A;
+                color: white;
+            }
+            .payment.selected>p {
+                /*background-color: #1E4F2A;*/
+                color: white;
+            }
+            a{
+                color: white !important;
+            }
+
+
+            .custom-div {
+                background-color: #55776c;
+                padding: 5px;
+                text-align: center;
+                border-radius: 20px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!--        <script>
+                    $(document).ready(function () {
+                        const tabs = $('.tab_btn');
+                        const contentDivs = $('.body-content');
+                        const line = $('.line');
+                        let currentTab = 0;
+        
+                        // Add event listener for "Next" button
+                        $('.next').on('click', function () {
+                            currentTab++;
+                            if (currentTab >= tabs.length) {
+                                currentTab = tabs.length - 1;
+                            }
+                            updateActiveTab();
+                        });
+        
+                        // Add event listener for "Previous" button
+                        $('.previous').on('click', function () {
+                            currentTab--;
+                            if (currentTab < 0) {
+                                currentTab = 0;
+                            }
+                            updateActiveTab();
+                        });
+        
+                        // Function to update the active tab and line position
+                        function updateActiveTab() {
+                            tabs.removeClass('active');
+                            contentDivs.removeClass('active');
+        
+                            tabs.eq(currentTab).addClass('active');
+                            contentDivs.eq(currentTab).addClass('active');
+        
+                            line.css({
+                                'width': tabs.eq(currentTab).width() + 'px',
+                                'left': tabs.eq(currentTab).position().left + 'px'
+                            });
+                        }
+        
+                        // Initialize the active tab and line position
+                        updateActiveTab();
+                    });
+                </script>        <script>
+                    $(document).ready(function () {
+                        const tabs = $('.tab_btn');
+                        const contentDivs = $('.body-content');
+                        const line = $('.line');
+                        let currentTab = 0;
+        
+                        // Add event listener for "Next" button
+                        $('.next').on('click', function () {
+                            currentTab++;
+                            if (currentTab >= tabs.length) {
+                                currentTab = tabs.length - 1;
+                            }
+                            updateActiveTab();
+                        });
+        
+                        // Add event listener for "Previous" button
+                        $('.previous').on('click', function () {
+                            currentTab--;
+                            if (currentTab < 0) {
+                                currentTab = 0;
+                            }
+                            updateActiveTab();
+                        });
+        
+                        // Function to update the active tab and line position
+                        function updateActiveTab() {
+                            tabs.removeClass('active');
+                            contentDivs.removeClass('active');
+        
+                            tabs.eq(currentTab).addClass('active');
+                            contentDivs.eq(currentTab).addClass('active');
+        
+                            line.css({
+                                'width': tabs.eq(currentTab).width() + 'px',
+                                'left': tabs.eq(currentTab).position().left + 'px'
+                            });
+                        }
+        
+                        // Initialize the active tab and line position
+                        updateActiveTab();
+                    });
+                </script>-->
+    </head>
+
+    <body>
+        <div layout:fragment="content">
+            <!--header-->
+            <div class="hero" style="margin-bottom: 0px">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="overlay" >
+                                <div class="overlay-content">
+                                    BOOK TOUR
+                                </div>
+                                <p th:text="${name}"></p>
+                                <p th:text="${phone}"></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <!--header-->
+
+            <div id="tourism" class="untree_co-section">
+                <div class="container">
+
+                    <div class="container" >
+                        <div class="tab_box" style="position: sticky; top: 0;" >
+
+                            <button class="tab_btn ">1. SELECT SERVICES</button>
+                            <button class="tab_btn" >2.ENTER PASSENGE INFORMATION ONLY</button>
+                            <button class="tab_btn" style="color: #C1AC67">3. PAYMENT</button>
+                            <button class="tab_btn">4. CONFIRMATION</button>
+
+
+                        </div>
+
+                        <div class="page-book">
+
+
+
+                            <div class="container active body-content enter-passenge ">
+                                <div  th:each="list : ${listBooking}" class="row ">
+                                    <!--                                    <div class="col-xl-8" style="">
+                                                                            <div id="detail-question" class="detail-question input-number">
+                                                                                <div class="title-question" style=" text-align: center;">
+                                                                                    <p class="title-content-question payment-time" style="font-size: 20px">Payment within <span style="color: #C1AC67">05:00:00</span> </p>
+                                                                                </div>
+                                    
+                                                                            </div>
+                                                                            <div class="momo">
+                                    
+                                                                                <p style=""> Payment by e-wallet momo <img src="/user/lib/icon/icon-momo.png" alt="Image" class=""> </p>
+                                                                            </div>
+                                                                            <div class="momo">
+                                                                                <p>Note before payment</p>
+                                                                            </div>
+                                                                            <div id="contentDiv" class=" note-cash payment-child" >
+                                                                                <div class="note note-cash">
+                                                                                    <div class="title-note-cash ">
+                                                                                        Please install the MoMo application on your phone to facilitate the payment of this order
+                                                                                    </div>
+                                    
+                                    
+                                                                                </div>
+                                                                            </div>
+                                    
+                                                                            <div class="agree">
+                                                                                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                                                <label for="vehicle1"> I agree to the terms of TourViet</label>
+                                                                            </div>
+                                    
+                                    
+                                                                            <div class="container">
+                                                                                <div class="row justify-content-between align-items-center">
+                                                                                    <div class="col-md-6 panigation">
+                                                                                        <button class="previous" style="margin-right: 10px;">Previous</button>
+                                                                                        <button class="next">Next</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                    
+                                    
+                                    
+                                                                        </div>-->
+
+
+                                    <div class="col-xl-8" style="">
+                                        <!--                                        <div id="detail-question" class="detail-question input-number">
+                                                                                    <div class="title-question" style=" text-align: center;">-->
+                                        <div class="custom-div">
+                                            <p  class="title-content-question payment-time" style="font-size: 15px; text-align: center">Thank you! Your booking has been confirmed. Information has been sent to your email. </p>
+                                        </div><!--                                            
+                                        </div>
+                                        
+                                                                                </div>-->
+
+                                        <p class="title-content-question payment-time" style="font-size: 30px; color: #55776C; margin-top: 20px; margin-bottom: 20px" th:text="${list.scheduleId.tourId.name}"></p>
+
+
+                                        <div id="contentDiv" class=" note-cash payment-child" >
+                                            <div class="note note-cash">
+                                                <div class="title-note-cash ">
+                                                    <img style="width: 100%; max-width: 100%;"  th:src="'data:image/png;base64,' + ${list.scheduleId.tourId.image}">
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+                                    <div class="col-xl-4">
+                                        <div id="detail-question" class="detail-question hotline">
+                                            <div class="title-hotline">
+                                                <p class="title-content-hotline">Hotline: 1900 6568 </p>
+                                            </div>
+                                            <div class="total">
+                                                <!--<div class="">-->
+                                                <!--                                                <img src="/user/images/img-schedule-1.png" alt="Image" class="total-img">-->
+                                                <!--</div>-->
+                                                <!--                                                <div class="title-total">
+                                                                                                    Tour Nha Trang 
+                                                                                                    Hon Lao - Doc Let - I Resort -Vien Hai Duong Hoc
+                                                
+                                                                                                </div>-->
+                                                <div class="check-in">
+
+                                                    <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Tour code: </span><p th:text= "${list.id}"> </p>
+                                                </div>
+                                                
+                                                <div class="check-in">
+
+                                                    <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Full name: </span><p th:text="${sessionFName + ' ' + sessionLName}"> </p>
+                                                </div>
+                                                <div class="check-in">
+
+                                                    <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Email: </span><p th:text="${sessionEmail}"> </p>
+                                                </div>
+                                                <div class="check-in">
+
+                                                    <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Address: </span><p th:text="${sessionAddress}"> </p>
+                                                </div>
+                                                
+                                                <div class="check-in">
+
+                                                    <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Phone: </span><p th:text="${sessionPhone}"> </p>
+                                                </div>
+                                                
+                                                
+                                                <div class="check-in">
+
+                                                    <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Check in: </span><p th:text= "${#dates.format(list.scheduleId.startDate, 'dd-MMM-yyyy')}"> </p>
+                                                </div>
+                                                <div class="check-in">
+
+                                                    <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Check out: </span><p th:text="${#dates.format(list.scheduleId.endDate, 'dd-MMM-yyyy')}"> </p>
+                                                </div>
+
+                                                <div class="check-in">
+
+                                                    <img th:src="@{/user/lib/icon/calander.png}" alt="Image" class="icon-tour-detail"><span>Duration: </span><p th:text="${duration1} +' days ' + ${duration} + ' nights '"> </p>
+                                                </div>
+
+                                                <div class="check-in">
+                                                    <img th:src="@{/user/lib/icon/icon-person.png}" alt="Image" class="icon-tour-detail">
+                                                    <span id="adultCount">Adult </span>
+                                                    <p class="adult-price-paragraph" id="pricePerAdult" th:text="${formattedPrice + ' USD'}"></p>
+                                                    <span> x </span>
+                                                    <span id="adultQuantity" th:text="${list.adult}"></span>
+                                                </div>
+
+                                                <div class="check-in">
+                                                    <img th:src="@{/user/lib/icon/icon-person.png}" alt="Image" class="icon-tour-detail">
+                                                    <span id="childrenCount">Children </span>
+                                                    <p class="children-price-paragraph" id="pricePerChild" th:text="${formattedPrice1 + ' USD'}"></p>
+                                                    <span> x </span>
+                                                    <span id="childrenQuantity" th:text="${list.children}"></span>
+                                                </div>
+
+
+                                                <div class="title-total" style="font-size: 25px; text-align: center">
+                                                    <div >TOTAL: <span style="color: #55776C" id="totalPrice" th:text="${formattedTotal}"></span></div> 
+                                                </div>
+<!--                                                <script>
+
+                                                    const totalPriceElement = document.getElementById("totalPrice");
+                                                    totalPriceElement.textContent = totalAmount.toFixed(2) + " USD";
+                                                </script>-->
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <a href="#" class="back" ></a>
+
+        </div>
+
+    </body>
+
+</html>
+
+

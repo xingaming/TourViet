@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="fpt.aptech_portal_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>fpt.aptech.portal.entities.Favoritepost</class>
+    <class>fpt.aptech.portal.entities.Slot</class>
+    <class>fpt.aptech.portal.entities.Scheduleitem</class>
+    <class>fpt.aptech.portal.entities.Hotels</class>
+    <class>fpt.aptech.portal.entities.Region</class>
+    <class>fpt.aptech.portal.entities.Coupon</class>
+    <class>fpt.aptech.portal.entities.Roles</class>
+    <class>fpt.aptech.portal.entities.Company</class>
+    <class>fpt.aptech.portal.entities.Payment</class>
+    <class>fpt.aptech.portal.entities.News</class>
+    <class>fpt.aptech.portal.entities.Transport</class>
+    <class>fpt.aptech.portal.entities.Invite</class>
+    <class>fpt.aptech.portal.entities.Favorite</class>
+    <class>fpt.aptech.portal.entities.Usergroup</class>
+    <class>fpt.aptech.portal.entities.Friend</class>
+    <class>fpt.aptech.portal.entities.Tour</class>
+    <class>fpt.aptech.portal.entities.Serviceitem</class>
+    <class>fpt.aptech.portal.entities.Booking</class>
+    <class>fpt.aptech.portal.entities.Post</class>
+    <class>fpt.aptech.portal.entities.Groupchat</class>
+    <class>fpt.aptech.portal.entities.Commentpost</class>
+    <class>fpt.aptech.portal.entities.Review</class>
+    <class>fpt.aptech.portal.entities.Item</class>
+    <class>fpt.aptech.portal.entities.Users</class>
+    <class>fpt.aptech.portal.entities.Chatmessage</class>
+    <class>fpt.aptech.portal.entities.Informationbooking</class>
+    <class>fpt.aptech.portal.entities.Scheduleimage</class>
+    <class>fpt.aptech.portal.entities.Schedule</class>
+    <class>fpt.aptech.portal.entities.TourCreate</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=jdbc:sqlserver://localhost:1433;databaseName=TourViet;Encrypt=True;TrustServerCertificate=True"/>
+      <property name="javax.persistence.jdbc.user" value="sa"/>
+      <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="javax.persistence.jdbc.password" value="123"/>
+    </properties>
+  </persistence-unit>
+</persistence>

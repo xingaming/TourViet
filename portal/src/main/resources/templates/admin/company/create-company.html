@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html  lang="en" 
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/admin/layout" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> 
+
+    <head>
+        <div layout:fragment="title">
+            <title>Create company</title>
+        </div>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <div layout:fragment="css">
+            <style>
+                .text_area {
+                    border: 1px solid #E4E6FC; /* Định dạng border cùng một lúc */
+                    background-color: #FDFDFF;
+                    border-radius: 5px;
+                    padding: 10px 15px;
+                }
+
+                .text_area:focus {
+                    outline: none;
+                    border-color: #6777EF;
+                }
+
+            </style>
+        </div>
+
+    </head>
+
+    <body>
+
+        <div layout:fragment="content">
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>Create company</h1>
+                        <div class="section-header-breadcrumb">
+                            <div class="breadcrumb-item active"><a th:href="@{/admin/dashboard}">Dashboard</a></div>
+                            <div class="breadcrumb-item"><a th:href="@{/admin/companies}">View companies</a></div>
+                            <div class="breadcrumb-item">Create companies</div>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Create new company</h4>
+                                    </div>
+                                    <form action="/admin/create-company" method="POST" enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Name</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input name="name" type="text" class="form-control" th:value="${company?.name}">
+                                                </div><span style="color:red">*</span>
+                                            </div>
+                                            <div th:if="${not #strings.isEmpty(errorMessage) && company?.name.isEmpty}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Name </span><span th:text="${errorMessage}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>                                 
+
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Address</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input name="address" type="text" class="form-control" th:value="${company?.address}">
+                                                </div><span style="color:red">*</span>
+                                            </div>
+                                            <div th:if="${not #strings.isEmpty(errorMessage) && company?.address.isEmpty}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Address </span><span th:text="${errorMessage}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Email</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <!-- HTML -->
+                                                    <input name="email" type="text" class="form-control" id="emailInput" th:value="${company?.email}">
+                                                        <div style="color:red;" id="emailError" class="error-message"></div>
+
+                                                </div><span style="color:red">*</span>
+                                            </div>
+                                            <div th:if="${not #strings.isEmpty(errorMessage) && company?.email.isEmpty}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Email </span><span th:text="${errorMessage}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div th:if="${not #strings.isEmpty(emailMessage)}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span></span><span th:text="${emailMessage}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hotline</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <!-- HTML -->
+                                                    <input name="hotline" type="text" class="form-control" id="hotlineInput" th:value="${company?.hotline}">
+                                                        <div style="color:red;" id="hotlineError" class="error-message"></div>
+                                                </div><span style="color:red">*</span>
+                                            </div>
+                                            <div th:if="${not #strings.isEmpty(errorMessage) && company?.hotline.isEmpty}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Hotline </span><span th:text="${errorMessage}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div th:if="${not #strings.isEmpty(hotlineMessage)}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span></span><span th:text="${hotlineMessage}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Logo</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div id="image-preview" class="image-preview">
+                                                        <label for="image-upload" id="image-label">Choose File</label>
+                                                        <img th:src="'data:image/png;base64,' + ${company?.logo}" width="250" height="250px" alt="alt"/>
+                                                        <input type="file" name="images" id="image-upload" />
+                                                        <input type="hidden" name="logo" th:value="${company?.logo}" />
+                                                    </div>
+                                                </div><span style="color:red">*</span>
+                                            </div>
+                                            <div th:if="${not #strings.isEmpty(errorMessage) && (company?.logo == null || company?.logo.isEmpty)}" style="" class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="alert alert-danger">
+                                                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                                                        <span>Logo </span><span th:text="${errorMessage}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <button type="submit" class="btn btn-primary">Create company</button>
+                                                </div>
+                                            </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div layout:fragment="js">
+                <script th:src="@{/admin/lib/modules/datatables/datatables.min.js}"></script>
+                <script th:src="@{/admin/lib/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js}"></script>
+                <script th:src="@{/admin/lib/modules/datatables/Select-1.2.4/js/dataTables.select.min.js}"></script>
+                <script th:src="@{/admin/lib/modules/jquery-ui/jquery-ui.min.js}"></script>
+
+                <script>
+                    var schedule = document.getElementById('company');
+                    var schedule1 = document.getElementById('company-2');
+                    schedule.classList.add('active');
+                    schedule1.classList.add('active');
+
+                    // JavaScript
+                    // JavaScript
+                    document.getElementById("hotlineInput").addEventListener("input", function () {
+                        var hotlineInput = this.value;
+                        var hotlineError = document.getElementById("hotlineError");
+
+                        if (!validateHotline(hotlineInput)) {
+                            hotlineError.textContent = "Please enter a valid phone number (minimum 10 digits).";
+                        } else {
+                            hotlineError.textContent = "";
+                        }
+                    });
+
+                    document.getElementById("hotlineInput").addEventListener("keypress", function (event) {
+                        var charCode = event.which ? event.which : event.keyCode;
+                        if (charCode < 48 || charCode > 57) {
+                            event.preventDefault(); // Cấm nhập chữ
+                        }
+                    });
+
+                    function validateHotline(hotline) {
+                        var pattern = /[0-9]{10,}/;
+                        return pattern.test(hotline);
+                    }
+
+
+                    // JavaScript
+                    document.getElementById("emailInput").addEventListener("input", function () {
+                        var emailInput = this.value;
+                        var emailError = document.getElementById("emailError");
+
+                        if (!validateEmail(emailInput)) {
+                            emailError.textContent = "Please enter a valid email address";
+                        } else {
+                            emailError.textContent = "";
+                        }
+                    });
+
+                    function validateEmail(email) {
+                        var pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                        return pattern.test(email);
+                    }
+
+
+                </script>
+
+                </body>
+
+                </html>

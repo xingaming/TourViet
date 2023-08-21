@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+
+<!--<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+
+<html lang="en" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/user/layout">
+
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="/user/css/detail.css">
+        <link rel="stylesheet" href="/user/css/rating.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@100;400;500&display=swap');
+            .button-book {
+                width: 80px;
+                height: 20px;
+                flex-shrink: 0;
+                background-color: #1D3133;
+                border: solid 2px #C1AC67;
+            }
+
+            .button-book input[type="submit"] {
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                border: none;
+                color: #C1AC67;
+                font-size: 12px;
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 24px;
+                letter-spacing: 1px;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+
+    <body>
+        <div th:each="tour : ${tourShedule}"  layout:fragment="content">
+            <!--header-->
+            <div class="hero">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="overlay" >
+                                <div class="overlay-content" th:text="${tour.tourId.name}">
+                                    <!--                                    Tour Nha Trang 
+                                                                        Hon Lao - Doc Let - I Resort -Vien Hai Duong Hoc-->
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="overlay-content-service">
+
+                                            <p>
+                                                <span><img th:src="@{/user/lib/icon/icon-time.png}" alt="Image" class="icon-tour-detail"></span>
+                                                <span style="color: whitesmoke" th:text="${duration1} +' days ' + ${duration} + ' nights'"></span>
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="overlay-content-service">
+                                            <p>
+                                                <span><img th:src="@{/user/lib/icon/icon-vehicle.png}" alt="Image" class="icon-tour-detail"> </span>
+                                                <span  style="color: whitesmoke" th:text="${tour.tourId.transportId.name}"></span>
+
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <!--header-->
+
+            <div id="tourism" class="untree_co-section">
+                <div class="container">
+
+                    <div class="container" >
+                        <!--                        <div class="tab_box" style="position: sticky; top: 0;" >
+                        
+                                                    <button class="tab_btn avtive"><a  href="#detail-question">BOOK TOUR</a></button>
+                                                    <button class="tab_btn" ><a href="#book-tour">TOUR DETAILS</a></button>
+                                                    <button class="tab_btn">REVIEWS</button>
+                                                    <button class="tab_btn">TOUR POLICY</button>
+                        
+                                                    <div class="line"></div>
+                                                </div>-->
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const tabs = document.querySelectorAll('.tab_btn');
+                                const line = document.querySelector('.line');
+                                const all_content = document.querySelectorAll('.content_box_child');
+
+                                tabs.forEach((tab) => {
+                                    tab.addEventListener('click', function (e) {
+                                        tabs.forEach((tab) => {
+                                            tab.classList.remove('active');
+                                        });
+
+                                        const currentTab = e.target;
+                                        const currentIndex = Array.from(tabs).indexOf(currentTab);
+
+                                        currentTab.classList.add('active');
+
+                                        line.style.width = currentTab.offsetWidth + "px";
+                                        line.style.left = currentTab.offsetLeft + "px";
+
+//                            all_content.forEach((content) => {
+//                                content.classList.remove('active');
+//                            });
+//
+//                            all_content[currentIndex].classList.add('active');
+                                    });
+                                });
+                            });
+                            $(document).ready(function () {
+                                $('.scroll-link').on('click', function (event) {
+                                    event.preventDefault();
+                                    var target = $(this).data('target');
+                                    $('html, body').animate({
+                                        scrollTop: $(target).offset().top
+                                    }, 1000);
+//                         $(this).addClass('button-clicked'); 
+                                });
+                            });
+
+                        </script>
+
+
+                        <div class="container body-content">
+                            <div class="row">
+                                <div class="col-xl-8">
+                                    <div id="detail-question" class="detail-question">
+                                        <div class="title-question">
+                                            <p class="title-content-question">Why did you choose this tour?</p>
+                                        </div>
+                                        <div  class="content-reply">
+                                            <ul >
+                                                <th:block th:if="${tour.tourId.description != null}">
+                                                    <!--<th:block th:each="paragraph : ${tour.tourId.description}">-->
+                                                    <th:block th:each="paragraph : ${#strings.arraySplit(tour.tourId.description, '-')}">
+
+                                                        <!-- Loại bỏ khoảng trắng thừa trước và sau đoạn văn bản -->
+                                                        <th:block th:if="${#strings.trim(paragraph) != ''}">
+                                                            <li th:text="${paragraph}"></li>
+                                                        </th:block>
+                                                    </th:block>
+                                                </th:block>
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                    <!--BOOK TOUR-->
+                                    <div id="book-tour" class="book-tour">
+                                        <div class="title-book-tour">
+                                            <p class="title-content-book">BOOK TOUR</p>
+                                        </div>
+                                        <table class="table table-book ">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">DEPARTURE</th>
+
+                                                    <th scope="col">PRICE</th>
+                                                    <th scope="col">CHILD PRICE</th>
+                                                    <th scope="col">Detail</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+
+                                                <tr th:each="tour1 : ${tourList}">
+                                            <th:block th:if="${ #dates.format(tour1.startDate, 'dd-MMM-yyyy') > #dates.format(#dates.createNow(), 'dd-MMM-yyyy') && tour1.quantityMax > tour1.quantityPassenger}">
+                                                <td th:text="${#dates.format(tour1.startDate, 'dd-MMM-yyyy')}"></td>
+                                                <!--<td th:text="${tour1.id}"></td>-->
+                                                <td th:text="${tour1.price + ' USD'}"></td>
+                                                <td th:text="${tour1.price div 2 + ' USD'}"></td>
+
+                                                <td>
+                                                    <a  style="text-decoration: none" th:href="@{/user/detail/{id}(id=${tour1.id})}"> <input  style="width: 80px;
+                                                                                                                                              height: auto;
+                                                                                                                                              flex-shrink: 0;
+                                                                                                                                              background-color: #1D3133;
+                                                                                                                                              border: solid 2px #C1AC67;
+                                                                                                                                              color: #C1AC67;
+                                                                                                                                              font-size: 12px;
+                                                                                                                                              font-family: Poppins;
+                                                                                                                                              font-style: normal;
+                                                                                                                                              font-weight: 600;
+                                                                                                                                              /*line-height: 24px;*/
+                                                                                                                                              letter-spacing: 1px;
+                                                                                                                                              " class="button-book" type="submit" value="VIEW"></a>
+                                                </td>
+                                                <td>
+
+                                                    <a  style="text-decoration: none" th:href="@{/user/booktour/{id}(id=${tour1.id})}"> <input  style="width: 80px;
+                                                                                                                                                height: auto;
+                                                                                                                                                flex-shrink: 0;
+                                                                                                                                                background-color: #1D3133;
+                                                                                                                                                border: solid 2px #C1AC67;
+                                                                                                                                                color: #C1AC67;
+                                                                                                                                                font-size: 12px;
+                                                                                                                                                font-family: Poppins;
+                                                                                                                                                font-style: normal;
+                                                                                                                                                font-weight: 600;
+                                                                                                                                                /*line-height: 24px;*/
+                                                                                                                                                letter-spacing: 1px;
+                                                                                                                                                " class="button-book" type="submit" value="BOOK"></a>
+
+                                                </td>
+                                            </th:block>
+
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+
+                                    <!--Tour detail-->
+                                    <div class="tour-detail">
+                                        <div class="title-book-tour">
+                                            <p class="title-content-book">TOUR DETAILS</p>
+                                        </div>
+                                        <table class="table table-tour-detail">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Service encompassing</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr >
+                                                    <td th:each="tourS : ${tourService}">
+                                            <th:block th:if="${tourS.description != null}">
+
+                                                <!--<th:block th:each="paragraphS : ${tourS.description}">-->
+                                                <th:block th:each="paragraphS : ${#strings.arraySplit(tourS.description, ',')}">
+
+
+                                                    <th:block th:if="${#strings.trim(paragraphS) != ''}">
+
+                                                        <img th:src="@{/user/lib/icon/icon-service.png}" alt="Image" class="icon-tour-detail">
+                                                        <span th:text="${paragraphS}"></span>
+
+
+
+                                                    </th:block>
+                                                </th:block>
+                                            </th:block>
+                                            </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+
+
+
+
+                                        <div class="schedule">
+                                            <p class="title-content-schedule">SCHEDULE</p>
+                                            <div   class="schedule-detail">
+                                                <span th:each="tourSI : ${tourScheduleItem}">
+                                                    <h4> <img th:src="@{/user/lib/icon/icon-service.png}" alt="Image" class="icon-tour-detail"><span th:text="${tourSI.nameDay}"></span> : <span th:text="${tourSI.title}"></span>  </h4>
+                                                    <div class="content-shedule-detail">
+                                                        <ul>
+                                                            <th:block th:if="${tourSI.description != null}">
+                                                                <!--<th:block th:each="paragraphSI : ${tourSI.description}">-->
+                                                                <th:block th:each="paragraphSI : ${#strings.arraySplit(tourSI.description, '-')}">
+                                                                    <!-- Loại bỏ khoảng trắng thừa trước và sau đoạn văn bản -->
+                                                                    <th:block th:if="${#strings.trim(paragraphSI) != ''}">
+                                                                        <li th:text="${paragraphSI}"></li>
+                                                                    </th:block>
+                                                                </th:block>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+
+
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <!--<th:block th:with="scheduleImages=${scheduleImageMap.get(tourSI.id)}">-->
+                                                            <th:block th:if="${scheduleImageMap != null}">
+                                                                <!--<div class="row">-->
+                                                                <div class="col-12 img-schedule d-flex justify-content-center align-items-center" th:each="imageItem : ${scheduleImageMap[tourSI.id]}">
+                                                                    <img  th:src="'data:image/png;base64,' + ${imageItem.image}" alt="Image" class="">
+                                                                </div>
+                                                                <!--</div>-->
+                                                            </th:block>
+                                                            <!--</th:block>-->
+                                                        </div>
+                                                    </div>
+                                                </span>
+
+
+
+                                            </div>
+
+
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="book-tour">
+                                        <div class="title-book-tour">
+                                            <p class="title-content-book">REVIEWS</p>
+                                        </div>
+
+
+                                        <div class="comment">
+                                            <div class="write-comment" th:each="r: ${listReviews}">
+                                                <div class="avatar-container">
+                                                    <img style="margin-left: 30px;height: 35px; width: 35px; border-radius: 50%" th:if="${r.userId.avatar}==null" th:src="@{/admin/images/avatar/avatar.png}" alt="Image" class="avatar">
+                                                    <img style="margin-left: 30px;height: 35px; width: 35px; border-radius: 50%" th:if="${r.userId.avatar}!=null" th:src="'data:image/png;base64,' + ${r.userId.avatar}" alt="Image" class="avatar">
+                                                </div>
+                                                <div class="rating_comment">
+                                                    <div class="rating" th:if="${r.rate == 1}">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star no-checked"></span>
+                                                        <span class="fa fa-star no-checked"></span>
+                                                        <span class="fa fa-star no-checked"></span>
+                                                        <span class="fa fa-star no-checked"></span>
+                                                    </div>
+                                                    <div class="rating" th:if="${r.rate == 2}">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star no-checked"></span>
+                                                        <span class="fa fa-star no-checked"></span>
+                                                        <span class="fa fa-star no-checked"></span>
+                                                    </div>
+                                                    <div class="rating" th:if="${r.rate == 3}">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star no-checked"></span>
+                                                        <span class="fa fa-star no-checked"></span>
+                                                    </div>
+                                                    <div class="rating" th:if="${r.rate == 4}">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star no-checked"></span>
+                                                    </div>
+                                                    <div class="rating" th:if="${r.rate == 5}">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                    </div>
+                                                    <p style="text-align: left;line-height: 10px;margin-left: 10px;" class="comment-text" th:text="${r.userId.firstName}"></p>
+                                                    <p style="text-align: left;line-height: 10px;margin-left: 10px; margin-top: 5px" th:text="${r.content}" class="comment-text"></p>
+
+                                                </div>
+                                            </div>
+                                            <form th:action="@{/reviews/comment}" method="post">
+                                                <span th:if="${session.user != null}">
+                                                    <!--                                                    <span th:if="${idTour == tourId}">-->
+                                                    <div class="write-comment">
+
+                                                        <div class="avatar-container">
+                                                            <img th:if="${session.user.avatar}==null" th:src="@{/admin/images/avatar/avatar.png}" alt="avatar" style="margin-left: 30px;border-radius:50%;height: 35px; width: 35px;" class="avatar nav-item-icon">
+                                                            <img th:if="${session.user.avatar}!=null" style="margin-left: 30px;border-radius:50%;height: 35px; width: 35px;" class="avatar nav-item-icon" th:src="'data:image/png;base64,' + ${session.user.avatar}" alt="alt"/>
+                                                        </div>
+
+                                                        <input  type="hidden" name="idTour" th:value="${tour.tourId.id}">
+                                                        <input  type="hidden" name="idd" th:value="${tour.id}">
+                                                        <div class="rating-css">
+                                                            <div class="star-icon">
+                                                                <input type="radio" value="1" name="rating1" id="rating1" />
+                                                                <label for="rating1" class="fa fa-star"></label>
+                                                                <input type="radio" value="2" name="rating1" id="rating2" />
+                                                                <label for="rating2" class="fa fa-star"></label>
+                                                                <input type="radio" value="3" name="rating1" id="rating3" />
+                                                                <label for="rating3" class="fa fa-star"></label>
+                                                                <input type="radio" value="4" name="rating1" id="rating4" />
+                                                                <label for="rating4" class="fa fa-star"></label>
+                                                                <input type="radio" value="5" name="rating1" id="rating5" checked="true"/>
+                                                                <label for="rating5" class="fa fa-star"></label>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-xl-10">
+                                                                <!--<textarea rows="4" cols="50" name="comment" form="usrform"/>-->
+                                                                <input  type="text" name="userContent" id="myInput" class="input-comment" style="color: white">
+                                                            </div>
+                                                            <div class="col-xl-2">
+                                                                <input type="submit" class="comment-submit" >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--                                                    </span>-->
+                                                </span>
+                                                <!--</div>-->
+
+                                            </form>
+                                            <span th:if="${session.user == null}">
+                                                <p style="color: white; padding-top: 50px">Please login <a  th:href="@{/user/login}">Here</a></p>
+                                            </span>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="detail-question">
+                                        <div style="margin-bottom: 30px" class="title-question">
+                                            <p class="title-content-question" >Tour Policy: <a href="/user/policy" style="color: #C1AC67;">Here</a></p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="cus-support">
+                                        <div class="title-support">
+                                            <p class="content-title-support">CUSTOMER SUPPORT</p>
+                                        </div>
+                                        <p class="hotline">
+                                            Hotline: 1900 6568
+                                        </p>
+                                        <p class="hotline">
+                                            Mail: tourviet5@gmail.com
+                                        </p>
+                                        <p class="more">
+                                            We support 24/7
+                                        </p>
+                                    </div>
+
+                                    <div class="cus-support cus-choose">
+                                        <div class="title-support">
+                                            <p class="content-title-choose">Why should you choose TOUR VIET?</p>
+                                        </div>
+                                        <p class="content-choose">
+                                            TOUR VIET has a full international travel license & well-invested infrastructure such as means of transport (new cars & high-class canoes) and restaurants, a team of professional and dynamic tour guides.
+                                        </p>
+                                        <p class="content-choose">
+                                            TOUR VIET says NO to dumping, poor quality service. Because we understand that your time and experience are more valuable than money.
+                                        </p>
+                                        <p class="content-choose">
+                                            Coming to TOUR VIET, you will be assured because you have chosen the right to directly organize and bring you the most complete trip.
+                                        </p>
+                                    </div>
+
+                                    <div class="cus-sprice ">
+
+                                        <div class="">
+
+                                            <p class="content-title-price">Price not included</p>
+                                        </div>
+
+                                        <p class="content-price">
+
+                                            VAT
+                                        </p>
+                                        <p class="content-price">
+                                            Expenses outside the program
+                                        </p>
+
+                                    </div>
+
+                                    <div class="cus-sprice ">
+
+                                        <div class="">
+
+                                            <p class="content-title-price">Child ticket price</p>
+                                        </div>
+
+                                        <p class="content-price">
+
+                                            Children from 1m - 1m3 charge child ticket
+                                        </p>
+                                        <p class="content-price">
+                                            Over 1m3 is charged as an adult 
+                                        </p>
+
+
+                                    </div>
+                                    <div class="cus-poster ">
+                                        <img src="/user/images/poster-2.png" alt="Image" class="poster-2">
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <a href="#" class="back" ></a>
+
+        </div>
+
+    </body>
+
+</html>
